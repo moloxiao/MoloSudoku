@@ -1,0 +1,11 @@
+<resources>
+
+    <string name="app_name">有点晕</string>
+    
+    <string name="splash_activity_title">Power By PGE</string>
+    
+    <!-- PlayerInfoActivity -->
+    <string name="playerinfo_activity_btn_start">开始</string>
+    <string name="playerinfo_activity_title">玩家信息</string>
+
+</resources>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  	android:layout_width="fill_parent"
+  	android:layout_height="fill_parent"
+  	android:background="@drawable/bg" >
+  	
+  	<RelativeLayout android:id="@+id/top_bar"
+  		android:layout_width="fill_parent"
+  		android:layout_height="50dip" 
+  		android:gravity="center" >
+  		<TextView 
+  		    android:layout_width="wrap_content"
+  			android:layout_height="wrap_content"
+  			android:textColor="@android:color/white"
+  			android:textSize="24sp"
+  			android:text="副本选择" />
+  	</RelativeLayout>
+  	
+  	<RelativeLayout android:id="@+id/bottom_bar"
+  			android:layout_width="fill_parent"
+  			android:layout_height="80dip" 
+  			android:background="@android:color/darker_gray"
+  			android:layout_alignParentBottom="true" >
+  		
+  	</RelativeLayout>
+  	
+  	<RelativeLayout android:id="@+id/mid_bar"
+  			android:layout_width="fill_parent"
+  			android:layout_height="fill_parent" 
+  			android:layout_above="@id/bottom_bar"
+  			android:layout_below="@id/top_bar" >
+  		<Button 
+  		    android:layout_width="fill_parent"
+  			android:layout_height="100dp"
+  			android:layout_margin="10dp"
+  			android:text="4X4关卡-1"
+  			android:onClick="btnLevel1" />
+  	</RelativeLayout>
+  	
+</RelativeLayout>

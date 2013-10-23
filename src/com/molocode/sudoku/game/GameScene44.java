@@ -11,6 +11,7 @@ import com.molocode.sudoku.game.domain.Map;
 import com.molocode.sudoku.game.sprite.ChessControlPanelSprite;
 import com.molocode.sudoku.game.sprite.Chessboard44Sprite;
 import com.molocode.sudoku.game.sprite.CountdownSprite;
+import com.molocode.sudoku.game.sprite.ResultSprite;
 import com.molocode.sudoku.game.sprite.SettingBtnSprite;
 import com.molocode.sudoku.game.sprite.SettingSprite;
 
@@ -20,6 +21,7 @@ public class GameScene44 extends BitmapBgScreen {
 	private ChessControlPanelSprite chessControlPanelSprite;
 	private SettingBtnSprite settingBtnSprite;
 	private SettingSprite settingSprite;
+	private ResultSprite resultSprite;
 	private CountdownSprite countdownSprite;
 	
 	private Activity activity;
@@ -55,6 +57,10 @@ public class GameScene44 extends BitmapBgScreen {
 				SettingBtnSprite.WIDTH, SettingBtnSprite.HEIGHT);
 		attachChild(settingBtnSprite);
 		
+		resultSprite = new ResultSprite(null, 
+				ResultSprite.X, ResultSprite.Y, 
+				ResultSprite.WIDTH, ResultSprite.HEIGHT);
+		attachChild(resultSprite);
 		
 		settingSprite = new SettingSprite(null, 
 				SettingSprite.X, SettingSprite.Y, 
@@ -65,6 +71,7 @@ public class GameScene44 extends BitmapBgScreen {
 	}
 
 	private void initTouch() {
+		registerTouch(resultSprite);
 		registerTouch(settingSprite);
 		registerTouch(chessboard44Sprite);
 		registerTouch(chessControlPanelSprite);
@@ -84,10 +91,8 @@ public class GameScene44 extends BitmapBgScreen {
 	}
 	
 	public void updateUiSuccessGame() {
-		// TODO : 成功完成一局游戏
-		// 弹出结算信息
-		// 停止计时器
 		Log.i("MOLO_DEBUG", "success game");
+		resultSprite.setVisible(true);
 	}
 	
 	public void updateUiShowSetting() {
@@ -100,10 +105,19 @@ public class GameScene44 extends BitmapBgScreen {
 
 	public void reStartGame() {
 		chessboard44Sprite.initCells( BaseBoard.getCellMap(Map.getCellMaps(Map.MAP_TYPE_44, level)) );
+		countdownSprite.cleanCountTime();
 	}
 
 	@Override
 	public void onLoadResources(Resources res, AssetManager assertManager) {
 		initSprite();
+	}
+
+	/**
+	 * 下一局
+	 */
+	public void next() {
+		level++;
+		reStartGame();
 	}
 }

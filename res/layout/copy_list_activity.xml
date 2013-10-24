@@ -13,7 +13,7 @@
   			android:layout_height="wrap_content"
   			android:textColor="@android:color/white"
   			android:textSize="24sp"
-  			android:text="副本选择" />
+  			android:text="难度选择" />
   	</RelativeLayout>
   	
   	<RelativeLayout android:id="@+id/bottom_bar"
@@ -29,12 +29,10 @@
   			android:layout_height="fill_parent" 
   			android:layout_above="@id/bottom_bar"
   			android:layout_below="@id/top_bar" >
-  		<Button 
+  		<ListView android:id="@+id/list_difficulty"
   		    android:layout_width="fill_parent"
-  			android:layout_height="100dp"
-  			android:layout_margin="10dp"
-  			android:text="4X4关卡-1"
-  			android:onClick="btnLevel1" />
+  			android:layout_height="wrap_content"
+  			 />
   	</RelativeLayout>
   	
 </RelativeLayout>

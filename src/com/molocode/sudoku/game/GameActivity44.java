@@ -9,8 +9,14 @@ import com.molocode.sudoku.R;
 
 public class GameActivity44 extends BaseGameActivity {
 	
+	public static final String EXTRA_LEVEL = "level";
+	private int level;
+	
+	
+	
 	@Override
 	public boolean coming() {
+		level = getIntent().getIntExtra(EXTRA_LEVEL, 0);
 		return true;
 	}
 
@@ -47,7 +53,7 @@ public class GameActivity44 extends BaseGameActivity {
 	@Override
 	public Scene onLoadScene() {
 		PaintManager.initPaintManager(this);
-		GameScene44 screen = new GameScene44(0, this);	// TODO : change magic number。 0代表第0关
+		GameScene44 screen = new GameScene44(level, this);	// TODO : change magic number。 0代表第0关
         screen.onLoadResources(getResources(), null);	// TODO : change null object 
         screen.setScreenSize(
         		EngineOptions.getScreenWidth(), EngineOptions.getScreenHeight());

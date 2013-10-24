@@ -71,11 +71,13 @@ public class Level {
 		this.id = id;
 	}
 
+	private static List<Level> levels = new ArrayList<Level>();
 	public static  List<Level> getLevelList() {
-		List<Level> levels = new ArrayList<Level>();
-		levels.add(new Level(0, "简单", true, 30, 0, 0));
-		levels.add(new Level(1, "普通", true, 30, 0, 0));
-		levels.add(new Level(2, "困难", true, 30, 0, 0));
+		if(levels.size() == 0) {
+			levels.add(new Level(0, "简单", true, 30, 0, 0));
+			levels.add(new Level(1, "普通", true, 30, 0, 0));
+			levels.add(new Level(2, "困难", true, 30, 0, 0));
+		}
 		return levels;
 	}
 }

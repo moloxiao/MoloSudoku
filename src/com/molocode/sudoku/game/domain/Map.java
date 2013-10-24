@@ -2,7 +2,17 @@ package com.molocode.sudoku.game.domain;
 
 public class Map {
 	
-	public static final int MAP_TYPE_44 = 1;
+	public static final int MAP_TYPE_44 = 0;
+	public static final int MAP_TYPE_66 = 1;
+	public static final int MAP_TYPE_99 = 2;
+	
+	public static int getMapLevels(int dificuty) {
+		switch(dificuty) {
+		case MAP_TYPE_44:
+			return MAPS44.length;
+		}
+		return 0;
+	}
 
 	public static int[] getCellMaps(int type, int level) {
 		switch(type) {

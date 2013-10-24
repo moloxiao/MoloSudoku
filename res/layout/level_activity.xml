@@ -29,12 +29,10 @@
   			android:layout_height="fill_parent" 
   			android:layout_above="@id/bottom_bar"
   			android:layout_below="@id/top_bar" >
-  		<Button 
+  		<ListView android:id="@+id/list_level"
   		    android:layout_width="fill_parent"
-  			android:layout_height="100dp"
-  			android:layout_margin="10dp"
-  			android:text="4X4关卡-1-1"
-  			android:onClick="btnLevel1" />
+  			android:layout_height="wrap_content"
+  			 />
   	</RelativeLayout>
   	
 </RelativeLayout>

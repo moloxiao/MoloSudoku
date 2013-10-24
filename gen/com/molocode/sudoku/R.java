@@ -29,7 +29,7 @@ public final class R {
     public static final class layout {
         public static final int copy_list_activity=0x7f030000;
         public static final int difucuty_item=0x7f030001;
-        public static final int game_44=0x7f030002;
+        public static final int game_layout=0x7f030002;
         public static final int level_activity=0x7f030003;
         public static final int level_item=0x7f030004;
         public static final int level_list=0x7f030005;

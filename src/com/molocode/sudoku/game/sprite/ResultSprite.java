@@ -7,7 +7,7 @@ import android.view.MotionEvent;
 import com.hifreshday.android.pge.engine.options.EngineOptions;
 import com.hifreshday.android.pge.entity.shape.sprite.Sprite;
 import com.hifreshday.android.pge.view.res.IBitmapRes;
-import com.molocode.sudoku.game.GameScene44;
+import com.molocode.sudoku.game.BaseSudokuScene;
 import com.molocode.sudoku.game.PaintManager;
 
 public class ResultSprite extends Sprite {
@@ -87,16 +87,16 @@ public class ResultSprite extends Sprite {
 				if (btnRects[0]
 						.contains((int) event.getX(), (int) event.getY())) {
 					setVisible(false);
-					((GameScene44)getParent()).next();
+					((BaseSudokuScene)getParent()).next();
 				} else if (btnRects[1].contains((int) event.getX(),
 						(int) event.getY())) {
 					setVisible(false);
-					((GameScene44)getParent()).reStartGame();
+					((BaseSudokuScene)getParent()).reStartGame();
 					
 				} else if (btnRects[2].contains((int) event.getX(),
 						(int) event.getY())) {
 					setVisible(false);
-					((GameScene44)getParent()).quitGame();
+					((BaseSudokuScene)getParent()).quitGame();
 				}
 			}
 			return true;

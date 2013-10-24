@@ -4,10 +4,11 @@ import java.util.HashSet;
 
 import android.util.Log;
 
-public class Board44 extends BaseBoard {
+public class Board66 extends BaseBoard {
 
-	public static final int CELLS_LENGTH = 16;
-	public static final int SIZE = 4;
+	public static final int CELLS_LENGTH = 36;
+	
+	public static final int SIZE = 6;
 	private Cell[] cells;
 	
 	@Override

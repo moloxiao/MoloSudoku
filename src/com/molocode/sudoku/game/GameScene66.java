@@ -1,38 +1,37 @@
 package com.molocode.sudoku.game;
 
-import android.app.Activity;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
-import android.util.Log;
 import com.molocode.sudoku.game.domain.BaseBoard;
 import com.molocode.sudoku.game.domain.Map;
 import com.molocode.sudoku.game.sprite.ChessControlPanelSprite;
-import com.molocode.sudoku.game.sprite.Chessboard44Sprite;
+import com.molocode.sudoku.game.sprite.Chessboard66Sprite;
 import com.molocode.sudoku.game.sprite.CountdownSprite;
 import com.molocode.sudoku.game.sprite.ResultSprite;
 import com.molocode.sudoku.game.sprite.SettingBtnSprite;
 import com.molocode.sudoku.game.sprite.SettingSprite;
+import android.app.Activity;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
+import android.util.Log;
 
-public class GameScene44 extends BaseSudokuScene {
+public class GameScene66 extends BaseSudokuScene {
 
-	public GameScene44(int level, Activity activity) {
-		super(level, activity);
-	}
-
-	private Chessboard44Sprite chessboard44Sprite;
+	private Chessboard66Sprite chessboard66Sprite;
 	private ChessControlPanelSprite chessControlPanelSprite;
 	private SettingBtnSprite settingBtnSprite;
 	private SettingSprite settingSprite;
 	private ResultSprite resultSprite;
 	private CountdownSprite countdownSprite;
 	
-
+	public GameScene66(int level, Activity activity) {
+		super(level, activity);
+	}
+	
 	private void initSprite() {
-		chessboard44Sprite = new Chessboard44Sprite(null, 
-				Chessboard44Sprite.X, Chessboard44Sprite.Y, 
-				Chessboard44Sprite.WIDTH, Chessboard44Sprite.HEIGHT);
-		chessboard44Sprite.initCells( BaseBoard.getCellMap(Map.getCellMaps(Map.MAP_TYPE_44, level)) );
-		attachChild(chessboard44Sprite);
+		chessboard66Sprite = new Chessboard66Sprite(null, 
+				Chessboard66Sprite.X, Chessboard66Sprite.Y, 
+				Chessboard66Sprite.WIDTH, Chessboard66Sprite.HEIGHT);
+		chessboard66Sprite.initCells( BaseBoard.getCellMap(Map.getCellMaps(Map.MAP_TYPE_66, level)) );
+		attachChild(chessboard66Sprite);
 		
 		countdownSprite = new CountdownSprite(null, 
 				CountdownSprite.X, CountdownSprite.Y, 
@@ -41,8 +40,8 @@ public class GameScene44 extends BaseSudokuScene {
 		
 		chessControlPanelSprite = new ChessControlPanelSprite(null, 
 				ChessControlPanelSprite.X, ChessControlPanelSprite.Y, 
-				ChessControlPanelSprite.WIDTH, ChessControlPanelSprite.HEIGHT,
-				true);
+				ChessControlPanelSprite.WIDTH, ChessControlPanelSprite.HEIGHT_2,
+				false);
 		attachChild(chessControlPanelSprite);
 		
 		
@@ -67,29 +66,23 @@ public class GameScene44 extends BaseSudokuScene {
 	private void initTouch() {
 		registerTouch(resultSprite);
 		registerTouch(settingSprite);
-		registerTouch(chessboard44Sprite);
+		registerTouch(chessboard66Sprite);
 		registerTouch(chessControlPanelSprite);
 		registerTouch(settingBtnSprite);
 		
 	}
 
 	@Override
-	public void onUnloadResources() {
-		// TODO 需要手动释放的资源
-		
-	}
-	
-	@Override
 	public void updateUiNumberChangeRequest(int number) {
-		chessboard44Sprite.numberChangeRequest(number);
+		chessboard66Sprite.numberChangeRequest(number);
 	}
-	
+
 	@Override
 	public void updateUiSuccessGame() {
-		Log.i("MOLO_DEBUG", "success game on scene44");
+		Log.i("MOLO_DEBUG", "success game on scene66");
 		resultSprite.setVisible(true);
 	}
-	
+
 	@Override
 	public void updateUiShowSetting() {
 		settingSprite.setVisible(true);
@@ -97,21 +90,24 @@ public class GameScene44 extends BaseSudokuScene {
 
 	@Override
 	public void reStartGame() {
-		chessboard44Sprite.initCells( BaseBoard.getCellMap(Map.getCellMaps(Map.MAP_TYPE_44, level)) );
+		chessboard66Sprite.initCells( BaseBoard.getCellMap(Map.getCellMaps(Map.MAP_TYPE_44, level)) );
 		countdownSprite.cleanCountTime();
 	}
 
-	@Override
-	public void onLoadResources(Resources res, AssetManager assertManager) {
-		initSprite();
-	}
-
-	/**
-	 * 下一局
-	 */
 	@Override
 	public void next() {
 		level++;
 		reStartGame();
 	}
+
+	@Override
+	public void onLoadResources(Resources res, AssetManager assertManager) {
+		initSprite();
+
+	}
+
+	@Override
+	public void onUnloadResources() {
+	}
+
 }

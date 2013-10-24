@@ -2,12 +2,13 @@ package com.molocode.sudoku.game.sprite;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import com.hifreshday.android.pge.engine.options.EngineOptions;
 import com.hifreshday.android.pge.entity.shape.sprite.Sprite;
 import com.hifreshday.android.pge.view.res.IBitmapRes;
-import com.molocode.sudoku.game.GameScene44;
+import com.molocode.sudoku.game.BaseSudokuScene;
 import com.molocode.sudoku.game.PaintManager;
 
 public class ChessControlPanelSprite extends Sprite {
@@ -20,24 +21,39 @@ public class ChessControlPanelSprite extends Sprite {
 	public static final int Y = 600;
 	public static final int WIDTH = 424;
 	public static final int HEIGHT = 88;
+	public static final int HEIGHT_2 = 172;
 	
-	private Rect[] rectControl = new Rect[CONTROL_CELL_NUMBER];
-	private static final String[] ControlTitle = {"1", "2", "3", "4", "C"};
+	private Rect[] rectControlline1 = new Rect[CONTROL_CELL_NUMBER];
+	private static final String[] ControlTitleLine1 = {"1", "2", "3", "4", "C"};
+	private Rect[] rectControlline2 = new Rect[CONTROL_CELL_NUMBER];
+	private static final String[] ControlTitleLine2 = {"5", "6", "7", "8", "9"};
+	
+	private boolean singleline = true;
 	
 	public ChessControlPanelSprite(IBitmapRes bitmapRes, int pX, int pY,
-			int width, int height) {
+			int width, int height, boolean single) {
 		super(bitmapRes, pX, pY, width, height);
+		singleline = single;
 		initRect();
 	}
 
 	private void initRect() {
 		for(int i=0;i<CONTROL_CELL_NUMBER;i++) {
-			rectControl[i] = new Rect(
+			rectControlline1[i] = new Rect(
 					getX() + (int)((RECT_LINE_WIDTH*(i+1) + i*RECT_WIDTH)*EngineOptions.getScreenScaleX()),
 					getY() + (int)((RECT_LINE_WIDTH)*EngineOptions.getScreenScaleY()),
 					getX() + (int)((RECT_LINE_WIDTH*(i+1) + (i+1)*RECT_WIDTH)*EngineOptions.getScreenScaleX()),
 					getY() + (int)((RECT_WIDTH + RECT_LINE_WIDTH)*EngineOptions.getScreenScaleY()));
+			if(!singleline) {
+				rectControlline2[i] = new Rect(
+						rectControlline1[i].left,
+						rectControlline1[i].bottom + (int)((RECT_LINE_WIDTH)*EngineOptions.getScreenScaleY()),
+						rectControlline1[i].right,
+						rectControlline1[i].bottom + (int)((RECT_WIDTH + RECT_LINE_WIDTH)*EngineOptions.getScreenScaleY()));
+				
+			}
 		}
+		
 	}
 	
 	@Override
@@ -45,10 +61,18 @@ public class ChessControlPanelSprite extends Sprite {
 		if(event.getAction() == MotionEvent.ACTION_DOWN && 
 				getRect().contains((int)event.getX(), (int)event.getY())) {
 			for(int i=0;i<CONTROL_CELL_NUMBER;i++) {
-				if(rectControl[i].contains((int)event.getX(), (int)event.getY())) {
-					((GameScene44)(getParent())).updateUiNumberChangeRequest(
-							ChessControlPanelSprite.getPositionControlNumber(i));
+				if(rectControlline1[i].contains((int)event.getX(), (int)event.getY())) {
+					((BaseSudokuScene)(getParent())).updateUiNumberChangeRequest(
+							ChessControlPanelSprite.getPositionControlNumberline1(i));
 					return true;
+				}
+				if(!singleline) {
+					if(rectControlline2[i].contains((int)event.getX(), (int)event.getY())) {
+						Log.i("MOLO_DEBUG", "rectControlline2[" + i+ "] click");
+						((BaseSudokuScene)(getParent())).updateUiNumberChangeRequest(
+								ChessControlPanelSprite.getPositionControlNumberline2(i));
+						return true;
+					}
 				}
 			}
 		}
@@ -62,14 +86,21 @@ public class ChessControlPanelSprite extends Sprite {
 	}
 
 	private void drawTitle(Canvas canvas) {
-		float height = PaintManager.getInstance().getTextWhitePaint().measureText(ControlTitle[0]);
+		float height = PaintManager.getInstance().getTextWhitePaint().measureText(ControlTitleLine1[0]);
 		for(int i=0;i<CONTROL_CELL_NUMBER;i++) {
-			float width = PaintManager.getInstance().getTextWhitePaint().measureText(ControlTitle[i]);
-			canvas.drawText(ControlTitle[i], 
-					rectControl[i].left + (RECT_LINE_WIDTH + ((RECT_WIDTH - width)/2))*EngineOptions.getScreenScaleX(), 
-					rectControl[i].top + (RECT_LINE_WIDTH + ((RECT_WIDTH - height)/2) + height)*EngineOptions.getScreenScaleY(), 
+			float width = PaintManager.getInstance().getTextWhitePaint().measureText(ControlTitleLine1[i]);
+			canvas.drawText(ControlTitleLine1[i], 
+					rectControlline1[i].left + (RECT_LINE_WIDTH + ((RECT_WIDTH - width)/2))*EngineOptions.getScreenScaleX(), 
+					rectControlline1[i].top + (RECT_LINE_WIDTH + ((RECT_WIDTH - height)/2) + height)*EngineOptions.getScreenScaleY(), 
 					PaintManager.getInstance().getTextWhitePaint());
+			if(!singleline) {
+				canvas.drawText(ControlTitleLine2[i], 
+						rectControlline2[i].left + (RECT_LINE_WIDTH + ((RECT_WIDTH - width)/2))*EngineOptions.getScreenScaleX(), 
+						rectControlline2[i].top + (RECT_LINE_WIDTH + ((RECT_WIDTH - height)/2) + height)*EngineOptions.getScreenScaleY(), 
+						PaintManager.getInstance().getTextWhitePaint());
+			}
 		}
+		
 	}
 
 	private void drawLines(Canvas canvas) {
@@ -94,6 +125,12 @@ public class ChessControlPanelSprite extends Sprite {
 				getX() + EngineOptions.getScreenScaleX()*2, getY() + getHeight(), 
 				getX() + EngineOptions.getScreenScaleX()*2, getY(),
 				PaintManager.getInstance().getWhitePaint());
+		if(!singleline) {
+			canvas.drawLine(
+					getX(), getY() + getHeight()/2 + EngineOptions.getScreenScaleY()*2, 
+					getX() + getWidth(), getY() + getHeight()/2 + EngineOptions.getScreenScaleY()*2, 
+					PaintManager.getInstance().getWhitePaint());
+		}
 	}
 	
 	private void drawSplitLine(Canvas canvas) {
@@ -115,7 +152,7 @@ public class ChessControlPanelSprite extends Sprite {
 				PaintManager.getInstance().getWhitePaint());
 	}
 	
-	private static int getPositionControlNumber(int position) {
+	private static int getPositionControlNumberline1(int position) {
 		switch(position) {
 		case 0:
 			return 1;
@@ -127,6 +164,22 @@ public class ChessControlPanelSprite extends Sprite {
 			return 4;
 		case 4:
 			return 0;
+		}
+		return 0;
+	}
+	
+	private static int getPositionControlNumberline2(int position) {
+		switch(position) {
+		case 0:
+			return 5;
+		case 1:
+			return 6;
+		case 2:
+			return 7;
+		case 3:
+			return 8;
+		case 4:
+			return 9;
 		}
 		return 0;
 	}

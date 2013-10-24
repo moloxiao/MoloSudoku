@@ -3,11 +3,10 @@ package com.molocode.sudoku.game.sprite;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.view.MotionEvent;
-
 import com.hifreshday.android.pge.engine.options.EngineOptions;
 import com.hifreshday.android.pge.entity.shape.sprite.Sprite;
 import com.hifreshday.android.pge.view.res.IBitmapRes;
-import com.molocode.sudoku.game.GameScene44;
+import com.molocode.sudoku.game.BaseSudokuScene;
 import com.molocode.sudoku.game.PaintManager;
 import com.molocode.sudoku.game.domain.Board44;
 import com.molocode.sudoku.game.domain.Cell;
@@ -16,7 +15,6 @@ import com.molocode.sudoku.game.domain.SuccessSudoku;
 public class Chessboard44Sprite extends Sprite 
 		implements SuccessSudoku{
 	
-	private final static int CELL_NUMBER = 16;
 	private static final int RECT_WIDTH = 100;
 	private static final int RECT_LINE_WIDTH = 4;
 	
@@ -46,13 +44,13 @@ public class Chessboard44Sprite extends Sprite
 	
 	
 	private void init44Rect() {
-		for(int i=0;i<4;i++) {
-			for(int j=0;j<4;j++) {
-				rect44[i*4 + j] = new Rect(
-						getX() + (int)((4*(j+1) + j*100)*EngineOptions.getScreenScaleX()),
-						getY() + (int)((4*(i+1) + i*100)*EngineOptions.getScreenScaleY()),
-						getX() + (int)((4*(j+1) + (j+1)*100)*EngineOptions.getScreenScaleX()),
-						getY() + (int)((4*(i+1) + (i+1)*100)*EngineOptions.getScreenScaleY()));
+		for(int i=0;i<Board44.SIZE;i++) {
+			for(int j=0;j<Board44.SIZE;j++) {
+				rect44[i*Board44.SIZE + j] = new Rect(
+						getX() + (int)((RECT_LINE_WIDTH*(j+1) + j*RECT_WIDTH)*EngineOptions.getScreenScaleX()),
+						getY() + (int)((RECT_LINE_WIDTH*(i+1) + i*RECT_WIDTH)*EngineOptions.getScreenScaleY()),
+						getX() + (int)((RECT_LINE_WIDTH*(j+1) + (j+1)*RECT_WIDTH)*EngineOptions.getScreenScaleX()),
+						getY() + (int)((RECT_LINE_WIDTH*(i+1) + (i+1)*RECT_WIDTH)*EngineOptions.getScreenScaleY()));
 			}
 		}
 	}
@@ -61,7 +59,7 @@ public class Chessboard44Sprite extends Sprite
 	public boolean onTouchEvent(MotionEvent event) {
 		if(event.getAction() == MotionEvent.ACTION_DOWN && 
 				getRect().contains((int)event.getX(), (int)event.getY())) {
-			for(int i=0;i<16;i++) {
+			for(int i=0;i<Board44.CELLS_LENGTH;i++) {
 				if(rect44[i].contains((int)event.getX(), (int)event.getY())) {
 					if(board44.getCells(i).isInputCell()) {
 						currentChoicedPosition = i;
@@ -89,7 +87,7 @@ public class Chessboard44Sprite extends Sprite
 
 
 	private void drawNumbers(Canvas canvas) {
-		for(int i=0;i<CELL_NUMBER;i++) {
+		for(int i=0;i<Board44.CELLS_LENGTH;i++) {
 			if(board44.getCells(i).getNumber() != Cell.NOTHING_IN_CELL) {
 				float width = PaintManager.getInstance().getTextWhitePaint().measureText(""+board44.getCells(i).getNumber());
 				canvas.drawText(""+board44.getCells(i).getNumber(), 
@@ -169,6 +167,6 @@ public class Chessboard44Sprite extends Sprite
 
 	@Override
 	public void success() {
-		((GameScene44)getParent()).updateUiSuccessGame();
+		((BaseSudokuScene)getParent()).updateUiSuccessGame();
 	}
 }

@@ -20,6 +20,8 @@ public class Map {
 		switch(type) {
 		case MAP_TYPE_44:
 			return getcells(level, MAPS44);
+		case MAP_TYPE_66:
+			return getcells(level, MAPS66);
 		}
 		return null;
 	}

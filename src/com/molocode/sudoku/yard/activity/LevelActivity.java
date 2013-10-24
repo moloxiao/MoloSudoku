@@ -1,7 +1,7 @@
 package com.molocode.sudoku.yard.activity;
 
 import com.molocode.sudoku.R;
-import com.molocode.sudoku.game.GameActivity44;
+import com.molocode.sudoku.game.GameActivity;
 import com.molocode.sudoku.game.domain.Map;
 
 import android.app.Activity;
@@ -39,8 +39,9 @@ public class LevelActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long id) {
-				Intent intent = new Intent(LevelActivity.this, GameActivity44.class);
-				intent.putExtra(GameActivity44.EXTRA_LEVEL, position);
+				Intent intent = new Intent(LevelActivity.this, GameActivity.class);
+				intent.putExtra(GameActivity.EXTRA_LEVEL, position);
+				intent.putExtra(GameActivity.EXTRA_DIFICUTY, currentLevel);
 				startActivity(intent);
 			}
 			

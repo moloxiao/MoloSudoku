@@ -6,10 +6,13 @@ import com.hifreshday.android.pge.engine.options.ScaleModel;
 import com.hifreshday.android.pge.entity.scene.Scene;
 import com.hifreshday.android.pge.ui.activity.BaseGameActivity;
 import com.molocode.sudoku.R;
+import com.molocode.sudoku.game.domain.Map;
 
-public class GameActivity44 extends BaseGameActivity {
+public class GameActivity extends BaseGameActivity {
 	
 	public static final String EXTRA_LEVEL = "level";
+	public static final String EXTRA_DIFICUTY = "dificuty";
+	private int dificuty;
 	private int level;
 	
 	
@@ -17,6 +20,7 @@ public class GameActivity44 extends BaseGameActivity {
 	@Override
 	public boolean coming() {
 		level = getIntent().getIntExtra(EXTRA_LEVEL, 0);
+		dificuty = getIntent().getIntExtra(EXTRA_DIFICUTY, 0);
 		return true;
 	}
 
@@ -27,7 +31,7 @@ public class GameActivity44 extends BaseGameActivity {
 
 	@Override
 	public int getLayoutResId() {
-		return R.layout.game_44;
+		return R.layout.game_layout;
 	}
 
 	@Override
@@ -53,8 +57,18 @@ public class GameActivity44 extends BaseGameActivity {
 	@Override
 	public Scene onLoadScene() {
 		PaintManager.initPaintManager(this);
-		GameScene44 screen = new GameScene44(level, this);	// TODO : change magic number。 0代表第0关
-        screen.onLoadResources(getResources(), null);	// TODO : change null object 
+		
+		BaseSudokuScene screen = null;
+		if(dificuty == Map.MAP_TYPE_99) {
+			// TODO : 等待实现9X9
+			screen = new GameScene44(level, this);
+		}else if(dificuty == Map.MAP_TYPE_66) {
+			screen = new GameScene66(level, this);
+		}else {
+			screen = new GameScene44(level, this);
+		}
+		
+        screen.onLoadResources(getResources(), null);
         screen.setScreenSize(
         		EngineOptions.getScreenWidth(), EngineOptions.getScreenHeight());
         screen.setBgResId(getResources(), getSceneBgResId());

@@ -3,6 +3,8 @@ package com.molocode.sudoku.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.molocode.sudoku.game.domain.Map;
+
 public class Level {
 	
 	private int id;
@@ -74,9 +76,9 @@ public class Level {
 	private static List<Level> levels = new ArrayList<Level>();
 	public static  List<Level> getLevelList() {
 		if(levels.size() == 0) {
-			levels.add(new Level(0, "简单", true, 30, 0, 0));
-			levels.add(new Level(1, "普通", true, 30, 0, 0));
-			levels.add(new Level(2, "困难", true, 30, 0, 0));
+			levels.add(new Level(Map.MAP_TYPE_44, "菜鸟", true, Map.getMapLevels(Map.MAP_TYPE_44), 0, 0));
+			levels.add(new Level(Map.MAP_TYPE_66, "牛人", true, Map.getMapLevels(Map.MAP_TYPE_66), 0, 0));
+			levels.add(new Level(Map.MAP_TYPE_99, "怪咖", true, Map.getMapLevels(Map.MAP_TYPE_99), 0, 0));
 		}
 		return levels;
 	}

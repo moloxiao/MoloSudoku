@@ -90,7 +90,7 @@ public class GameScene66 extends BaseSudokuScene {
 
 	@Override
 	public void reStartGame() {
-		chessboard66Sprite.initCells( BaseBoard.getCellMap(Map.getCellMaps(Map.MAP_TYPE_44, level)) );
+		chessboard66Sprite.initCells( BaseBoard.getCellMap(Map.getCellMaps(Map.MAP_TYPE_66, level)) );
 		countdownSprite.cleanCountTime();
 	}
 

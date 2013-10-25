@@ -14,7 +14,7 @@ import com.molocode.sudoku.game.domain.SuccessSudoku;
 
 public class Chessboard66Sprite extends Sprite implements SuccessSudoku {
 
-	private static final int RECT_WIDTH = 68; //68
+	private static final int RECT_WIDTH = 66; //68
 	private static final int RECT_LINE_WIDTH = 4;
 	
 	public static final int X = 30;
@@ -46,10 +46,10 @@ public class Chessboard66Sprite extends Sprite implements SuccessSudoku {
 		for(int i=0;i<Board66.SIZE;i++) {
 			for(int j=0;j<Board66.SIZE;j++) {
 				rect66[i*Board66.SIZE + j] = new Rect(
-						getX() + (int)((RECT_LINE_WIDTH*(j) + j*RECT_WIDTH - RECT_LINE_WIDTH/2)*EngineOptions.getScreenScaleX()),
-						getY() + (int)((RECT_LINE_WIDTH*(i) + i*RECT_WIDTH- RECT_LINE_WIDTH/2)*EngineOptions.getScreenScaleY()),
-						getX() + (int)((RECT_LINE_WIDTH*(j) + (j+1)*RECT_WIDTH- RECT_LINE_WIDTH/2)*EngineOptions.getScreenScaleX()),
-						getY() + (int)((RECT_LINE_WIDTH*(i) + (i+1)*RECT_WIDTH- RECT_LINE_WIDTH/2)*EngineOptions.getScreenScaleY()));
+						getX() + (int)((RECT_LINE_WIDTH*(j) + j*RECT_WIDTH - RECT_LINE_WIDTH*0)*EngineOptions.getScreenScaleX()),
+						getY() + (int)((RECT_LINE_WIDTH*(i) + i*RECT_WIDTH + RECT_LINE_WIDTH*1)*EngineOptions.getScreenScaleY()),
+						getX() + (int)((RECT_LINE_WIDTH*(j) + (j+1)*RECT_WIDTH - RECT_LINE_WIDTH*0)*EngineOptions.getScreenScaleX()),
+						getY() + (int)((RECT_LINE_WIDTH*(i) + (i+1)*RECT_WIDTH + RECT_LINE_WIDTH*1)*EngineOptions.getScreenScaleY()));
 			}
 		}
 	}
@@ -90,8 +90,8 @@ public class Chessboard66Sprite extends Sprite implements SuccessSudoku {
 			if(board66.getCells(i).getNumber() != Cell.NOTHING_IN_CELL) {
 				float width = PaintManager.getInstance().getTextWhitePaint().measureText(""+board66.getCells(i).getNumber());
 				canvas.drawText(""+board66.getCells(i).getNumber(), 
-					rect66[i].left + (RECT_LINE_WIDTH + ((RECT_WIDTH - width)/2))*EngineOptions.getScreenScaleX(), 
-					rect66[i].top + (RECT_LINE_WIDTH + ((RECT_WIDTH - width)/2) + width)*EngineOptions.getScreenScaleY(), 
+					rect66[i].left + (RECT_LINE_WIDTH/2 + ((RECT_WIDTH - width)/2))*EngineOptions.getScreenScaleX(), 
+					rect66[i].top + (RECT_LINE_WIDTH/2 + ((RECT_WIDTH - width)/2) + width)*EngineOptions.getScreenScaleY(), 
 					board66.getCells(i).isInputCell()?
 						PaintManager.getInstance().getTextWhitePaint():PaintManager.getInstance().getTextBlackPaint());
 			}
@@ -126,19 +126,19 @@ public class Chessboard66Sprite extends Sprite implements SuccessSudoku {
 		for(int i=0;i<Board66.SIZE-1;i++) {
 			canvas.drawLine(
 					getX() + EngineOptions.getScreenScaleX()*(
-							(i+1)*(RECT_WIDTH) + (i-1)*RECT_LINE_WIDTH + RECT_LINE_WIDTH/2), 
+							(i+1)*(RECT_WIDTH) + (i-0)*RECT_LINE_WIDTH + RECT_LINE_WIDTH/2), 
 					getY(), 
 					getX() + EngineOptions.getScreenScaleX()*(
-							(i+1)*(RECT_WIDTH) + (i-1)*RECT_LINE_WIDTH + RECT_LINE_WIDTH/2), 
-					getY()  + getHeight(),
+							(i+1)*(RECT_WIDTH) + (i-0)*RECT_LINE_WIDTH + RECT_LINE_WIDTH/2), 
+					getY() + getHeight(),
 					PaintManager.getInstance().getWhitePaint());
 			canvas.drawLine(
 					getX(), 
 					getY() + EngineOptions.getScreenScaleX()*(
-							(i+1)*(RECT_WIDTH) + (i-1)*RECT_LINE_WIDTH + RECT_LINE_WIDTH/2), 
+							(i+1)*(RECT_WIDTH) + (i+1)*RECT_LINE_WIDTH), 
 					getX() + getWidth(), 
 					getY()  + EngineOptions.getScreenScaleX()*(
-							(i+1)*(RECT_WIDTH) + (i-1)*RECT_LINE_WIDTH + RECT_LINE_WIDTH/2),
+							(i+1)*(RECT_WIDTH) + (i+1)*RECT_LINE_WIDTH ),
 					PaintManager.getInstance().getWhitePaint());
 		}
 	}

@@ -12,6 +12,8 @@ public class Map {
 			return MAPS44.length;
 		case MAP_TYPE_66:
 			return MAPS66.length;
+		case MAP_TYPE_99:
+			return MAPS99.length;
 		}
 		return 0;
 	}
@@ -22,6 +24,8 @@ public class Map {
 			return getcells(level, MAPS44);
 		case MAP_TYPE_66:
 			return getcells(level, MAPS66);
+		case MAP_TYPE_99:
+			return getcells(level, MAPS99);
 		}
 		return null;
 	}
@@ -59,5 +63,8 @@ public class Map {
 	
 	private static String[] MAPS66 = {
 		"412030053142320014541326164203030460",
-		"540263306510213056050130465321130605"};		
+		"540263306510213056050130465321130605"};
+	
+	private static String[] MAPS99 = {
+		"030800000905600700001093200806500000040030000000000000472306950019487060368259010" };
 }

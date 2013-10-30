@@ -86,18 +86,18 @@ public class ChessControlPanelSprite extends Sprite {
 	}
 
 	private void drawTitle(Canvas canvas) {
-		float height = PaintManager.getInstance().getTextWhitePaint().measureText(ControlTitleLine1[0]);
+		float height = PaintManager.getInstance().getTextWhite64Paint().measureText(ControlTitleLine1[0]);
 		for(int i=0;i<CONTROL_CELL_NUMBER;i++) {
-			float width = PaintManager.getInstance().getTextWhitePaint().measureText(ControlTitleLine1[i]);
+			float width = PaintManager.getInstance().getTextWhite64Paint().measureText(ControlTitleLine1[i]);
 			canvas.drawText(ControlTitleLine1[i], 
 					rectControlline1[i].left + (RECT_LINE_WIDTH + ((RECT_WIDTH - width)/2))*EngineOptions.getScreenScaleX(), 
 					rectControlline1[i].top + (RECT_LINE_WIDTH + ((RECT_WIDTH - height)/2) + height)*EngineOptions.getScreenScaleY(), 
-					PaintManager.getInstance().getTextWhitePaint());
+					PaintManager.getInstance().getTextWhite64Paint());
 			if(!singleline) {
 				canvas.drawText(ControlTitleLine2[i], 
 						rectControlline2[i].left + (RECT_LINE_WIDTH + ((RECT_WIDTH - width)/2))*EngineOptions.getScreenScaleX(), 
 						rectControlline2[i].top + (RECT_LINE_WIDTH + ((RECT_WIDTH - height)/2) + height)*EngineOptions.getScreenScaleY(), 
-						PaintManager.getInstance().getTextWhitePaint());
+						PaintManager.getInstance().getTextWhite64Paint());
 			}
 		}
 		

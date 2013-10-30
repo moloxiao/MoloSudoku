@@ -89,12 +89,12 @@ public class Chessboard44Sprite extends Sprite
 	private void drawNumbers(Canvas canvas) {
 		for(int i=0;i<Board44.CELLS_LENGTH;i++) {
 			if(board44.getCells(i).getNumber() != Cell.NOTHING_IN_CELL) {
-				float width = PaintManager.getInstance().getTextWhitePaint().measureText(""+board44.getCells(i).getNumber());
+				float width = PaintManager.getInstance().getTextWhite64Paint().measureText(""+board44.getCells(i).getNumber());
 				canvas.drawText(""+board44.getCells(i).getNumber(), 
 					rect44[i].left + (RECT_LINE_WIDTH + ((RECT_WIDTH - width)/2))*EngineOptions.getScreenScaleX(), 
 					rect44[i].top + (RECT_LINE_WIDTH + ((RECT_WIDTH - width)/2) + width)*EngineOptions.getScreenScaleY(), 
 					board44.getCells(i).isInputCell()?
-						PaintManager.getInstance().getTextWhitePaint():PaintManager.getInstance().getTextBlackPaint());
+						PaintManager.getInstance().getTextWhite64Paint():PaintManager.getInstance().getTextBlack64Paint());
 			}
 		}
 	}

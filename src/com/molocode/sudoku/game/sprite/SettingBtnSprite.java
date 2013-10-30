@@ -25,7 +25,7 @@ public class SettingBtnSprite extends Sprite {
 				getX() + getRect().width()/2, 
 				getY() + getRect().width()/2, 
 				getRect().width()/2, 
-				PaintManager.getInstance().getTextWhitePaint());
+				PaintManager.getInstance().getTextWhite64Paint());
 	}
 
 	@Override

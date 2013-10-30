@@ -60,8 +60,7 @@ public class GameActivity extends BaseGameActivity {
 		
 		BaseSudokuScene screen = null;
 		if(dificuty == Map.MAP_TYPE_99) {
-			// TODO : 等待实现9X9
-			screen = new GameScene44(level, this);
+			screen = new GameScene99(level, this);
 		}else if(dificuty == Map.MAP_TYPE_66) {
 			screen = new GameScene66(level, this);
 		}else {

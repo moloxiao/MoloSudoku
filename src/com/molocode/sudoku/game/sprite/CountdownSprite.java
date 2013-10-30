@@ -27,11 +27,11 @@ public class CountdownSprite extends Sprite {
 	@Override
 	public void onDrawSelf(Canvas canvas) {
 		String time = CountdownSprite.getTime(elapse);
-		float width = PaintManager.getInstance().getTextBlackPaint().measureText(time);
+		float width = PaintManager.getInstance().getTextBlack64Paint().measureText(time);
 		canvas.drawText(time, 
 				getX() + (getWidth()-width)/2, 
 				getY() + 60*EngineOptions.getScreenScaleY(), 
-				PaintManager.getInstance().getTextBlackPaint());
+				PaintManager.getInstance().getTextBlack64Paint());
 	}
 	
 	@Override

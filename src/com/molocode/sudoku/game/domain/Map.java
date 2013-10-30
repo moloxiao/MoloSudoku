@@ -36,7 +36,6 @@ public class Map {
 		}else {
 			return formatMaps(maps[level%maps.length]);
 		}
-		
 	}
 	
 	private static int[] formatMaps(String map) {

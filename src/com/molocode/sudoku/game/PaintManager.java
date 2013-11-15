@@ -15,9 +15,11 @@ public class PaintManager {
 	private Paint whitePaint;
 	private Paint textWhite64Paint;
 	private Paint textBlack64Paint;
+	private Paint textRed64Paint;
 	
 	private Paint textBlack40Paint;
 	private Paint textWhite40Paint;
+	private Paint textRed40Paint;
 	
 	
 	public static void initPaintManager(Context context) {
@@ -40,8 +42,10 @@ public class PaintManager {
 		textWhite64Paint = new Paint();
 		choicedBgPaint = new Paint();
 		textBlack64Paint = new Paint();
+		textRed64Paint = new Paint();
 		textBlack40Paint = new Paint();
 		textWhite40Paint = new Paint();
+		textRed40Paint = new Paint();
 		initPaint(context);
 	}
 	
@@ -50,7 +54,7 @@ public class PaintManager {
 		dialogBgPaint.setStyle(Paint.Style.FILL);
 		dialogBgPaint.setAntiAlias(true);
 		
-		choicedBgPaint.setARGB(175, 0, 0, 0);
+		choicedBgPaint.setARGB(175, 200, 200, 0);
 		choicedBgPaint.setStyle(Paint.Style.FILL);
 		choicedBgPaint.setAntiAlias(true);
 
@@ -65,6 +69,11 @@ public class PaintManager {
 		textWhite64Paint.setAntiAlias(true);
 		textWhite64Paint.setTextSize(64*scale);
 		
+		textRed64Paint.setColor(Color.RED);
+		textRed64Paint.setStyle(Paint.Style.FILL);
+		textRed64Paint.setAntiAlias(true);
+		textRed64Paint.setTextSize(64*scale);
+		
 		textBlack64Paint.setColor(Color.BLACK);
 		textBlack64Paint.setStyle(Paint.Style.FILL);
 		textBlack64Paint.setAntiAlias(true);
@@ -75,14 +84,23 @@ public class PaintManager {
 		textBlack40Paint.setAntiAlias(true);
 		textBlack40Paint.setTextSize(40*scale);
 		
-		textWhite40Paint.setColor(Color.BLACK);
+		textWhite40Paint.setColor(Color.WHITE);
 		textWhite40Paint.setStyle(Paint.Style.FILL);
 		textWhite40Paint.setAntiAlias(true);
 		textWhite40Paint.setTextSize(40*scale);
+		
+		textRed40Paint.setColor(Color.RED);
+		textRed40Paint.setStyle(Paint.Style.FILL);
+		textRed40Paint.setAntiAlias(true);
+		textRed40Paint.setTextSize(40*scale);
+	}
+	
+	public Paint getTextRed40Paint() {
+		return textRed40Paint;
 	}
 	
 	public Paint getTextWhite40Paint() {
-		return textBlack40Paint;
+		return textWhite40Paint;
 	}
 	
 	public Paint getTextBlack40Paint() {
@@ -91,6 +109,10 @@ public class PaintManager {
 	
 	public Paint getTextBlack64Paint() {
 		return textBlack64Paint;
+	}
+	
+	public Paint getTextRed64Paint() {
+		return textRed64Paint;
 	}
 	
 	public Paint getChoicedPaint() {

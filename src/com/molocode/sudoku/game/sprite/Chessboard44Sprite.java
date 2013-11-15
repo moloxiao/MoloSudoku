@@ -94,7 +94,7 @@ public class Chessboard44Sprite extends Sprite
 					rect44[i].left + (RECT_LINE_WIDTH + ((RECT_WIDTH - width)/2))*EngineOptions.getScreenScaleX(), 
 					rect44[i].top + (RECT_LINE_WIDTH + ((RECT_WIDTH - width)/2) + width)*EngineOptions.getScreenScaleY(), 
 					board44.getCells(i).isInputCell()?
-						PaintManager.getInstance().getTextWhite64Paint():PaintManager.getInstance().getTextBlack64Paint());
+						PaintManager.getInstance().getTextRed64Paint():PaintManager.getInstance().getTextWhite64Paint());
 			}
 		}
 	}

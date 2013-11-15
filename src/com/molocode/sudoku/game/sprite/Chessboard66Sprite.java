@@ -93,7 +93,7 @@ public class Chessboard66Sprite extends Sprite implements SuccessSudoku {
 					rect66[i].left + (RECT_LINE_WIDTH/2 + ((RECT_WIDTH - width)/2))*EngineOptions.getScreenScaleX(), 
 					rect66[i].top + (RECT_LINE_WIDTH/2 + ((RECT_WIDTH - width)/2) + width)*EngineOptions.getScreenScaleY(), 
 					board66.getCells(i).isInputCell()?
-						PaintManager.getInstance().getTextWhite64Paint():PaintManager.getInstance().getTextBlack64Paint());
+						PaintManager.getInstance().getTextRed64Paint():PaintManager.getInstance().getTextWhite64Paint());
 			}
 		}
 	}

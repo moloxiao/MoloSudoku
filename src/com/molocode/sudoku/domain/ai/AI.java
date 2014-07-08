@@ -15,13 +15,12 @@ public class AI {
 	 */
 	public static List<NotifyCell> getNotifyInfo(int mapType, int chapterPosition) {
 		List<NotifyCell> results = new ArrayList<NotifyCell>();
-		if(mapType == Map.MAP_TYPE_66) {
-			int[] bufferBoard = Map.getCellMaps(Map.MAP_TYPE_66, chapterPosition);
-			int[] bufferBoardResult = Map.getCellMapsResult(Map.MAP_TYPE_66, chapterPosition);
-			for(int i=0;i<bufferBoard.length;i++) {
-				if(bufferBoard[i] == 0) {
-					results.add( new NotifyCell(i,  bufferBoardResult[i], true) );
-				}
+		
+		int[] bufferBoard = Map.getCellMaps(mapType, chapterPosition);
+		int[] bufferBoardResult = Map.getCellMapsResult(mapType, chapterPosition);
+		for(int i=0;i<bufferBoard.length;i++) {
+			if(bufferBoard[i] == 0) {
+				results.add( new NotifyCell(i,  bufferBoardResult[i], true) );
 			}
 		}
 		return results;

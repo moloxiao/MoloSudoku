@@ -1,5 +1,6 @@
 package com.molocode.sudoku.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Chapter {
@@ -46,6 +47,10 @@ public class Chapter {
 	
 	private static List<Chapter> getDefaultChapterInfo() {
 		// TODO : 初始化的章节信息 : by molo
-		return null;
+		List<Chapter> buffers = new ArrayList<Chapter>();
+		buffers.add(new Chapter("简单", true, null));
+		buffers.add(new Chapter("中等", true, null));
+		buffers.add(new Chapter("复杂", true, null));
+		return buffers;
 	}
 }

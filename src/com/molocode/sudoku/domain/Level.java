@@ -59,12 +59,19 @@ public class Level {
 	 * 获得得分的星级评定
 	 * @return [0, 3]
 	 */
-	public static int getScoreLevel() {
-		return 0;
+	public static int getScoreLevel(int seccond, int passCondition) {
+		if(seccond > passCondition) {
+			return 0;
+		}else if(seccond >passCondition - passCondition/4) {
+			return 1;
+		}else if(seccond >passCondition - passCondition/2) {
+			return 2;
+		}
+		return 3;
 	}
 	
 	/**
-	 * 获取过关条件描述(数字描述转为时间格式)
+	 * TODO : 获取过关条件描述(数字描述转为时间格式)
 	 * @param passCondition
 	 * @return
 	 */

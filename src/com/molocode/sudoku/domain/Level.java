@@ -1,5 +1,10 @@
 package com.molocode.sudoku.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.molocode.sudoku.game.domain.Map;
+
 public class Level {
 	/**
 	 * 星级评级 ： 0~3
@@ -82,4 +87,33 @@ public class Level {
 	public static String getPassConditionDesc(int passCondition) {
 		return "";
 	}
+	
+	/**
+	 * topLevelId 1->4*4 2->6*6 3->9*9_1
+	 * 目前topLevelId只有1，2，3三个值有数据配置，如果不是返回长度为0的List
+	 * @param topLevelId
+	 * @return
+	 */
+	public static List<Level> getDefaultLevel(int topLevelId) {
+		List<Level> levels = new ArrayList<Level>();
+		if(topLevelId == 1) {
+			levels.add(new Level(false, false, 40, 0));
+			for(int i=1;i<Map.getMapLevels(Map.MAP_TYPE_44);i++) {
+				levels.add(new Level(true, false, 30-i, 0));
+			}
+		}else if(topLevelId == 2) {
+			levels.add(new Level(false, false, 40, 0));
+			for(int i=1;i<Map.getMapLevels(Map.MAP_TYPE_66);i++) {
+				levels.add(new Level(true, false, 50-i, 0));
+			}
+		}else if(topLevelId == 3) {
+			levels.add(new Level(false, false, 40, 0));
+			for(int i=1;i<Map.getMapLevels(Map.MAP_TYPE_99_1);i++) {
+				levels.add(new Level(true, false,120-i*2, 0));
+			}
+		}
+		return levels;
+	}
+	
+	
 }

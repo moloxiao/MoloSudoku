@@ -78,7 +78,7 @@ public class TopLevel {
 		if(levels.size() == 0) {
 			levels.add(new TopLevel(Map.MAP_TYPE_44, "菜鸟", true, Map.getMapLevels(Map.MAP_TYPE_44), 0, 0));
 			levels.add(new TopLevel(Map.MAP_TYPE_66, "牛人", true, Map.getMapLevels(Map.MAP_TYPE_66), 0, 0));
-			levels.add(new TopLevel(Map.MAP_TYPE_99, "怪咖", true, Map.getMapLevels(Map.MAP_TYPE_99), 0, 0));
+			levels.add(new TopLevel(Map.MAP_TYPE_99_1, "怪咖", true, Map.getMapLevels(Map.MAP_TYPE_99_1), 0, 0));
 		}
 		return levels;
 	}

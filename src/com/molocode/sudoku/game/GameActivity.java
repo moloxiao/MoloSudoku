@@ -59,7 +59,7 @@ public class GameActivity extends BaseGameActivity {
 		PaintManager.initPaintManager(this);
 		
 		BaseSudokuScene screen = null;
-		if(dificuty == Map.MAP_TYPE_99) {
+		if(dificuty == Map.MAP_TYPE_99_1) {
 			screen = new GameScene99(level, this);
 		}else if(dificuty == Map.MAP_TYPE_66) {
 			screen = new GameScene66(level, this);

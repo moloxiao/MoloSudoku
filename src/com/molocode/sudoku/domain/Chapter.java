@@ -48,9 +48,9 @@ public class Chapter {
 	private static List<Chapter> getDefaultChapterInfo() {
 		// TODO : 初始化的章节信息 : by molo
 		List<Chapter> buffers = new ArrayList<Chapter>();
-		buffers.add(new Chapter("简单", true, null));
-		buffers.add(new Chapter("中等", true, null));
-		buffers.add(new Chapter("复杂", true, null));
+		buffers.add(new Chapter("简单", true, Level.getDefaultLevel(1)));
+		buffers.add(new Chapter("中等", true, Level.getDefaultLevel(2)));
+		buffers.add(new Chapter("复杂", true, Level.getDefaultLevel(3)));
 		return buffers;
 	}
 }

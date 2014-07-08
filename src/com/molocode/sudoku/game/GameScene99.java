@@ -30,7 +30,7 @@ public class GameScene99 extends BaseSudokuScene {
 		chessboard99Sprite = new Chessboard99Sprite(null, 
 				Chessboard99Sprite.X, Chessboard99Sprite.Y, 
 				Chessboard99Sprite.WIDTH, Chessboard99Sprite.HEIGHT);
-		chessboard99Sprite.initCells( BaseBoard.getCellMap(Map.getCellMaps(Map.MAP_TYPE_99, level)) );
+		chessboard99Sprite.initCells( BaseBoard.getCellMap(Map.getCellMaps(Map.MAP_TYPE_99_1, level)) );
 		attachChild(chessboard99Sprite);
 		
 		countdownSprite = new CountdownSprite(null, 
@@ -90,7 +90,7 @@ public class GameScene99 extends BaseSudokuScene {
 
 	@Override
 	public void reStartGame() {
-		chessboard99Sprite.initCells( BaseBoard.getCellMap(Map.getCellMaps(Map.MAP_TYPE_99, level)) );
+		chessboard99Sprite.initCells( BaseBoard.getCellMap(Map.getCellMaps(Map.MAP_TYPE_99_1, level)) );
 		countdownSprite.cleanCountTime();
 	}
 

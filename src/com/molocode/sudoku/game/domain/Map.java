@@ -4,7 +4,7 @@ public class Map {
 	
 	public static final int MAP_TYPE_44 = 0;
 	public static final int MAP_TYPE_66 = 1;
-	public static final int MAP_TYPE_99 = 2;
+	public static final int MAP_TYPE_99_1 = 2;
 	
 	public static int getMapLevels(int dificuty) {
 		switch(dificuty) {
@@ -12,7 +12,7 @@ public class Map {
 			return MAPS44.length;
 		case MAP_TYPE_66:
 			return MAPS66.length;
-		case MAP_TYPE_99:
+		case MAP_TYPE_99_1:
 			return MAPS99.length;
 		}
 		return 0;
@@ -24,7 +24,7 @@ public class Map {
 			return getcells(level, MAPS44);
 		case MAP_TYPE_66:
 			return getcells(level, MAPS66);
-		case MAP_TYPE_99:
+		case MAP_TYPE_99_1:
 			return getcells(level, MAPS99);
 		}
 		return null;

@@ -1,85 +1,74 @@
 package com.molocode.sudoku.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.molocode.sudoku.game.domain.Map;
-
 public class Level {
+	/**
+	 * 星级评级 ： 0~3
+	 */
+	public static final int SCORE_STAR_NONE = 0;
+	public static final int SCORE_STAR_1 = 1;
+	public static final int SCORE_STAR_2 = 2;
+	public static final int SCORE_STAR_3 = 3;
+
+	private boolean isLock;
+	private boolean isPass;
+	private int passCondition;
+	private int bestScore;
 	
-	private int id;
-	private String desc;
-	private boolean allowPlay;
-	private int amountPromblem;
-	private int slovePromblem;
-	private int slovingPromblem;
-	
-	public Level(int id, String desc, boolean allowPlay, 
-			int amountPromblem, int slovePromblem, int slovingPromblem) {
+	public Level(boolean isLock, boolean isPass, int passCondition,
+			int bestScore) {
 		super();
-		this.id = id;
-		this.desc = desc;
-		this.allowPlay = allowPlay;
-		this.amountPromblem = amountPromblem;
-		this.slovePromblem = slovePromblem;
-		this.slovingPromblem = slovingPromblem;
+		this.isLock = isLock;
+		this.isPass = isPass;
+		this.passCondition = passCondition;
+		this.bestScore = bestScore;
 	}
 
-	public String getDesc() {
-		return desc;
+	public boolean isLock() {
+		return isLock;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setLock(boolean isLock) {
+		this.isLock = isLock;
 	}
 
-	public boolean isAllowPlay() {
-		return allowPlay;
+	public boolean isPass() {
+		return isPass;
 	}
 
-	public void setAllowPlay(boolean allowPlay) {
-		this.allowPlay = allowPlay;
+	public void setPass(boolean isPass) {
+		this.isPass = isPass;
 	}
 
-	public int getAmountPromblem() {
-		return amountPromblem;
+	public int getPassCondition() {
+		return passCondition;
 	}
 
-	public void setAmountPromblem(int amountPromblem) {
-		this.amountPromblem = amountPromblem;
+	public void setPassCondition(int passCondition) {
+		this.passCondition = passCondition;
 	}
 
-	public int getSlovePromblem() {
-		return slovePromblem;
+	public int getBestScore() {
+		return bestScore;
 	}
 
-	public void setSlovePromblem(int slovePromblem) {
-		this.slovePromblem = slovePromblem;
+	public void setBestScore(int bestScore) {
+		this.bestScore = bestScore;
 	}
 
-	public int getSlovingPromblem() {
-		return slovingPromblem;
-	}
-
-	public void setSlovingPromblem(int slovingPromblem) {
-		this.slovingPromblem = slovingPromblem;
+	/**
+	 * 获得得分的星级评定
+	 * @return [0, 3]
+	 */
+	public static int getScoreLevel() {
+		return 0;
 	}
 	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	private static List<Level> levels = new ArrayList<Level>();
-	public static  List<Level> getLevelList() {
-		if(levels.size() == 0) {
-			levels.add(new Level(Map.MAP_TYPE_44, "菜鸟", true, Map.getMapLevels(Map.MAP_TYPE_44), 0, 0));
-			levels.add(new Level(Map.MAP_TYPE_66, "牛人", true, Map.getMapLevels(Map.MAP_TYPE_66), 0, 0));
-			levels.add(new Level(Map.MAP_TYPE_99, "怪咖", true, Map.getMapLevels(Map.MAP_TYPE_99), 0, 0));
-		}
-		return levels;
+	/**
+	 * 获取过关条件描述(数字描述转为时间格式)
+	 * @param passCondition
+	 * @return
+	 */
+	public static String getPassConditionDesc(int passCondition) {
+		return "";
 	}
 }

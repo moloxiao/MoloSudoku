@@ -2,7 +2,7 @@ package com.molocode.sudoku.yard.activity;
 
 import java.util.List;
 import com.molocode.sudoku.R;
-import com.molocode.sudoku.domain.Level;
+import com.molocode.sudoku.domain.TopLevel;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -28,14 +28,14 @@ public class CopyListActivity extends Activity {
 	
 	private void initView() {
 		listView = (ListView)findViewById(R.id.list_difficulty);
-		listView.setAdapter(new LevelAdapter(Level.getLevelList()));
+		listView.setAdapter(new LevelAdapter(TopLevel.getLevelList()));
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long id) {
 				Intent intent = new Intent(CopyListActivity.this, LevelActivity.class);
-				int levelId = ((Level)parent.getItemAtPosition(position)).getId();
+				int levelId = ((TopLevel)parent.getItemAtPosition(position)).getId();
 				intent.putExtra("levelId", 
 						levelId );
 				startActivity(intent);
@@ -51,9 +51,9 @@ public class CopyListActivity extends Activity {
 	
 	public class LevelAdapter extends BaseAdapter {
 
-		private List<Level> levels;
+		private List<TopLevel> levels;
 		
-		public LevelAdapter(List<Level> levels) {
+		public LevelAdapter(List<TopLevel> levels) {
 			this.levels = levels;
 		}
 		

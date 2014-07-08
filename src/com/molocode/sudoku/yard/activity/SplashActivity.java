@@ -21,7 +21,7 @@ public class SplashActivity extends Activity {
 	private TimerTask task = new TimerTask() {
 		@Override
 		public void run() {
-			startActivity(new Intent(SplashActivity.this, PlayerInfoActivity.class));
+			startActivity(new Intent(SplashActivity.this, LobbyActivity.class));
 			finish();
 		}
 	};

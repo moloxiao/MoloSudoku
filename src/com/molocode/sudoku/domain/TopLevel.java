@@ -76,9 +76,9 @@ public class TopLevel {
 	private static List<TopLevel> levels = new ArrayList<TopLevel>();
 	public static  List<TopLevel> getLevelList() {
 		if(levels.size() == 0) {
-			levels.add(new TopLevel(Map.MAP_TYPE_44, "菜鸟", true, Map.getMapLevels(Map.MAP_TYPE_44), 0, 0));
-			levels.add(new TopLevel(Map.MAP_TYPE_66, "牛人", true, Map.getMapLevels(Map.MAP_TYPE_66), 0, 0));
-			levels.add(new TopLevel(Map.MAP_TYPE_99_1, "怪咖", true, Map.getMapLevels(Map.MAP_TYPE_99_1), 0, 0));
+			levels.add(new TopLevel(Map.MAP_TYPE_44, "菜鸟", true, Map.getChapterLevels(Map.MAP_TYPE_44), 0, 0));
+			levels.add(new TopLevel(Map.MAP_TYPE_66, "牛人", true, Map.getChapterLevels(Map.MAP_TYPE_66), 0, 0));
+			levels.add(new TopLevel(Map.MAP_TYPE_99_1, "怪咖", true, Map.getChapterLevels(Map.MAP_TYPE_99_1), 0, 0));
 		}
 		return levels;
 	}

@@ -85,7 +85,7 @@ public class Level {
 	 * @return
 	 */
 	public static String getPassConditionDesc(int passCondition) {
-		return "";
+		return passCondition+"s";
 	}
 	
 	/**
@@ -98,17 +98,17 @@ public class Level {
 		List<Level> levels = new ArrayList<Level>();
 		if(topLevelId == 1) {
 			levels.add(new Level(false, false, 40, 0));
-			for(int i=1;i<Map.getMapLevels(Map.MAP_TYPE_44);i++) {
+			for(int i=1;i<Map.getChapterLevels(Map.MAP_TYPE_44);i++) {
 				levels.add(new Level(true, false, 30-i, 0));
 			}
 		}else if(topLevelId == 2) {
 			levels.add(new Level(false, false, 40, 0));
-			for(int i=1;i<Map.getMapLevels(Map.MAP_TYPE_66);i++) {
+			for(int i=1;i<Map.getChapterLevels(Map.MAP_TYPE_66);i++) {
 				levels.add(new Level(true, false, 50-i, 0));
 			}
 		}else if(topLevelId == 3) {
 			levels.add(new Level(false, false, 40, 0));
-			for(int i=1;i<Map.getMapLevels(Map.MAP_TYPE_99_1);i++) {
+			for(int i=1;i<Map.getChapterLevels(Map.MAP_TYPE_99_1);i++) {
 				levels.add(new Level(true, false,120-i*2, 0));
 			}
 		}

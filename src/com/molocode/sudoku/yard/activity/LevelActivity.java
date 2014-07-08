@@ -33,7 +33,7 @@ public class LevelActivity extends Activity {
 
 	private void initView() {
 		listView = (ListView)findViewById(R.id.list_level);
-		listView.setAdapter(new LevelListAdapter(Map.getMapLevels(currentLevel)));
+		listView.setAdapter(new LevelListAdapter(Map.getChapterLevels(currentLevel)));
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override

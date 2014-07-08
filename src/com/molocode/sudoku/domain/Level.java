@@ -56,7 +56,11 @@ public class Level {
 	}
 
 	/**
-	 * 获得得分的星级评定
+	 * 获得得分的星级评定。
+	 * 大于过关条件的为0星；
+	 * 小于过关条件但是大于过关条件减去1/4的为1星
+	 * 小于过关条件减去1/4但是大于过关条件减去1/2的为2星
+	 * 小于等于过关条件减去1/2的为3星
 	 * @return [0, 3]
 	 */
 	public static int getScoreLevel(int seccond, int passCondition) {

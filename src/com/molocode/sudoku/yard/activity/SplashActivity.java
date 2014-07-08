@@ -15,7 +15,7 @@ public class SplashActivity extends Activity {
 		setContentView(R.layout.splash_activity);
 		
 		Timer timer = new Timer();
-		timer.schedule(task, 3000);
+		timer.schedule(task, 2000);
 	}
 	
 	private TimerTask task = new TimerTask() {

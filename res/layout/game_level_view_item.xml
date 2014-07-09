@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="clip_vertical" >
+
+    <RelativeLayout
+        android:id="@+id/game_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:background="@drawable/chapter_level_bg"
+        android:gravity="center" >
+
+        <ImageView
+            android:id="@+id/game_level_egg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/chapter_level_lock"
+            android:contentDescription="@string/level_icon" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/chapter_pass_star"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/game_level"
+        android:layout_centerHorizontal="true" >
+
+        <ImageView
+            android:id="@+id/game_level_star1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/chapter_level_star"
+            android:contentDescription="@string/level_icon" />
+
+        <ImageView
+            android:id="@+id/game_level_star2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/chapter_level_star"
+            android:contentDescription="@string/level_icon" />
+
+        <ImageView
+            android:id="@+id/game_level_star3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/chapter_level_star"
+            android:contentDescription="@string/level_icon" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/passtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/chapter_pass_star"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:text="00:00"
+        android:textColor="@android:color/white"
+        android:textSize="12sp" />
+
+</RelativeLayout>

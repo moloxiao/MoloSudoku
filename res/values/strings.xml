@@ -9,5 +9,6 @@
     <string name="playerinfo_activity_title">玩家信息</string>
     <string name="lobby_activity_btn_previous">前一页</string>
     <string name="lobby_activity_btn_next">后一页</string>
+    <string name="level_icon">关卡图片</string>
 
 </resources>

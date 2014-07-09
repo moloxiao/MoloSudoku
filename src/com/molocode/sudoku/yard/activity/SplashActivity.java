@@ -13,14 +13,18 @@ public class SplashActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash_activity);
-		
+
 		Timer timer = new Timer();
 		timer.schedule(task, 2000);
 	}
-	
+
 	private TimerTask task = new TimerTask() {
 		@Override
 		public void run() {
+			//程序原先的流程
+			// startActivity(new Intent(SplashActivity.this,
+			// PlayerInfoActivity.class));
+			//TODO 添加的大厅界面，未完成
 			startActivity(new Intent(SplashActivity.this, LobbyActivity.class));
 			finish();
 		}

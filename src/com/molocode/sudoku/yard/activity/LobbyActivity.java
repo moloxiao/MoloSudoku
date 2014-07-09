@@ -4,13 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import android.R.drawable;
-import android.R.layout;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,8 +92,14 @@ public class LobbyActivity extends Activity {
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				convertView = inflater.inflate(R.layout.game_level_view_item,
 						null);
-				holder.game_level = (ImageView) convertView
-						.findViewById(R.id.game_level);
+				holder.game_level_pass = (ImageView) convertView
+						.findViewById(R.id.game_level_pass);
+				holder.game_level_star1 = (ImageView) convertView
+						.findViewById(R.id.game_level_star1);
+				holder.game_level_star2 = (ImageView) convertView
+						.findViewById(R.id.game_level_star2);
+				holder.game_level_star3 = (ImageView) convertView
+						.findViewById(R.id.game_level_star3);
 				holder.passtime = (TextView) convertView
 						.findViewById(R.id.passtime);
 				convertView.setTag(holder);
@@ -116,9 +117,11 @@ public class LobbyActivity extends Activity {
 	}
 
 	class ViewHolder {
-		ImageView game_level;
+		ImageView game_level_pass;
+		ImageView game_level_star1;
+		ImageView game_level_star2;
+		ImageView game_level_star3;
 		TextView passtime;
-		// 设置GridView的每一个Item的样式
 	}
 
 }

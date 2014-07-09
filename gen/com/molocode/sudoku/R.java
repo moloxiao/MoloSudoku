@@ -13,13 +13,16 @@ public final class R {
     public static final class drawable {
         public static final int bg=0x7f020000;
         public static final int boy_1=0x7f020001;
-        public static final int chapter_level_bg=0x7f020002;
-        public static final int chapter_level_egg=0x7f020003;
-        public static final int chapter_level_lock=0x7f020004;
-        public static final int chapter_level_star=0x7f020005;
-        public static final int girl_1=0x7f020006;
-        public static final int ic_launcher=0x7f020007;
-        public static final int lobby_btn_page=0x7f020008;
+        public static final int chapter_bg=0x7f020002;
+        public static final int chapter_level_bg=0x7f020003;
+        public static final int chapter_level_egg=0x7f020004;
+        public static final int chapter_level_egg_raw=0x7f020005;
+        public static final int chapter_level_lock=0x7f020006;
+        public static final int chapter_level_star=0x7f020007;
+        public static final int girl_1=0x7f020008;
+        public static final int ic_launcher=0x7f020009;
+        public static final int lobby_activity_btn_next=0x7f02000a;
+        public static final int lobby_activity_btn_previous=0x7f02000b;
     }
     public static final class id {
         public static final int bottom_bar=0x7f050001;
@@ -28,7 +31,7 @@ public final class R {
         public static final int game_chapter=0x7f050010;
         public static final int game_layout=0x7f050005;
         public static final int game_level=0x7f050007;
-        public static final int game_level_egg=0x7f050008;
+        public static final int game_level_pass=0x7f050008;
         public static final int game_level_star1=0x7f05000a;
         public static final int game_level_star2=0x7f05000b;
         public static final int game_level_star3=0x7f05000c;

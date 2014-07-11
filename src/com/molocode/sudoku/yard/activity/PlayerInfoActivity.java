@@ -25,22 +25,17 @@ public class PlayerInfoActivity extends Activity {
 	private void initView() {
 		tv = (TextView) findViewById(R.id.text_playerinfo);
 		nameEdit = (ImageButton) findViewById(R.id.playerName_edit_btn);
-		tv.setText(randomName());
+		tv.setText(PlayerInfo.getPlayerInfo(this).getNickname());
 	}
 
 	private void savePlayerInfo() {
 		// TODO 保存用户的信息，需要修改类PlayerInfo
 	}
 
-	private String randomName() {
-		// TOOD 为首次登陆用户产生一个随机的名字
-		String name = "逗比";
-		return name;
-	}
-
 	public void btnStart(View view) {
 		savePlayerInfo();
-		startActivity(new Intent(this, CopyListActivity.class));
+		// startActivity(new Intent(this, CopyListActivity.class));
+		startActivity(new Intent(this, SchoolTreeActivity.class));
 	}
 
 	public void nameChange(View view) {

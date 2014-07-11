@@ -5,7 +5,8 @@ import com.molocode.sudoku.game.domain.Map;
 import com.molocode.sudoku.game.sprite.ChessControlPanelSprite;
 import com.molocode.sudoku.game.sprite.Chessboard66Sprite;
 import com.molocode.sudoku.game.sprite.CountdownSprite;
-import com.molocode.sudoku.game.sprite.ResultSprite;
+import com.molocode.sudoku.game.sprite.ExamFailSprite;
+import com.molocode.sudoku.game.sprite.ExamSuccessSprite;
 import com.molocode.sudoku.game.sprite.SettingBtnSprite;
 import com.molocode.sudoku.game.sprite.SettingSprite;
 import android.app.Activity;
@@ -19,7 +20,8 @@ public class GameScene66 extends BaseSudokuScene {
 	private ChessControlPanelSprite chessControlPanelSprite;
 	private SettingBtnSprite settingBtnSprite;
 	private SettingSprite settingSprite;
-	private ResultSprite resultSprite;
+	private ExamSuccessSprite successSprite;
+	private ExamFailSprite failSprite;
 	private CountdownSprite countdownSprite;
 	
 	public GameScene66(int level, Activity activity) {
@@ -50,10 +52,14 @@ public class GameScene66 extends BaseSudokuScene {
 				SettingBtnSprite.WIDTH, SettingBtnSprite.HEIGHT);
 		attachChild(settingBtnSprite);
 		
-		resultSprite = new ResultSprite(null, 
-				ResultSprite.X, ResultSprite.Y, 
-				ResultSprite.WIDTH, ResultSprite.HEIGHT);
-		attachChild(resultSprite);
+		successSprite = new ExamSuccessSprite(null, 
+				ExamSuccessSprite.X, ExamSuccessSprite.Y, 
+				ExamSuccessSprite.WIDTH, ExamSuccessSprite.HEIGHT);
+		attachChild(successSprite);
+		
+		failSprite= new ExamFailSprite(null, ExamFailSprite.X, ExamFailSprite.Y,
+				ExamFailSprite.WIDTH, ExamFailSprite.HEIGHT);
+		attachChild(failSprite);
 		
 		settingSprite = new SettingSprite(null, 
 				SettingSprite.X, SettingSprite.Y, 
@@ -64,11 +70,12 @@ public class GameScene66 extends BaseSudokuScene {
 	}
 
 	private void initTouch() {
-		registerTouch(resultSprite);
+		registerTouch(successSprite);
 		registerTouch(settingSprite);
 		registerTouch(chessboard66Sprite);
 		registerTouch(chessControlPanelSprite);
 		registerTouch(settingBtnSprite);
+		registerTouch(failSprite);
 		
 	}
 
@@ -80,7 +87,7 @@ public class GameScene66 extends BaseSudokuScene {
 	@Override
 	public void updateUiSuccessGame() {
 		Log.i("MOLO_DEBUG", "success game on scene66");
-		resultSprite.setVisible(true);
+		successSprite.setVisible(true);
 	}
 
 	@Override

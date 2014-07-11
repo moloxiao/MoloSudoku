@@ -21,11 +21,9 @@ public class SplashActivity extends Activity {
 	private TimerTask task = new TimerTask() {
 		@Override
 		public void run() {
-			//程序原先的流程
-			// startActivity(new Intent(SplashActivity.this,
-			// PlayerInfoActivity.class));
-			//TODO 添加的大厅界面，未完成
-			startActivity(new Intent(SplashActivity.this, LobbyActivity.class));
+			// 程序原先的流程
+			startActivity(new Intent(SplashActivity.this,
+					PlayerInfoActivity.class));
 			finish();
 		}
 	};

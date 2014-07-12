@@ -23,6 +23,7 @@ public class GameScene99 extends BaseSudokuScene {
 	private ExamSuccessSprite successSprite;
 	private ExamFailSprite failSprite;
 	private CountdownSprite countdownSprite;
+	 private float passTime=180;//过关时间
 	
 	public GameScene99(int level, Activity activity) {
 		super(level, activity);
@@ -37,7 +38,7 @@ public class GameScene99 extends BaseSudokuScene {
 		
 		countdownSprite = new CountdownSprite(null, 
 				CountdownSprite.X, CountdownSprite.Y, 
-				CountdownSprite.WIDTH, CountdownSprite.HEIGHT);
+				CountdownSprite.WIDTH, CountdownSprite.HEIGHT,passTime);
 		attachChild(countdownSprite);
 		
 		chessControlPanelSprite = new ChessControlPanelSprite(null, 

@@ -12,12 +12,13 @@ public class CountdownSprite extends Sprite {
 	public static final int Y = 10;
 	public static final int WIDTH = 280;
 	public static final int HEIGHT = 80;
-
 	private static float elapse;
+	private static float totaltime;
 
 	public CountdownSprite(IBitmapRes bitmapRes, int pX, int pY, int width,
-			int height) {
+			int height, float totaltime) {
 		super(bitmapRes, pX, pY, width, height);
+		CountdownSprite.totaltime = totaltime;
 	}
 
 	public void cleanCountTime() {
@@ -41,32 +42,12 @@ public class CountdownSprite extends Sprite {
 
 	public static String getTime(float totalSecondsElapsed) {
 		int time = (int) totalSecondsElapsed;
-		if (time < 60) {
-			if (time < 10) {
-				return "00:0" + time;
-			} else {
-				return "00:" + time;
-			}
-		} else {
-			int fen = time / 60;
-			int second = time % 60;
-			StringBuilder sb = new StringBuilder();
-			if (fen >= 10) {
-				sb.append(fen + ":");
-			} else {
-				sb.append("0" + fen + ":");
-			}
-			if (second >= 10) {
-				sb.append(second + "");
-			} else {
-				sb.append("0" + second);
-			}
-			return sb.toString();
-		}
+		int count = (int) (totaltime - time);
+		return String.valueOf(count);
 	}
 
-	public static float getPassTime() {
-		return elapse;
+	public static int getPassTime() {
+		return Integer.valueOf(getTime(elapse));
 	}
 
 }

@@ -25,6 +25,7 @@ import com.molocode.sudoku.yard.activity.SchoolTreeActivity;
 
 public class GameScene44 extends BaseSudokuScene {
 	private GameActivity activity;
+	private float passTime = 40;// 过关时间
 
 	public GameScene44(int level, Activity activity) {
 		super(level, activity);
@@ -50,7 +51,7 @@ public class GameScene44 extends BaseSudokuScene {
 
 		countdownSprite = new CountdownSprite(null, CountdownSprite.X,
 				CountdownSprite.Y, CountdownSprite.WIDTH,
-				CountdownSprite.HEIGHT);
+				CountdownSprite.HEIGHT, passTime);
 		attachChild(countdownSprite);
 
 		chessControlPanelSprite = new ChessControlPanelSprite(null,
@@ -144,7 +145,7 @@ public class GameScene44 extends BaseSudokuScene {
 	// 判断时间是否超时
 	private void checkTimeOut() {
 		float time = CountdownSprite.getPassTime();
-		if (time > 40) {
+		if (time == 0) {
 			failSprite.setVisible(true);
 		}
 	}

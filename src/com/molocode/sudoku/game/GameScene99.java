@@ -7,8 +7,8 @@ import com.molocode.sudoku.game.sprite.Chessboard99Sprite;
 import com.molocode.sudoku.game.sprite.CountdownSprite;
 import com.molocode.sudoku.game.sprite.ExamFailSprite;
 import com.molocode.sudoku.game.sprite.ExamSuccessSprite;
-import com.molocode.sudoku.game.sprite.SettingBtnSprite;
-import com.molocode.sudoku.game.sprite.SettingSprite;
+import com.molocode.sudoku.game.sprite.GunnerBtnSprite;
+import com.molocode.sudoku.game.sprite.GunnerSprite;
 import android.app.Activity;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
@@ -18,8 +18,8 @@ public class GameScene99 extends BaseSudokuScene {
 
 	private Chessboard99Sprite chessboard99Sprite;
 	private ChessControlPanelSprite chessControlPanelSprite;
-	private SettingBtnSprite settingBtnSprite;
-	private SettingSprite settingSprite;
+	private GunnerBtnSprite settingBtnSprite;
+	private GunnerSprite settingSprite;
 	private ExamSuccessSprite successSprite;
 	private ExamFailSprite failSprite;
 	private CountdownSprite countdownSprite;
@@ -48,9 +48,9 @@ public class GameScene99 extends BaseSudokuScene {
 		attachChild(chessControlPanelSprite);
 		
 		
-		settingBtnSprite = new SettingBtnSprite(null, 
-				SettingBtnSprite.X, SettingBtnSprite.Y, 
-				SettingBtnSprite.WIDTH, SettingBtnSprite.HEIGHT);
+		settingBtnSprite = new GunnerBtnSprite(null, 
+				GunnerBtnSprite.X, GunnerBtnSprite.Y, 
+				GunnerBtnSprite.WIDTH, GunnerBtnSprite.HEIGHT);
 		attachChild(settingBtnSprite);
 		
 		successSprite = new ExamSuccessSprite(null, 
@@ -62,9 +62,9 @@ public class GameScene99 extends BaseSudokuScene {
 				ExamFailSprite.WIDTH, ExamFailSprite.HEIGHT);
 		attachChild(failSprite);
 		
-		settingSprite = new SettingSprite(null, 
-				SettingSprite.X, SettingSprite.Y, 
-				SettingSprite.WIDTH, SettingSprite.HEIGHT);
+		settingSprite = new GunnerSprite(null, 
+				GunnerSprite.X, GunnerSprite.Y, 
+				GunnerSprite.WIDTH, GunnerSprite.HEIGHT);
 		attachChild(settingSprite);
 		
 		initTouch();

@@ -7,32 +7,33 @@ import com.hifreshday.android.pge.view.res.IBitmapRes;
 import com.molocode.sudoku.game.BaseSudokuScene;
 import com.molocode.sudoku.game.PaintManager;
 
-public class SettingBtnSprite extends Sprite {
+public class GunnerBtnSprite extends Sprite {
 
 	public static final int X = 30;
 	public static final int Y = 10;
 	public static final int WIDTH = 80;
 	public static final int HEIGHT = WIDTH;
-	
-	public SettingBtnSprite(IBitmapRes bitmapRes, int pX, int pY, int width,
+
+	public GunnerBtnSprite(IBitmapRes bitmapRes, int pX, int pY, int width,
 			int height) {
 		super(bitmapRes, pX, pY, width, height);
 	}
-	
+
 	@Override
 	public void onDrawSelf(Canvas canvas) {
-		canvas.drawCircle(
-				getX() + getRect().width()/2, 
-				getY() + getRect().width()/2, 
-				getRect().width()/2, 
-				PaintManager.getInstance().getTextWhite64Paint());
+		canvas.drawCircle(getX() + getRect().width() / 2, getY()
+				+ getRect().width() / 2, getRect().width() / 2, PaintManager
+				.getInstance().getTextWhite64Paint());
+		canvas.drawText("枪手", getX() + getRect().width() / 2, getY()
+				+ getRect().width() / 2, PaintManager.getInstance()
+				.getTextWhite64Paint());
 	}
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		if(event.getAction() == MotionEvent.ACTION_DOWN && 
-				getRect().contains((int)event.getX(), (int)event.getY()) ) {
-			((BaseSudokuScene)getParent()).updateUiShowSetting();
+		if (event.getAction() == MotionEvent.ACTION_DOWN
+				&& getRect().contains((int) event.getX(), (int) event.getY())) {
+			((BaseSudokuScene) getParent()).updateUiShowSetting();
 			return true;
 		}
 		return false;

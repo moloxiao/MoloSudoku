@@ -18,8 +18,8 @@ import com.molocode.sudoku.game.sprite.Chessboard44Sprite;
 import com.molocode.sudoku.game.sprite.CountdownSprite;
 import com.molocode.sudoku.game.sprite.ExamFailSprite;
 import com.molocode.sudoku.game.sprite.ExamSuccessSprite;
-import com.molocode.sudoku.game.sprite.SettingBtnSprite;
-import com.molocode.sudoku.game.sprite.SettingSprite;
+import com.molocode.sudoku.game.sprite.GunnerBtnSprite;
+import com.molocode.sudoku.game.sprite.GunnerSprite;
 import com.molocode.sudoku.yard.activity.CourseTreeActivity;
 import com.molocode.sudoku.yard.activity.SchoolTreeActivity;
 
@@ -35,8 +35,8 @@ public class GameScene44 extends BaseSudokuScene {
 
 	private Chessboard44Sprite chessboard44Sprite;
 	private ChessControlPanelSprite chessControlPanelSprite;
-	private SettingBtnSprite settingBtnSprite;
-	private SettingSprite settingSprite;
+	private GunnerBtnSprite settingBtnSprite;
+	private GunnerSprite settingSprite;
 	private ExamSuccessSprite successSprite;
 	private ExamFailSprite failSprite;
 	private CountdownSprite countdownSprite;
@@ -60,9 +60,9 @@ public class GameScene44 extends BaseSudokuScene {
 				true);
 		attachChild(chessControlPanelSprite);
 
-		settingBtnSprite = new SettingBtnSprite(null, SettingBtnSprite.X,
-				SettingBtnSprite.Y, SettingBtnSprite.WIDTH,
-				SettingBtnSprite.HEIGHT);
+		settingBtnSprite = new GunnerBtnSprite(null, GunnerBtnSprite.X,
+				GunnerBtnSprite.Y, GunnerBtnSprite.WIDTH,
+				GunnerBtnSprite.HEIGHT);
 		attachChild(settingBtnSprite);
 
 		successSprite = new ExamSuccessSprite(null, ExamSuccessSprite.X,
@@ -72,8 +72,8 @@ public class GameScene44 extends BaseSudokuScene {
 		failSprite = new ExamFailSprite(null, ExamFailSprite.X,
 				ExamFailSprite.Y, ExamFailSprite.WIDTH, ExamFailSprite.HEIGHT);
 		attachChild(failSprite);
-		settingSprite = new SettingSprite(null, SettingSprite.X,
-				SettingSprite.Y, SettingSprite.WIDTH, SettingSprite.HEIGHT);
+		settingSprite = new GunnerSprite(null, GunnerSprite.X,
+				GunnerSprite.Y, GunnerSprite.WIDTH, GunnerSprite.HEIGHT);
 		attachChild(settingSprite);
 
 		initTouch();

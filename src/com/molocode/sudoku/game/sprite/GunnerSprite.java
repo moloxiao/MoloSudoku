@@ -10,7 +10,7 @@ import com.hifreshday.android.pge.view.res.IBitmapRes;
 import com.molocode.sudoku.game.BaseSudokuScene;
 import com.molocode.sudoku.game.PaintManager;
 
-public class SettingSprite extends Sprite {
+public class GunnerSprite extends Sprite {
 
 	public static final int X = 0;
 	public static final int Y = 0;
@@ -24,7 +24,7 @@ public class SettingSprite extends Sprite {
 	private final static int BTN_NUMBER = 3;
 	private Rect[] btnRects;
 
-	public SettingSprite(IBitmapRes bitmapRes, int pX, int pY, int width,
+	public GunnerSprite(IBitmapRes bitmapRes, int pX, int pY, int width,
 			int height) {
 		super(bitmapRes, pX, pY, width, height);
 		setVisible(false);
@@ -90,6 +90,7 @@ public class SettingSprite extends Sprite {
 				} else if (btnRects[1].contains((int) event.getX(),
 						(int) event.getY())) {
 					((BaseSudokuScene)getParent()).reStartGame();
+					//TODO 枪手功能，未添加
 					setVisible(false);
 				} else if (btnRects[2].contains((int) event.getX(),
 						(int) event.getY())) {
@@ -102,5 +103,5 @@ public class SettingSprite extends Sprite {
 	}
 
 	
-	private final static String[] BTN_NAME = {"退出", "重新开始", "回到游戏"};
+	private final static String[] BTN_NAME = {"退出", "购买枪手", "回到游戏"};
 }

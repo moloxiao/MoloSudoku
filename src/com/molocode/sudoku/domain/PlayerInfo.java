@@ -1,7 +1,5 @@
 package com.molocode.sudoku.domain;
 
-import java.util.Map;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 

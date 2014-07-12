@@ -29,6 +29,7 @@ public class GameScene44 extends BaseSudokuScene {
 	public GameScene44(int level, Activity activity) {
 		super(level, activity);
 		this.activity = (GameActivity) activity;
+		((GameActivity) activity).showExamInfo();
 	}
 
 	private Chessboard44Sprite chessboard44Sprite;

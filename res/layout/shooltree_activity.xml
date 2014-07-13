@@ -36,7 +36,7 @@
         android:id="@+id/ImageButton4"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_above="@+id/imageButton1"
+        android:layout_above="@+id/ImageButton1"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="61dp"
         android:background="@drawable/test_button_bg"

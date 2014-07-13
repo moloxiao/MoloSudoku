@@ -2,6 +2,7 @@ package com.molocode.sudoku.yard.activity;
 
 import com.molocode.sudoku.R;
 import com.molocode.sudoku.domain.PlayerInfo;
+import com.molocode.sudoku.game.domain.LifeJourney;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -15,6 +16,7 @@ import android.widget.ImageButton;
 public class SchoolTreeActivity extends Activity {
 
 	private ImageButton[] imgbtns;
+	private LifeJourney life;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,9 @@ public class SchoolTreeActivity extends Activity {
 	}
 
 	private void initData() {
+		//获取学校点位和整个学校树的配置
+		life=LifeJourney.getInstance();
+		
 		imgbtns = new ImageButton[] {
 				(ImageButton) findViewById(R.id.ImageButton1),
 				(ImageButton) findViewById(R.id.ImageButton2),
@@ -70,6 +75,7 @@ public class SchoolTreeActivity extends Activity {
 				(ImageButton) findViewById(R.id.ImageButton15), };
 		for (int i = 0; i < imgbtns.length; i++) {
 			// 设置每个按钮所代表的关卡信息
+			
 		}
 	}
 }

@@ -29,20 +29,20 @@ public final class R {
     }
     public static final class id {
         public static final int ImageButton1=0x7f05001e;
-        public static final int ImageButton10=0x7f050028;
-        public static final int ImageButton11=0x7f050029;
-        public static final int ImageButton12=0x7f05002a;
-        public static final int ImageButton13=0x7f05002b;
-        public static final int ImageButton14=0x7f05002c;
-        public static final int ImageButton15=0x7f05002d;
+        public static final int ImageButton10=0x7f050027;
+        public static final int ImageButton11=0x7f050028;
+        public static final int ImageButton12=0x7f050029;
+        public static final int ImageButton13=0x7f05002a;
+        public static final int ImageButton14=0x7f05002b;
+        public static final int ImageButton15=0x7f05002c;
         public static final int ImageButton2=0x7f05001f;
         public static final int ImageButton3=0x7f050020;
         public static final int ImageButton4=0x7f050021;
-        public static final int ImageButton5=0x7f050023;
-        public static final int ImageButton6=0x7f050024;
-        public static final int ImageButton7=0x7f050025;
-        public static final int ImageButton8=0x7f050026;
-        public static final int ImageButton9=0x7f050027;
+        public static final int ImageButton5=0x7f050022;
+        public static final int ImageButton6=0x7f050023;
+        public static final int ImageButton7=0x7f050024;
+        public static final int ImageButton8=0x7f050025;
+        public static final int ImageButton9=0x7f050026;
         public static final int bottom_bar=0x7f050001;
         public static final int chapter_pass_star=0x7f050012;
         public static final int difucuty_desc=0x7f05000d;
@@ -53,7 +53,6 @@ public final class R {
         public static final int game_level_star2=0x7f050014;
         public static final int game_level_star3=0x7f050015;
         public static final int gameview=0x7f05000f;
-        public static final int imageButton1=0x7f050022;
         public static final int level_desc=0x7f050018;
         public static final int list_difficulty=0x7f050003;
         public static final int list_level=0x7f050017;

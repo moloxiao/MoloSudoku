@@ -3,9 +3,10 @@ package com.molocode.sudoku.game.domain;
 import java.util.List;
 
 public class Degree {
-
+	private String degreeName;// 学历名称(例如:xx学校)
 	private int type;
-	private int highestLevel;// 当前学校级别的考试级别（例如:5年级）
+	private int highestLevel;// 当前学校级别的考试级别(例如:5年级)
+	List<Examination> examinations;
 
 	public int getHighestLevel() {
 		return highestLevel;
@@ -23,7 +24,13 @@ public class Degree {
 		this.type = type;
 	}
 
-	List<Examination> examinations;
+	public String getDegreeName() {
+		return degreeName;
+	}
+
+	public void setDegreeName(String degreeName) {
+		this.degreeName = degreeName;
+	}
 
 	public List<Examination> getExaminations() {
 		return examinations;
@@ -32,5 +39,5 @@ public class Degree {
 	public void setExaminations(List<Examination> examinations) {
 		this.examinations = examinations;
 	}
-
+    //TODO 
 }

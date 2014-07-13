@@ -94,7 +94,7 @@ public class PlayerInfo {
 	}
 
 	private static String randomPlayerName() {
-		// TOOD 为首次登陆用户产生一个随机的名字
+		//TODO 为首次登陆用户产生一个随机的名字
 		String name = "快乐的逗比";
 		return name;
 	}

@@ -1,5 +1,7 @@
 package com.molocode.sudoku.game.domain;
 
+import java.util.List;
+
 import com.molocode.sudoku.domain.Level;
 
 public class Examination {
@@ -58,4 +60,13 @@ public class Examination {
 		this.type = type;
 	}
 
+	// TODO 根据String获取Examination
+	public List<Examination> getExaminationByString(String str) {
+		return null;
+	}
+
+	// TODO 把list<Examination>的信息转化成一个String数组
+	public String getStringByExaminations(List<Examination> examinations) {
+		return null;
+	}
 }

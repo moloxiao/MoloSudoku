@@ -74,7 +74,7 @@ public class SchoolTreeActivity extends Activity {
 				(ImageButton) findViewById(R.id.ImageButton14),
 				(ImageButton) findViewById(R.id.ImageButton15), };
 		for (int i = 0; i < imgbtns.length; i++) {
-			// 设置每个按钮所代表的关卡信息
+			//TODO  设置每个按钮所代表的关卡信息
 			
 		}
 	}

@@ -94,7 +94,7 @@ public class SchoolTreeActivity extends Activity {
 		List<School> schools = new ArrayList<School>();
 		if (null != degrees) {
 			schools = getSchoolLsitDegree(degrees);
-			Log.e("com.poxiao.suduko", "schools.size" + schools.size());
+			Log.e("com.poxiao.suduko", "schools.size=" + schools.size());
 		}
 		setViewBtnsBySchools(schools, btns);
 	}
@@ -103,6 +103,7 @@ public class SchoolTreeActivity extends Activity {
 	private List<School> getSchoolLsitDegree(List<Degree> degrees) {
 		List<School> schoolall = new ArrayList<School>();
 		int currentDegree = Degree.getDegreeIdBySchoolId(currentSchoolId);
+		Log.e("com.poxiao.suduko", "currentSchoolId0=" + currentSchoolId);
 		for (int i = 0; i < degrees.size(); i++) {
 			List<School> schools = new ArrayList<School>();
 			schools = degrees.get(i).getSchools();
@@ -137,9 +138,20 @@ public class SchoolTreeActivity extends Activity {
 			btns[i].setText(schoolItem.getName());
 			setBtnByProperty(schoolItem.getPlayProperty(), btns[i],
 					schoolItem.getId());
-			if (schoolItem.getId() == currentSchoolId) {
-				btns[i].setBackgroundResource(R.drawable.btn_highlight);// 当前学校高亮
-				btns[i].setOnClickListener(new View.OnClickListener() {
+		}
+	}
+
+	// 根据学校的类型来决定按钮的背景及点击事件
+	private void setBtnByProperty(int property, Button btn, final int schoolId) {
+		Log.e("com.poxiao.suduko", "schoolId="
+				+ schoolId);
+		switch (property) {
+		case 0:
+			if (schoolId == currentSchoolId) {
+				Log.e("com.poxiao.suduko", "currentSchoolId1="
+						+ currentSchoolId);
+				btn.setBackgroundResource(R.drawable.btn_highlight);// 当前学校高亮
+				btn.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View arg0) {
 						// 直接进入考试列表
@@ -149,21 +161,16 @@ public class SchoolTreeActivity extends Activity {
 						startActivity(intent);
 					}
 				});
-			}
-		}
-	}
 
-	// 根据学校的类型来决定按钮的背景及点击事件
-	private void setBtnByProperty(int property, Button btn, final int schoolId) {
-		switch (property) {
-		case 0:
-			btn.setBackgroundResource(R.drawable.test_button_bg);// 可读学校
-			btn.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View arg0) {
-					showHitDialog(schoolId);
-				}
-			});
+			} else {
+				btn.setBackgroundResource(R.drawable.test_button_bg);// 可读学校
+				btn.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						showHitDialog(schoolId);
+					}
+				});
+			}
 			break;
 		case 1:
 			btn.setBackgroundResource(R.drawable.btn_disable);// 学历不够
@@ -186,6 +193,8 @@ public class SchoolTreeActivity extends Activity {
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
 				currentSchoolId = schoolId;
+				Log.e("com.poxiao.suduko", "currentSchoolId2="
+						+ currentSchoolId);
 				initMap();// 再次刷新界面
 				Intent intent = new Intent(SchoolTreeActivity.this,
 						CourseTreeActivity.class);

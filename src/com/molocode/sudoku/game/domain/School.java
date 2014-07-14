@@ -15,7 +15,7 @@ public class School {
 	private String location;
 	private int schoolType;// 0普通学校，1重点学校 ，2私立学校
 	private int playerUsed;// 0玩家没来过，1玩家来过
-	private int playProperty;// 1可读学校,1学历不可读，2年龄不可读
+	private int playProperty;// 0可读学校,1学历不可读，2年龄不可读
 	List<Examination> examinations;// 当前学校考试的列表
 
 	public School() {

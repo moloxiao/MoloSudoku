@@ -65,7 +65,7 @@ public class Degree {
 			map.clear();
 			map.put(0, "0#龙湖小学#A街道101号#0");
 			map.put(1, "1#胜利小学#B街道102号#1");
-			map.put(2, "1#乌龙小学#C街道103号#2");
+			map.put(2, "2#乌龙小学#C街道103号#2");
 			break;
 		}
 		case 1: {

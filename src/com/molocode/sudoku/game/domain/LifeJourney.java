@@ -4,16 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
-import android.content.Context;
-import android.content.SharedPreferences;
 
 public class LifeJourney {
 
 	private static LifeJourney journery = null;
 	private List<Degree> degrees;
-	private int highestEducation;// 当前角色的就读学历(例如:初中)
-
-	// 下面这个属性最好写在文件里，做成可配置，现在先这样吧.
 
 	private LifeJourney() {
 		getDegreeByMap(getDefaultMap());
@@ -33,14 +28,6 @@ public class LifeJourney {
 
 	public void setDegrees(List<Degree> degrees) {
 		this.degrees = degrees;
-	}
-
-	public int getHighestEducation() {
-		return highestEducation;
-	}
-
-	public void setHighestEducation(int highestEducation) {
-		this.highestEducation = highestEducation;
 	}
 
 	// 设置地图上所有学历的信息

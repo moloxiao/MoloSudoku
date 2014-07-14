@@ -85,12 +85,11 @@ public class GameActivity extends BaseGameActivity {
 	public void showExamInfo() {
 		this.runOnUiThread(new Runnable() {
 			public void run() {
-			  AlertDialog.Builder builder = new Builder(
-						GameActivity.this);
+				AlertDialog.Builder builder = new Builder(GameActivity.this);
 				// TODO 考试信息
 				builder.setMessage("逗比小学1年级期末考试");
 				builder.setTitle("考试信息");
-				final Dialog dialog=builder.create();
+				final Dialog dialog = builder.create();
 				dialog.show();
 				Timer timer = new Timer();
 				TimerTask task = new TimerTask() {

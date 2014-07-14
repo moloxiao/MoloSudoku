@@ -23,6 +23,7 @@ public class SchoolTreeActivity extends Activity {
 
 	private Button[] imgbtns;
 	private LifeJourney life;
+	private int currentSchoolId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +31,18 @@ public class SchoolTreeActivity extends Activity {
 		// 设置学校路线界面
 		setContentView(R.layout.shooltree_activity);
 		initData();
+		initMap();
 		// 是否初次登陆，是展示对话框
 		PlayerInfo info = PlayerInfo.getPlayerInfo(this);
-		if (info.isIsfirstlogin()) {
+		currentSchoolId = info.getSchoolId();
+		Log.i("suduko", "currentSchoolId" + currentSchoolId);
+		if (SplashActivity.firstLogin) {
 			showAdmission();
+		} else {
+			Intent intent = new Intent(SchoolTreeActivity.this,
+					CourseTreeActivity.class);
+			intent.putExtra(CourseTreeActivity.DEGREE_ID, currentSchoolId);
+			startActivity(intent);
 		}
 	}
 
@@ -77,15 +86,54 @@ public class SchoolTreeActivity extends Activity {
 				(Button) findViewById(R.id.Button13),
 				(Button) findViewById(R.id.Button14),
 				(Button) findViewById(R.id.Button15), };
-		// 获取学校点位和整个学校树的配置
+	}
+
+	// 获取学校点位和整个学校树的配置
+	private void initMap() {
+		int currentDegree = Degree.getDegreeIdBySchoolId(currentSchoolId);
 		life = LifeJourney.getInstance();
 		List<Degree> degrees = life.getDegrees();
 		if (null != degrees) {
 			for (int i = 0; i < degrees.size(); i++) {
 				List<School> schools = degrees.get(i).getSchools();
+				if (degrees.get(i).getDegreeId() < currentDegree) {
+					for (int k = 0; k < schools.size(); k++) {
+						schools.get(k).setPlayProperty(
+								School.SCHOOL_TYPE_AGEUNABLE);
+					}
+				} else if (degrees.get(i).getDegreeId() == currentDegree) {
+					for (int k = 0; k < schools.size(); k++) {
+						schools.get(k).setPlayProperty(School.SCHOOL_TYPE_ABLE);
+					}
+				} else {
+					for (int k = 0; k < schools.size(); k++) {
+						schools.get(k).setPlayProperty(
+								School.SCHOOL_TYPE_DEGREEUNABLE);
+					}
+				}
 				for (int j = 0; j < schools.size(); j++) {
-					// TODO 设置每个按钮所代表的关卡信息
+					// 设置每个按钮所代表的关卡信息
 					final int id = schools.get(j).getId();
+					if (id == currentSchoolId) {
+						imgbtns[schools.size() * i + j]
+								.setBackgroundResource(R.drawable.btn_highlight);
+					} else {
+						switch (schools.get(j).getPlayProperty()) {
+						case 0:
+
+							break;
+						case 1:
+							imgbtns[schools.size() * i + j]
+									.setBackgroundResource(R.drawable.btn_disable);
+							imgbtns[schools.size() * i + j].setClickable(false);
+							break;
+						case 2:
+							imgbtns[schools.size() * i + j]
+									.setBackgroundResource(R.drawable.btn_disable);
+							imgbtns[schools.size() * i + j].setClickable(false);
+							break;
+						}
+					}
 					imgbtns[schools.size() * i + j].setText(schools.get(j)
 							.getName());
 					imgbtns[schools.size() * i + j]

@@ -5,10 +5,17 @@ import java.util.List;
 import java.util.Map;
 
 public class School {
+
+	public static final int SCHOOL_TYPE_ABLE = 0;
+	public static final int SCHOOL_TYPE_DEGREEUNABLE = 1;
+	public static final int SCHOOL_TYPE_AGEUNABLE = 2;
+
 	private int id;
 	private String name;
 	private String location;
-	private boolean privateSchool;
+	private int schoolType;// 0普通学校，1重点学校 ，2私立学校
+	private int playerUsed;// 0玩家没来过，1玩家来过
+	private int playProperty;// 1可读学校,1学历不可读，2年龄不可读
 	List<Examination> examinations;// 当前学校考试的列表
 
 	public School() {
@@ -39,10 +46,6 @@ public class School {
 		this.location = location;
 	}
 
-	public boolean isPrivateSchool() {
-		return privateSchool;
-	}
-
 	public List<Examination> getExaminations() {
 		return examinations;
 	}
@@ -51,8 +54,28 @@ public class School {
 		this.examinations = examinations;
 	}
 
-	public void setPrivateSchool(boolean privateSchool) {
-		this.privateSchool = privateSchool;
+	public int getSchoolType() {
+		return schoolType;
+	}
+
+	public void setSchoolType(int schoolType) {
+		this.schoolType = schoolType;
+	}
+
+	public int getPlayerUsed() {
+		return playerUsed;
+	}
+
+	public void setPlayerUsed(int playerUsed) {
+		this.playerUsed = playerUsed;
+	}
+
+	public int getPlayProperty() {
+		return playProperty;
+	}
+
+	public void setPlayProperty(int playProperty) {
+		this.playProperty = playProperty;
 	}
 
 	// 根据degreeId获取当前学校里的所有考试

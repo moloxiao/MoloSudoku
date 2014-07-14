@@ -11,6 +11,7 @@ public class Examination {
 	private String examinationLocation;// 考试地点
 	private Level level;// 地图关卡ID
 	private int type;// 地图类型
+	private int score;// 考试成绩
 
 	public String getExaminationNumber() {
 		return examinationNumber;
@@ -58,6 +59,14 @@ public class Examination {
 
 	public void setType(int type) {
 		this.type = type;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 
 	// TODO 根据String获取Examination

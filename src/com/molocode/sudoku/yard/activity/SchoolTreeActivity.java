@@ -6,6 +6,7 @@ import com.molocode.sudoku.R;
 import com.molocode.sudoku.domain.PlayerInfo;
 import com.molocode.sudoku.game.domain.Degree;
 import com.molocode.sudoku.game.domain.LifeJourney;
+import com.molocode.sudoku.game.domain.School;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -45,7 +46,8 @@ public class SchoolTreeActivity extends Activity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
-				Intent intent =new Intent(SchoolTreeActivity.this,CourseTreeActivity.class);
+				Intent intent = new Intent(SchoolTreeActivity.this,
+						CourseTreeActivity.class);
 				intent.putExtra(CourseTreeActivity.DEGREE_ID, 0);
 				startActivity(intent);
 			}
@@ -79,20 +81,26 @@ public class SchoolTreeActivity extends Activity {
 		life = LifeJourney.getInstance();
 		List<Degree> degrees = life.getDegrees();
 		if (null != degrees) {
-			int mysize = (degrees.size() > imgbtns.length) ? (imgbtns.length)
-					: (degrees.size());
-			for (int i = 0; i < mysize; i++) {
-				// TODO 设置每个按钮所代表的关卡信息
-				final int id=degrees.get(i).getDegreeId();
-				imgbtns[i].setText(degrees.get(i).getDegreeName());
-				imgbtns[i].setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent intent =new Intent(SchoolTreeActivity.this,CourseTreeActivity.class);
-						intent.putExtra(CourseTreeActivity.DEGREE_ID, id);
-						startActivity(intent);
-					}
-				});
+			for (int i = 0; i < degrees.size(); i++) {
+				List<School> schools = degrees.get(i).getSchools();
+				for (int j = 0; j < schools.size(); j++) {
+					// TODO 设置每个按钮所代表的关卡信息
+					final int id = schools.get(j).getId();
+					imgbtns[schools.size() * i + j].setText(schools.get(j)
+							.getName());
+					imgbtns[schools.size() * i + j]
+							.setOnClickListener(new View.OnClickListener() {
+								@Override
+								public void onClick(View v) {
+									Intent intent = new Intent(
+											SchoolTreeActivity.this,
+											CourseTreeActivity.class);
+									intent.putExtra(
+											CourseTreeActivity.DEGREE_ID, id);
+									startActivity(intent);
+								}
+							});
+				}
 			}
 		}
 	}

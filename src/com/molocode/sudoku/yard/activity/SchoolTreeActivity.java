@@ -24,6 +24,7 @@ public class SchoolTreeActivity extends Activity {
 	private Button[] imgbtns;
 	private LifeJourney life;
 	private int currentSchoolId;
+	private int currentBtnId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -90,18 +91,20 @@ public class SchoolTreeActivity extends Activity {
 
 	// 获取学校点位和整个学校树的配置
 	private void initMap() {
-		int currentDegree = Degree.getDegreeIdBySchoolId(currentSchoolId);
 		life = LifeJourney.getInstance();
 		List<Degree> degrees = life.getDegrees();
+		int currentDegree = Degree.getDegreeIdBySchoolId(currentSchoolId);
 		if (null != degrees) {
+			// 根据当前学历等级来判断学校的状态
 			for (int i = 0; i < degrees.size(); i++) {
+				int degreeId = degrees.get(i).getDegreeId();
 				List<School> schools = degrees.get(i).getSchools();
-				if (degrees.get(i).getDegreeId() < currentDegree) {
+				if (degreeId < currentDegree) {
 					for (int k = 0; k < schools.size(); k++) {
 						schools.get(k).setPlayProperty(
 								School.SCHOOL_TYPE_AGEUNABLE);
 					}
-				} else if (degrees.get(i).getDegreeId() == currentDegree) {
+				} else if (degreeId == currentDegree) {
 					for (int k = 0; k < schools.size(); k++) {
 						schools.get(k).setPlayProperty(School.SCHOOL_TYPE_ABLE);
 					}
@@ -114,13 +117,73 @@ public class SchoolTreeActivity extends Activity {
 				for (int j = 0; j < schools.size(); j++) {
 					// 设置每个按钮所代表的关卡信息
 					final int id = schools.get(j).getId();
+					final int index=schools.size() * i + j;
+					imgbtns[index].setText(schools.get(j).getName());
 					if (id == currentSchoolId) {
-						imgbtns[schools.size() * i + j]
+						currentBtnId = schools.size() * i + j;
+						imgbtns[currentBtnId]
 								.setBackgroundResource(R.drawable.btn_highlight);
+						imgbtns[currentBtnId]
+								.setOnClickListener(new View.OnClickListener() {
+									@Override
+									public void onClick(View v) {
+										Intent intent = new Intent(
+												SchoolTreeActivity.this,
+												CourseTreeActivity.class);
+										intent.putExtra(
+												CourseTreeActivity.DEGREE_ID,
+												id);
+										startActivity(intent);
+									}
+								});
 					} else {
 						switch (schools.get(j).getPlayProperty()) {
 						case 0:
+							imgbtns[index]
+									.setOnClickListener(new View.OnClickListener() {
+										@Override
+										public void onClick(View v) {
+											AlertDialog.Builder builder = new Builder(
+													SchoolTreeActivity.this);
+											builder.setMessage("你可以转学，但需要支付XX");
+											builder.setTitle("转学通知");
+											builder.setPositiveButton("转学",
+													new OnClickListener() {
+														@Override
+														public void onClick(
+																DialogInterface dialog,
+																int which) {
+															dialog.dismiss();
+															imgbtns[index]
+																	.setBackgroundResource(R.drawable.btn_highlight);
+															imgbtns[currentBtnId]
+																	.setBackgroundResource(R.drawable.test_button_bg);
+															currentBtnId = index;
+															currentSchoolId = id;
+															initMap();
+															// TODO 存储信息
+														}
+													});
+											builder.setNegativeButton("继续本校学习",
+													new OnClickListener() {
+														@Override
+														public void onClick(
+																DialogInterface dialog,
+																int which) {
+															dialog.dismiss();
+															Intent intent = new Intent(
+																	SchoolTreeActivity.this,
+																	CourseTreeActivity.class);
+															intent.putExtra(
+																	CourseTreeActivity.DEGREE_ID,
+																	0);
+															startActivity(intent);
+														}
+													});
+											builder.create().show();
 
+										}
+									});
 							break;
 						case 1:
 							imgbtns[schools.size() * i + j]
@@ -134,20 +197,6 @@ public class SchoolTreeActivity extends Activity {
 							break;
 						}
 					}
-					imgbtns[schools.size() * i + j].setText(schools.get(j)
-							.getName());
-					imgbtns[schools.size() * i + j]
-							.setOnClickListener(new View.OnClickListener() {
-								@Override
-								public void onClick(View v) {
-									Intent intent = new Intent(
-											SchoolTreeActivity.this,
-											CourseTreeActivity.class);
-									intent.putExtra(
-											CourseTreeActivity.DEGREE_ID, id);
-									startActivity(intent);
-								}
-							});
 				}
 			}
 		}

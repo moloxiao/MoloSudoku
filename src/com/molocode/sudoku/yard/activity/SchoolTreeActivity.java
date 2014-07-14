@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 
 public class SchoolTreeActivity extends Activity {
@@ -44,8 +45,9 @@ public class SchoolTreeActivity extends Activity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
-				startActivity(new Intent(SchoolTreeActivity.this,
-						CourseTreeActivity.class));
+				Intent intent =new Intent(SchoolTreeActivity.this,CourseTreeActivity.class);
+				intent.putExtra(CourseTreeActivity.DEGREE_ID, 0);
+				startActivity(intent);
 			}
 		});
 		builder.setNegativeButton("辍学", new OnClickListener() {
@@ -81,10 +83,17 @@ public class SchoolTreeActivity extends Activity {
 					: (degrees.size());
 			for (int i = 0; i < mysize; i++) {
 				// TODO 设置每个按钮所代表的关卡信息
+				final int id=degrees.get(i).getDegreeId();
 				imgbtns[i].setText(degrees.get(i).getDegreeName());
+				imgbtns[i].setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Intent intent =new Intent(SchoolTreeActivity.this,CourseTreeActivity.class);
+						intent.putExtra(CourseTreeActivity.DEGREE_ID, id);
+						startActivity(intent);
+					}
+				});
 			}
-		} else {
-			Log.e("px", "QNMLGB");
 		}
 	}
 }

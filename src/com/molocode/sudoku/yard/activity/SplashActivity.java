@@ -21,9 +21,11 @@ public class SplashActivity extends Activity {
 	private TimerTask task = new TimerTask() {
 		@Override
 		public void run() {
-			// 程序原先的流程
+			// TODO 第一次登陆逻辑
+			// startActivity(new Intent(SplashActivity.this,
+			// PlayerInfoActivity.class));
 			startActivity(new Intent(SplashActivity.this,
-					PlayerInfoActivity.class));
+					SchoolTreeActivity.class));
 			finish();
 		}
 	};

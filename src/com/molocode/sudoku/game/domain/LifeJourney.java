@@ -11,19 +11,12 @@ public class LifeJourney {
 
 	private static LifeJourney journery = null;
 	private List<Degree> degrees;
-	private int highestEducation;// 当前角色的最高学历(例如:初中)
-	private int degreeId;// 学历的ID
+	private int highestEducation;// 当前角色的就读学历(例如:初中)
 	// 下面这个属性最好写在文件里，做成可配置，现在先这样吧.
 	private Map<Integer, String> degreesMap;
 
 	private LifeJourney() {
-		// TODO 构造的时候可以从文件里读出degreesMap,方便测试，先填几个(ID-NAME-TYPE-HIGHESTLEVEL)
-		degreesMap = new HashMap<Integer, String>();
-		degreesMap.put(0, "0-胜利小学-0-4");
-		degreesMap.put(1, "1-胜利小学-0-4");
-		degreesMap.put(2, "2-胜利小学-0-4");
-		degreesMap.put(3, "3-胜利小学-0-4");
-		degreesMap.put(4, "4-胜利小学-0-4");
+		degreesMap = getDefaultMap();
 		getDegreeByMap(degreesMap);
 	}
 
@@ -51,14 +44,6 @@ public class LifeJourney {
 		this.highestEducation = highestEducation;
 	}
 
-	public int getDegreeId() {
-		return degreeId;
-	}
-
-	public void setDegreeId(int degreeId) {
-		this.degreeId = degreeId;
-	}
-
 	public Map<Integer, String> getDegreesMap() {
 		return degreesMap;
 	}
@@ -83,26 +68,25 @@ public class LifeJourney {
 		return degrees;
 	}
 
-	// 第一次登陆获取一个默认列表，以后直接读本地信息,可以把信息都配置成一个String保存起来，简单粗暴
-	private static final String PREFS_NAME = "DIZZY_PLAYERINFO";
-	private static final String SCHOOL_INFO_HIGHESTDEGREE = "SCHOOL_INFO_HIGHESTDEGREE";
-
-	public LifeJourney getLifeJourney(Context context) {
-		SharedPreferences settings = context
-				.getSharedPreferences(PREFS_NAME, 0);
-		LifeJourney info = new LifeJourney();
-		info.setHighestEducation(settings.getInt(SCHOOL_INFO_HIGHESTDEGREE, 0));
-		return info;
-	}
-
-	public void setLifeJourney(Context context, LifeJourney info) {
-		if (info == null) {
-			return;
-		}
-		SharedPreferences settings = context
-				.getSharedPreferences(PREFS_NAME, 0);
-		SharedPreferences.Editor editor = settings.edit();
-		editor.putInt(SCHOOL_INFO_HIGHESTDEGREE, info.getHighestEducation());
-		editor.commit();
+	// 获取默认的关卡配置
+	private Map<Integer, String> getDefaultMap() {
+		// 构造的时候可以从文件里读出degreesMap:id-name-type-highestLevel-privateSchool
+		Map<Integer, String> map = new HashMap<Integer, String>();
+		map.put(0, "0-胜利小学-0-4");
+		map.put(1, "1-呆比小学-0-4");
+		map.put(2, "2-二货小学-0-4");
+		map.put(3, "3-吃货中学-0-4");
+		map.put(4, "4-贝爷中学-0-4");
+		map.put(5, "5-逗比中学-0-4");
+		map.put(6, "6-PT高中-0-4");
+		map.put(7, "7-英雄高中-0-4");
+		map.put(8, "8-大熊高中-0-4");
+		map.put(9, "9-大学1-0-4");
+		map.put(10, "10-大学2-0-4");
+		map.put(11, "11-大学3-0-4");
+		map.put(12, "12-研究生1-0-4");
+		map.put(13, "13-研究生2-0-4");
+		map.put(14, "14-研究生3-0-4");
+		return map;
 	}
 }

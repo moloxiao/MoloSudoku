@@ -10,9 +10,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+import android.widget.Button;
 
 public class CourseTreeActivity extends Activity {
 	private static boolean isFirstLogin = true;
+	public static String DEGREE_ID = "DEGREE_ID";
+	private Button[] btns;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +25,21 @@ public class CourseTreeActivity extends Activity {
 		if (isFirstLogin) {
 			showExamination();
 		}
+		// 根据degreeId来获取当前学校下的所有考试科目
+		getIntent().getExtras().get(DEGREE_ID);
 	}
 
-	// TODO 首次登陆的用户弹考试界面
+	private void initData() {
+		btns = new Button[] { (Button) findViewById(R.id.course_btn_1),
+				(Button) findViewById(R.id.course_btn_2),
+				(Button) findViewById(R.id.course_btn_3),
+				(Button) findViewById(R.id.course_btn_4),
+				(Button) findViewById(R.id.course_btn_5),
+				(Button) findViewById(R.id.course_btn_6), };
+
+	}
+
+	// 首次登陆的用户弹考试界面
 	private void showExamination() {
 		AlertDialog.Builder builder = new Builder(CourseTreeActivity.this);
 		builder.setMessage("经过一个学年的学习，接下来要检测一下你的逗比程度");
@@ -47,11 +62,6 @@ public class CourseTreeActivity extends Activity {
 			}
 		});
 		builder.create().show();
-
-	}
-
-	// TODO 点击参加考试按钮，进入游戏界面
-	private void enterExamination() {
 
 	}
 }

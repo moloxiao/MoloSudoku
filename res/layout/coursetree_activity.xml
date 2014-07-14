@@ -1,89 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/coursetree_activity"
+    android:background="@drawable/coursetree_activity_bg"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp" >
+    <Button
+        android:id="@+id/course_btn_1"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/test_button_bg" />
 
-        <ImageButton
-            android:id="@+id/test1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:background="@drawable/chapter_level_egg" />
+    <Button
+        android:id="@+id/course_btn_2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_above="@+id/course_btn_1"
+        android:layout_alignLeft="@+id/course_btn_1"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/test_button_bg" />
 
-        <ImageButton
-            android:id="@+id/test2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:background="@drawable/chapter_level_egg" />
+    <Button
+        android:id="@+id/course_btn_3"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_above="@+id/course_btn_2"
+        android:layout_alignLeft="@+id/course_btn_2"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/test_button_bg" />
 
-        <ImageButton
-            android:id="@+id/test3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:background="@drawable/chapter_level_egg" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/course_btn_4"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_above="@+id/course_btn_3"
+        android:layout_alignLeft="@+id/course_btn_3"
+        android:layout_marginBottom="35dp"
+        android:background="@drawable/test_button_bg" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp" >
+    <Button
+        android:id="@+id/course_btn_5"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_above="@+id/course_btn_4"
+        android:layout_alignLeft="@+id/course_btn_4"
+        android:layout_marginBottom="38dp"
+        android:background="@drawable/test_button_bg" />
 
-        <ImageButton
-            android:id="@+id/test4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:background="@drawable/chapter_level_egg" />
+    <Button
+        android:id="@+id/course_btn_6"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignLeft="@+id/course_btn_5"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/test_button_bg" />
 
-        <ImageButton
-            android:id="@+id/test5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:background="@drawable/chapter_level_egg" />
-
-        <ImageButton
-            android:id="@+id/test6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:background="@drawable/chapter_level_egg" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp" >
-
-        <ImageButton
-            android:id="@+id/test7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:background="@drawable/chapter_level_egg" />
-
-        <ImageButton
-            android:id="@+id/test8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:background="@drawable/chapter_level_egg" />
-
-        <ImageButton
-            android:id="@+id/test9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:background="@drawable/chapter_level_egg" />
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

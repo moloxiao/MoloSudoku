@@ -12,8 +12,9 @@ public class PlayerInfo {
 	private int score;
 	private int gender;
 	private boolean isfirstlogin;
-
 	private int levelsCompleted;
+	private int schoolId;
+	private int grade;
 
 	public boolean isIsfirstlogin() {
 		return isfirstlogin;
@@ -58,12 +59,31 @@ public class PlayerInfo {
 		this.levelsCompleted = levelsCompleted;
 	}
 
+	public int getSchoolId() {
+		return schoolId;
+	}
+
+	public void setSchoolId(int schoolId) {
+		this.schoolId = schoolId;
+	}
+
+	public int getGrade() {
+		return grade;
+	}
+
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
+
 	private static final String PREFS_NAME = "DIZZY_PLAYERINFO";
 	private static final String PREFS_KEY_NICKNAME = "DIZZY_PLAYERINFO_NICKNAME";
 	private static final String PREFS_KEY_SCORE = "DIZZY_PLAYERINFO_SCORE";
 	private static final String PREFS_KEY_GENDER = "DIZZY_PLAYERINFO_GENDER";
 	private static final String PREFS_KEY_FIRSTLOGIN = "PREFS_KEY_FIRSTLOGIN";
 	private static final String PREFS_KEY_LEVELSCOMPLETED = "PREFS_KEY_LEVELSCOMPLETED";
+	// 用户当前的学校和当前年级
+	private static final String PREFS_KEY_SCHOOL = "PREFS_KEY_SCHOOLID";
+	private static final String PREFS_KEY_GRADE = "PREFS_KEY_GRADE";
 
 	public static PlayerInfo getPlayerInfo(Context context) {
 		SharedPreferences settings = context
@@ -75,6 +95,8 @@ public class PlayerInfo {
 		info.setGender(settings.getInt(PREFS_KEY_GENDER, PlayerInfo.MALE));
 		info.setIsfirstlogin(settings.getBoolean(PREFS_KEY_FIRSTLOGIN, true));
 		info.setLevelsCompleted(settings.getInt(PREFS_KEY_LEVELSCOMPLETED, 0));
+		info.setSchoolId(settings.getInt(PREFS_KEY_SCHOOL, 0));
+		info.setSchoolId(settings.getInt(PREFS_KEY_GRADE, 0));
 		return info;
 	}
 
@@ -90,11 +112,13 @@ public class PlayerInfo {
 		editor.putInt(PREFS_KEY_GENDER, info.getGender());
 		editor.putBoolean(PREFS_KEY_FIRSTLOGIN, info.isIsfirstlogin());
 		editor.putInt(PREFS_KEY_LEVELSCOMPLETED, info.getLevelsCompleted());
+		editor.putInt(PREFS_KEY_SCHOOL, info.getSchoolId());
+		editor.putInt(PREFS_KEY_GRADE, info.getGrade());
 		editor.commit();
 	}
 
 	private static String randomPlayerName() {
-		//TODO 为首次登陆用户产生一个随机的名字
+		// TODO 为首次登陆用户产生一个随机的名字
 		String name = "快乐的逗比";
 		return name;
 	}

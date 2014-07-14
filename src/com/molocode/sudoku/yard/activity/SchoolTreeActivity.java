@@ -1,7 +1,10 @@
 package com.molocode.sudoku.yard.activity;
 
+import java.util.List;
+
 import com.molocode.sudoku.R;
 import com.molocode.sudoku.domain.PlayerInfo;
+import com.molocode.sudoku.game.domain.Degree;
 import com.molocode.sudoku.game.domain.LifeJourney;
 
 import android.app.Activity;
@@ -11,11 +14,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
-import android.widget.ImageButton;
+import android.util.Log;
+import android.widget.Button;
 
 public class SchoolTreeActivity extends Activity {
 
-	private ImageButton[] imgbtns;
+	private Button[] imgbtns;
 	private LifeJourney life;
 
 	@Override
@@ -54,28 +58,33 @@ public class SchoolTreeActivity extends Activity {
 	}
 
 	private void initData() {
-		//获取学校点位和整个学校树的配置
-		life=LifeJourney.getInstance();
-		
-		imgbtns = new ImageButton[] {
-				(ImageButton) findViewById(R.id.ImageButton1),
-				(ImageButton) findViewById(R.id.ImageButton2),
-				(ImageButton) findViewById(R.id.ImageButton3),
-				(ImageButton) findViewById(R.id.ImageButton4),
-				(ImageButton) findViewById(R.id.ImageButton5),
-				(ImageButton) findViewById(R.id.ImageButton6),
-				(ImageButton) findViewById(R.id.ImageButton7),
-				(ImageButton) findViewById(R.id.ImageButton8),
-				(ImageButton) findViewById(R.id.ImageButton9),
-				(ImageButton) findViewById(R.id.ImageButton10),
-				(ImageButton) findViewById(R.id.ImageButton11),
-				(ImageButton) findViewById(R.id.ImageButton12),
-				(ImageButton) findViewById(R.id.ImageButton13),
-				(ImageButton) findViewById(R.id.ImageButton14),
-				(ImageButton) findViewById(R.id.ImageButton15), };
-		for (int i = 0; i < imgbtns.length; i++) {
-			//TODO  设置每个按钮所代表的关卡信息
-			
+		imgbtns = new Button[] { (Button) findViewById(R.id.Button1),
+				(Button) findViewById(R.id.Button2),
+				(Button) findViewById(R.id.Button3),
+				(Button) findViewById(R.id.Button4),
+				(Button) findViewById(R.id.Button5),
+				(Button) findViewById(R.id.Button6),
+				(Button) findViewById(R.id.Button7),
+				(Button) findViewById(R.id.Button8),
+				(Button) findViewById(R.id.Button9),
+				(Button) findViewById(R.id.Button10),
+				(Button) findViewById(R.id.Button11),
+				(Button) findViewById(R.id.Button12),
+				(Button) findViewById(R.id.Button13),
+				(Button) findViewById(R.id.Button14),
+				(Button) findViewById(R.id.Button15), };
+		// 获取学校点位和整个学校树的配置
+		life = LifeJourney.getInstance();
+		List<Degree> degrees = life.getDegrees();
+		if (null != degrees) {
+			int mysize = (degrees.size() > imgbtns.length) ? (imgbtns.length)
+					: (degrees.size());
+			for (int i = 0; i < mysize; i++) {
+				// TODO 设置每个按钮所代表的关卡信息
+				imgbtns[i].setText(degrees.get(i).getDegreeName());
+			}
+		} else {
+			Log.e("px", "QNMLGB");
 		}
 	}
 }

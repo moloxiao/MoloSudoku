@@ -5,8 +5,8 @@
     android:background="@drawable/shooltree_bg"
     android:orientation="vertical" >
 
-    <ImageButton
-        android:id="@+id/ImageButton1"
+    <Button
+        android:id="@+id/Button1"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
@@ -14,8 +14,8 @@
         android:background="@drawable/test_button_bg"
         android:contentDescription="@string/level_icon" />
 
-    <ImageButton
-        android:id="@+id/ImageButton2"
+    <Button
+        android:id="@+id/Button2"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
@@ -23,8 +23,8 @@
         android:background="@drawable/test_button_bg"
         android:contentDescription="@string/level_icon" />
 
-    <ImageButton
-        android:id="@+id/ImageButton3"
+    <Button
+        android:id="@+id/Button3"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
@@ -32,92 +32,92 @@
         android:background="@drawable/test_button_bg"
         android:contentDescription="@string/level_icon" />
 
-    <ImageButton
-        android:id="@+id/ImageButton4"
+    <Button
+        android:id="@+id/Button4"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_above="@+id/ImageButton1"
+        android:layout_above="@+id/Button1"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="61dp"
         android:background="@drawable/test_button_bg"
         android:contentDescription="@string/level_icon" />
 
-    <ImageButton
-        android:id="@+id/ImageButton5"
+    <Button
+        android:id="@+id/Button5"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignLeft="@+id/ImageButton2"
-        android:layout_alignTop="@+id/ImageButton4"
+        android:layout_alignLeft="@+id/Button2"
+        android:layout_alignTop="@+id/Button4"
         android:background="@drawable/test_button_bg"
         android:contentDescription="@string/level_icon" />
 
-    <ImageButton
-        android:id="@+id/ImageButton6"
+    <Button
+        android:id="@+id/Button6"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/ImageButton5"
+        android:layout_alignTop="@+id/Button5"
         android:background="@drawable/test_button_bg"
         android:contentDescription="@string/level_icon" />
 
-    <ImageButton
-        android:id="@+id/ImageButton7"
+    <Button
+        android:id="@+id/Button7"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_above="@+id/ImageButton4"
+        android:layout_above="@+id/Button4"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="54dp"
         android:background="@drawable/test_button_bg"
         android:contentDescription="@string/level_icon" />
 
-    <ImageButton
-        android:id="@+id/ImageButton8"
+    <Button
+        android:id="@+id/Button8"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignLeft="@+id/ImageButton5"
-        android:layout_alignTop="@+id/ImageButton7"
+        android:layout_alignLeft="@+id/Button5"
+        android:layout_alignTop="@+id/Button7"
         android:background="@drawable/test_button_bg"
         android:contentDescription="@string/level_icon" />
 
-    <ImageButton
-        android:id="@+id/ImageButton9"
+    <Button
+        android:id="@+id/Button9"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/ImageButton8"
+        android:layout_alignTop="@+id/Button8"
         android:background="@drawable/test_button_bg"
         android:contentDescription="@string/level_icon" />
 
-    <ImageButton
-        android:id="@+id/ImageButton10"
+    <Button
+        android:id="@+id/Button10"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_above="@+id/ImageButton7"
+        android:layout_above="@+id/Button7"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="77dp"
         android:background="@drawable/test_button_bg"
         android:contentDescription="@string/level_icon" />
 
-    <ImageButton
-        android:id="@+id/ImageButton11"
+    <Button
+        android:id="@+id/Button11"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignLeft="@+id/ImageButton8"
-        android:layout_alignTop="@+id/ImageButton10"
+        android:layout_alignLeft="@+id/Button8"
+        android:layout_alignTop="@+id/Button10"
         android:background="@drawable/test_button_bg"
         android:contentDescription="@string/level_icon" />
 
-    <ImageButton
-        android:id="@+id/ImageButton12"
+    <Button
+        android:id="@+id/Button12"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/ImageButton11"
+        android:layout_alignTop="@+id/Button11"
         android:background="@drawable/test_button_bg"
         android:contentDescription="@string/level_icon" />
 
-    <ImageButton
-        android:id="@+id/ImageButton13"
+    <Button
+        android:id="@+id/Button13"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
@@ -126,21 +126,21 @@
         android:background="@drawable/test_button_bg"
         android:contentDescription="@string/level_icon" />
 
-    <ImageButton
-        android:id="@+id/ImageButton14"
+    <Button
+        android:id="@+id/Button14"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignLeft="@+id/ImageButton11"
-        android:layout_alignTop="@+id/ImageButton13"
+        android:layout_alignLeft="@+id/Button11"
+        android:layout_alignTop="@+id/Button13"
         android:background="@drawable/test_button_bg"
         android:contentDescription="@string/level_icon" />
 
-    <ImageButton
-        android:id="@+id/ImageButton15"
+    <Button
+        android:id="@+id/Button15"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/ImageButton14"
+        android:layout_alignTop="@+id/Button14"
         android:background="@drawable/test_button_bg"
         android:contentDescription="@string/level_icon" />
 

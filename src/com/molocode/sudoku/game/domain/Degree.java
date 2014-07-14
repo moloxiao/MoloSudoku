@@ -3,14 +3,14 @@ package com.molocode.sudoku.game.domain;
 import java.util.List;
 
 public class Degree {
-	private String degreeName;// 学历名称(例如:xx学校)
+	
 	private int degreeId;// 学校ID
+	private String degreeName;// 学历名称(例如:xx学校)
 	private int type;// 难度类型，决定数独地图的难度
 	private int highestLevel;// 当前学校级别的考试级别(例如:5年级)
-	private int examinationId;// 当前点亮的考试的ID
 	List<Examination> examinations;// 学校所有考试的列表
 
-	private Degree() {
+	public Degree() {
 	}
 
 	public int getHighestLevel() {
@@ -45,14 +45,6 @@ public class Degree {
 		this.examinations = examinations;
 	}
 
-	public int getExaminationId() {
-		return examinationId;
-	}
-
-	public void setExaminationId(int examinationId) {
-		this.examinationId = examinationId;
-	}
-
 	public int getDegreeId() {
 		return degreeId;
 	}
@@ -60,6 +52,6 @@ public class Degree {
 	public void setDegreeId(int degreeId) {
 		this.degreeId = degreeId;
 	}
-
 	// 根据获得的String转出学校包含的所有考试
+
 }

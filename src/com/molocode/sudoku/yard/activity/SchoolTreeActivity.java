@@ -1,5 +1,6 @@
 package com.molocode.sudoku.yard.activity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.molocode.sudoku.R;
@@ -21,10 +22,8 @@ import android.widget.Button;
 
 public class SchoolTreeActivity extends Activity {
 
-	private Button[] imgbtns;
-	private LifeJourney life;
+	private Button[] btns;
 	private int currentSchoolId;
-	private int currentBtnId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +71,7 @@ public class SchoolTreeActivity extends Activity {
 	}
 
 	private void initData() {
-		imgbtns = new Button[] { (Button) findViewById(R.id.Button1),
+		btns = new Button[] { (Button) findViewById(R.id.Button1),
 				(Button) findViewById(R.id.Button2),
 				(Button) findViewById(R.id.Button3),
 				(Button) findViewById(R.id.Button4),
@@ -91,114 +90,120 @@ public class SchoolTreeActivity extends Activity {
 
 	// 获取学校点位和整个学校树的配置
 	private void initMap() {
-		life = LifeJourney.getInstance();
-		List<Degree> degrees = life.getDegrees();
-		int currentDegree = Degree.getDegreeIdBySchoolId(currentSchoolId);
+		List<Degree> degrees = LifeJourney.getInstance().getDegrees();
+		List<School> schools = new ArrayList<School>();
 		if (null != degrees) {
-			// 根据当前学历等级来判断学校的状态
-			for (int i = 0; i < degrees.size(); i++) {
-				int degreeId = degrees.get(i).getDegreeId();
-				List<School> schools = degrees.get(i).getSchools();
-				if (degreeId < currentDegree) {
-					for (int k = 0; k < schools.size(); k++) {
-						schools.get(k).setPlayProperty(
-								School.SCHOOL_TYPE_AGEUNABLE);
-					}
-				} else if (degreeId == currentDegree) {
-					for (int k = 0; k < schools.size(); k++) {
-						schools.get(k).setPlayProperty(School.SCHOOL_TYPE_ABLE);
-					}
-				} else {
-					for (int k = 0; k < schools.size(); k++) {
-						schools.get(k).setPlayProperty(
-								School.SCHOOL_TYPE_DEGREEUNABLE);
-					}
-				}
-				for (int j = 0; j < schools.size(); j++) {
-					// 设置每个按钮所代表的关卡信息
-					final int id = schools.get(j).getId();
-					final int index=schools.size() * i + j;
-					imgbtns[index].setText(schools.get(j).getName());
-					if (id == currentSchoolId) {
-						currentBtnId = schools.size() * i + j;
-						imgbtns[currentBtnId]
-								.setBackgroundResource(R.drawable.btn_highlight);
-						imgbtns[currentBtnId]
-								.setOnClickListener(new View.OnClickListener() {
-									@Override
-									public void onClick(View v) {
-										Intent intent = new Intent(
-												SchoolTreeActivity.this,
-												CourseTreeActivity.class);
-										intent.putExtra(
-												CourseTreeActivity.DEGREE_ID,
-												id);
-										startActivity(intent);
-									}
-								});
-					} else {
-						switch (schools.get(j).getPlayProperty()) {
-						case 0:
-							imgbtns[index]
-									.setOnClickListener(new View.OnClickListener() {
-										@Override
-										public void onClick(View v) {
-											AlertDialog.Builder builder = new Builder(
-													SchoolTreeActivity.this);
-											builder.setMessage("你可以转学，但需要支付XX");
-											builder.setTitle("转学通知");
-											builder.setPositiveButton("转学",
-													new OnClickListener() {
-														@Override
-														public void onClick(
-																DialogInterface dialog,
-																int which) {
-															dialog.dismiss();
-															imgbtns[index]
-																	.setBackgroundResource(R.drawable.btn_highlight);
-															imgbtns[currentBtnId]
-																	.setBackgroundResource(R.drawable.test_button_bg);
-															currentBtnId = index;
-															currentSchoolId = id;
-															initMap();
-															// TODO 存储信息
-														}
-													});
-											builder.setNegativeButton("继续本校学习",
-													new OnClickListener() {
-														@Override
-														public void onClick(
-																DialogInterface dialog,
-																int which) {
-															dialog.dismiss();
-															Intent intent = new Intent(
-																	SchoolTreeActivity.this,
-																	CourseTreeActivity.class);
-															intent.putExtra(
-																	CourseTreeActivity.DEGREE_ID,
-																	0);
-															startActivity(intent);
-														}
-													});
-											builder.create().show();
+			schools = getSchoolLsitDegree(degrees);
+			Log.e("com.poxiao.suduko", "schools.size" + schools.size());
+		}
+		setViewBtnsBySchools(schools, btns);
+	}
 
-										}
-									});
-							break;
-						case 1:
-							imgbtns[schools.size() * i + j]
-									.setBackgroundResource(R.drawable.btn_disable);
-							imgbtns[schools.size() * i + j].setClickable(false);
-							break;
-						case 2:
-							imgbtns[schools.size() * i + j]
-									.setBackgroundResource(R.drawable.btn_disable);
-							imgbtns[schools.size() * i + j].setClickable(false);
-							break;
-						}
-					}
-				}
+	// 根据学历列表拼接学校列表
+	private List<School> getSchoolLsitDegree(List<Degree> degrees) {
+		List<School> schoolall = new ArrayList<School>();
+		int currentDegree = Degree.getDegreeIdBySchoolId(currentSchoolId);
+		for (int i = 0; i < degrees.size(); i++) {
+			List<School> schools = new ArrayList<School>();
+			schools = degrees.get(i).getSchools();
+			int playProperty = getSchoolProperty(degrees.get(i), currentDegree);
+			for (int j = 0; j < schools.size(); j++) {
+				School schoolItem = schools.get(j);
+				schoolItem.setPlayProperty(playProperty);
+				schoolall.add(schoolItem);
 			}
 		}
+		return schoolall;
+	}
+
+	// 根据当前学历的等级来判断学校的属性
+	private int getSchoolProperty(Degree degrees, int currentdegree) {
+		if (degrees.getDegreeId() > currentdegree) {
+			return School.SCHOOL_TYPE_DEGREEUNABLE;
+		} else if (degrees.getDegreeId() == currentdegree) {
+			return School.SCHOOL_TYPE_ABLE;
+		} else {
+			return School.SCHOOL_TYPE_AGEUNABLE;
+		}
+	}
+
+	// 根据所有学校的列表设置地图上所有的按钮
+	private void setViewBtnsBySchools(List<School> schools, Button[] btns) {
+		if (schools.size() > btns.length) {
+			Log.e("com.poxiao.suduko", "学校地图配置有无");
+		}
+		for (int i = 0; i < schools.size(); i++) {
+			School schoolItem = schools.get(i);
+			btns[i].setText(schoolItem.getName());
+			setBtnByProperty(schoolItem.getPlayProperty(), btns[i],
+					schoolItem.getId());
+			if (schoolItem.getId() == currentSchoolId) {
+				btns[i].setBackgroundResource(R.drawable.btn_highlight);// 当前学校高亮
+				btns[i].setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						// 直接进入考试列表
+						Intent intent = new Intent(SchoolTreeActivity.this,
+								CourseTreeActivity.class);
+						intent.putExtra(CourseTreeActivity.DEGREE_ID, 0);
+						startActivity(intent);
+					}
+				});
+			}
+		}
+	}
+
+	// 根据学校的类型来决定按钮的背景及点击事件
+	private void setBtnByProperty(int property, Button btn, final int schoolId) {
+		switch (property) {
+		case 0:
+			btn.setBackgroundResource(R.drawable.test_button_bg);// 可读学校
+			btn.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					showHitDialog(schoolId);
+				}
+			});
+			break;
+		case 1:
+			btn.setBackgroundResource(R.drawable.btn_disable);// 学历不够
+			break;
+		case 2:
+			btn.setBackgroundResource(R.drawable.btn_disable);// 年龄超过
+			break;
+		default:
+			break;
+		}
+	}
+
+	// 择校通知
+	private void showHitDialog(final int schoolId) {
+		AlertDialog.Builder builder = new Builder(SchoolTreeActivity.this);
+		builder.setMessage("恭喜你已经被逗比小学录取，是否参加为期六年的逗比之旅");
+		builder.setTitle("转学通知");
+		builder.setPositiveButton("转学", new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+				currentSchoolId = schoolId;
+				initMap();// 再次刷新界面
+				Intent intent = new Intent(SchoolTreeActivity.this,
+						CourseTreeActivity.class);
+				intent.putExtra(CourseTreeActivity.DEGREE_ID, 0);
+				startActivity(intent);
+			}
+		});
+		builder.setNegativeButton("留校", new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+				Intent intent = new Intent(SchoolTreeActivity.this,
+						CourseTreeActivity.class);
+				intent.putExtra(CourseTreeActivity.DEGREE_ID, 0);
+				startActivity(intent);
+			}
+		});
+		builder.create().show();
+
 	}
 }

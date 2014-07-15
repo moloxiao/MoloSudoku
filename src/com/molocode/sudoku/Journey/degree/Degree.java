@@ -1,5 +1,7 @@
 package com.molocode.sudoku.Journey.degree;
 
+import com.molocode.sudoku.Journey.school.School;
+import com.molocode.sudoku.Journey.school.SchoolInfo;
 import com.molocode.sudoku.context.SudokuApplication;
 
 import android.content.SharedPreferences;
@@ -9,6 +11,7 @@ public abstract class Degree {
 	private static final String DEGREE_MAP_KEY_CURRENTSCHOOL = "DEGREE_MAP_KEY_CURRENTSCHOOL";
 	
 	public static final String PREFS_KEY_SCHOOLID = "PREFS_KEY_SCHOOLID";
+	public static final String PREFS_KEY_SCHOOLLEVEL = "PREFS_KEY_SCHOOLLEVEL";
 	
 	public static final int PRIMARY = 0;
 	public static final int MIDDLE = 1;
@@ -45,19 +48,19 @@ public abstract class Degree {
 	protected boolean isRequireExamination;
 	// TODO : 入学考试题目List<> 等到考试出来以后实现
 	
-	protected int schoolId;
+	protected SchoolInfo schoolInfo;
 	
 	public Degree(){
-		schoolId = getSchoolIdFromStore();
+		schoolInfo = getSchoolInfoFromStore();
 	}
 	
-	public int getSchoolId() {
-		return schoolId;
+	public SchoolInfo getSchoolInfo() {
+		return schoolInfo;
 	}
 
-	public void setSchoolId(int schoolId) {
-		this.schoolId = schoolId;
-		storeDegreeInfo(this.schoolId);
+	public void setSchoolInfo(SchoolInfo schoolInfo) {
+		this.schoolInfo = schoolInfo;
+		setSchoolInfoFromStore(this.schoolInfo);
 	}
 
 	
@@ -74,18 +77,22 @@ public abstract class Degree {
 		return isRequireExamination;
 	}
 	
-	private void storeDegreeInfo(int schoolId) {
+	private void setSchoolInfoFromStore(SchoolInfo schoolInfo) {
 		SharedPreferences settings = SudokuApplication.getInstance().getSharedPreferences(
 				DEGREE_MAP_KEY_CURRENTSCHOOL, 0);
 		SharedPreferences.Editor editor = settings.edit();
-		editor.putInt(PREFS_KEY_SCHOOLID, schoolId);
+		editor.putInt(PREFS_KEY_SCHOOLID, schoolInfo.schoolId);
+		editor.putInt(PREFS_KEY_SCHOOLLEVEL, schoolInfo.schoolLevel);
 		editor.commit();
 	}
 	
-	protected int getSchoolIdFromStore() {
+	protected SchoolInfo getSchoolInfoFromStore() {
 		SharedPreferences settings = SudokuApplication.getInstance().getSharedPreferences(
 				DEGREE_MAP_KEY_CURRENTSCHOOL, 0);
-		return settings.getInt(PREFS_KEY_SCHOOLID, 0); // TODO : 0改成默认schoolid
+		SchoolInfo info = new SchoolInfo();
+		info.schoolId = settings.getInt(PREFS_KEY_SCHOOLID, 0);
+		info.schoolId = settings.getInt(PREFS_KEY_SCHOOLLEVEL, School.LEVEL1);
+		return info; 
 		
 	}
 }

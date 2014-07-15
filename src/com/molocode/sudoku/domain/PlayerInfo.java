@@ -125,7 +125,7 @@ public class PlayerInfo {
 		editor.putInt(PREFS_KEY_LEVELSCOMPLETED, info.getLevelsCompleted());
 		editor.putInt(PREFS_KEY_SCHOOL, info.getSchoolId());
 		editor.putInt(PREFS_KEY_GRADE, info.getGrade());
-		editor.putInt(PREFS_KEY_DEGREE, info.getGrade());
+		editor.putInt(PREFS_KEY_DEGREE, info.getDegree());
 		editor.commit();
 	}
 

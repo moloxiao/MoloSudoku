@@ -109,7 +109,7 @@ public class GameScene44 extends BaseSudokuScene {
 		Log.e("com.poxiao.suduko", "levelsCompleted=" + levelsCompleted);
 		info.setLevelsCompleted(levelsCompleted + 1);
 		PlayerInfo.setPlayerInfo(activity, info);
-		checkElevenPlus(levelsCompleted);
+		checkElevenPlus(info);
 		savePlayerInfo(info);
 	}
 
@@ -155,13 +155,11 @@ public class GameScene44 extends BaseSudokuScene {
 	private void savePlayerInfo(PlayerInfo info) {
 		int currentGrade = info.getGrade();
 		int currentDegree = info.getDegree();
-		Log.e("com.poxiao.suduko", "AAAAA" + currentGrade);
 		switch (currentDegree) {
 		case 0:
 		case 1:
 		case 2:
 		case 4:
-
 			if (currentGrade < 6) {
 				currentGrade++;
 			} else {
@@ -178,40 +176,64 @@ public class GameScene44 extends BaseSudokuScene {
 			}
 			break;
 		}
-		Log.e("com.poxiao.suduko", "BBBBB" + currentGrade);
 		info.setGrade(currentGrade);
 		info.setDegree(currentDegree);
+		Log.e("PX", "WLGQA==" + currentGrade + "||" + currentDegree);
 		PlayerInfo.setPlayerInfo(activity, info);
 	}
 
 	// 检测是否到了升学考试
-	private void checkElevenPlus(final int pass) {
+	private void checkElevenPlus(PlayerInfo info) {
+		Log.e("PX", "WLGQB==" + info.getGrade() + "||" + info.getDegree());
+		int currentGrade = info.getGrade();
+		int currentDegree = info.getDegree();
+		switch (currentDegree) {
+		case 0:
+		case 1:
+		case 2:
+		case 4:
+			if (currentGrade == 5) {
+				showUpDialog();
+			} else {
+				successSprite.setVisible(true);
+			}
+			break;
+		case 3:
+			if (currentGrade == 7) {
+				showUpDialog();
+			} else {
+				successSprite.setVisible(true);
+			}
+			break;
+		default:
+			Log.e("com.poxiao.suduko", "currentDegree is error" + currentDegree);
+			break;
+		}
+	}
+
+	private void showUpDialog() {
 		activity.runOnUiThread(new Runnable() {
 			public void run() {
-				if (pass == 5) {
-					// 弹出升学考试
-					AlertDialog.Builder builder = new Builder(activity);
-					builder.setMessage("勤修苦练6年，你已今非昔比，是否参加初中升学考试");
-					builder.setTitle("升学考试");
-					builder.setPositiveButton("一举成名", new OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.dismiss();
-							next();
-						}
-					});
-					builder.setNegativeButton("外出打工", new OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.dismiss();
-							quitGame();
-						}
-					});
-					builder.create().show();
+				// 弹出升学考试
+				AlertDialog.Builder builder = new Builder(activity);
+				builder.setMessage("经过书山题海的磨练，你已今非昔比，是否参加初中升学考试");
+				builder.setTitle("升学考试");
+				builder.setPositiveButton("一举成名", new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						next();
+					}
+				});
+				builder.setNegativeButton("外出打工", new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						quitGame();
+					}
+				});
+				builder.create().show();
 
-				} else {
-					successSprite.setVisible(true);
-				}
 			}
 		});
 	}

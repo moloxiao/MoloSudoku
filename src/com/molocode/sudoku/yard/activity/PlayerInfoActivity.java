@@ -13,9 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 public class PlayerInfoActivity extends Activity {
 
@@ -48,20 +46,17 @@ public class PlayerInfoActivity extends Activity {
 
 	public void nameChange(View view) {
 		tv.requestFocus();
-		Timer timer = new Timer();  
-	     timer.schedule(new TimerTask()  
-	     {  
-	           
-	         public void run()  
-	         {  
-	             InputMethodManager inputManager =  
-                 (InputMethodManager) tv.getContext().getSystemService(
-								Context.INPUT_METHOD_SERVICE);  
-	             inputManager.showSoftInput(tv, 0);  
-	         }  
-	           
-	     },  
-	         998);
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+
+			public void run() {
+				InputMethodManager inputManager = (InputMethodManager) tv
+						.getContext().getSystemService(
+								Context.INPUT_METHOD_SERVICE);
+				inputManager.showSoftInput(tv, 0);
+			}
+
+		}, 998);
 	}
 
 	@Override

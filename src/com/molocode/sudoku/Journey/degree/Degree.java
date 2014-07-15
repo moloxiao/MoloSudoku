@@ -91,7 +91,7 @@ public abstract class Degree {
 				DEGREE_MAP_KEY_CURRENTSCHOOL, 0);
 		SchoolInfo info = new SchoolInfo();
 		info.schoolId = settings.getInt(PREFS_KEY_SCHOOLID, 0);
-		info.schoolId = settings.getInt(PREFS_KEY_SCHOOLLEVEL, School.LEVEL1);
+		info.schoolId = settings.getInt(PREFS_KEY_SCHOOLLEVEL, School.LEVELA);
 		return info; 
 		
 	}

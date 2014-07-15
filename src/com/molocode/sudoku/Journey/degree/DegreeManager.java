@@ -1,5 +1,11 @@
 package com.molocode.sudoku.Journey.degree;
 
+import com.molocode.sudoku.Journey.degree.allDegree.HighDegree;
+import com.molocode.sudoku.Journey.degree.allDegree.MiddleDegree;
+import com.molocode.sudoku.Journey.degree.allDegree.PostgraduateDegree;
+import com.molocode.sudoku.Journey.degree.allDegree.PrimaryDegree;
+import com.molocode.sudoku.Journey.degree.allDegree.UniversityDegree;
+
 import android.util.Log;
 
 public class DegreeManager {

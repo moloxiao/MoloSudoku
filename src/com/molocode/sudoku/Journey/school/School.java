@@ -1,6 +1,14 @@
 package com.molocode.sudoku.Journey.school;
 
+import android.content.SharedPreferences;
+
+import com.molocode.sudoku.context.SudokuApplication;
+
 public abstract class School {
+	
+	private static final String SCHOOL_MAP_KEY_CURRENTSCHOOL = "SCHOOL_MAP_KEY_CURRENTSCHOOL";
+	private static final String PREFS_KEY_PROGRESS = "PREFS_KEY_PROGRESS";
+	private static final String PREFS_KEY_GRADUATE = "PREFS_KEY_GRADUATE";
 
 	public static final int LEVEL1 = 0;
 	public static final int LEVEL2 = 1;
@@ -32,16 +40,34 @@ public abstract class School {
 		this.isGraduateHere = getIsGraduateHereFromStore();
 	}
 	
-
 	private boolean getIsGraduateHereFromStore() {
-		// TODO Auto-generated method stub
-		return false;
+		SharedPreferences settings = SudokuApplication.getInstance().getSharedPreferences(
+				SCHOOL_MAP_KEY_CURRENTSCHOOL, 0);
+		return settings.getBoolean(PREFS_KEY_GRADUATE, false);
+	}
+	
+
+	private void setIsGraduateHereToStore(boolean result) {
+		SharedPreferences settings = SudokuApplication.getInstance().getSharedPreferences(
+				SCHOOL_MAP_KEY_CURRENTSCHOOL, 0);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putBoolean(PREFS_KEY_GRADUATE, result);
+		editor.commit();
 	}
 
 
 	private int getProgressFromStore() {
-		// TODO Auto-generated method stub
-		return 0;
+		SharedPreferences settings = SudokuApplication.getInstance().getSharedPreferences(
+				SCHOOL_MAP_KEY_CURRENTSCHOOL, 0);
+		return settings.getInt(PREFS_KEY_PROGRESS, 0);
+	}
+	
+	private void setProgressToStore(int result) {
+		SharedPreferences settings = SudokuApplication.getInstance().getSharedPreferences(
+				SCHOOL_MAP_KEY_CURRENTSCHOOL, 0);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putInt(PREFS_KEY_PROGRESS, result);
+		editor.commit();
 	}
 
 
@@ -51,6 +77,7 @@ public abstract class School {
 
 	public void setProgress(int progress) {
 		this.progress = progress;
+		setProgressToStore(this.progress);
 	}
 
 	public boolean isGraduateHere() {
@@ -59,6 +86,7 @@ public abstract class School {
 
 	public void setGraduateHere(boolean isGraduateHere) {
 		this.isGraduateHere = isGraduateHere;
+		setIsGraduateHereToStore(this.isGraduateHere);
 	}
 
 	public int getLevel() {
@@ -68,8 +96,5 @@ public abstract class School {
 	public String getName() {
 		return name;
 	}
-	
-	
-	
 	
 }

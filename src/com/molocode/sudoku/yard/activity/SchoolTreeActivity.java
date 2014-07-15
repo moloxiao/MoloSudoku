@@ -31,13 +31,13 @@ public class SchoolTreeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		// 设置学校路线界面
 		setContentView(R.layout.shooltree_activity);
-		initData();
-		initMap();
-		// 是否初次登陆，是展示对话框
 		PlayerInfo info = PlayerInfo.getPlayerInfo(this);
 		currentSchoolId = info.getSchoolId();
 		currentDegree = info.getDegree();
-		Log.e("com.poxiao.suduko", "currentSchoolId" + currentSchoolId);
+		Log.e("com.poxiao.suduko", "player_currentSchoolId=" + currentSchoolId);
+		initData();
+		initMap();
+		// 是否初次登陆，是展示对话框
 		if (SplashActivity.firstLogin) {
 			showAdmission();
 		} else {
@@ -160,6 +160,7 @@ public class SchoolTreeActivity extends Activity {
 						// 直接进入考试列表
 						Intent intent = new Intent(SchoolTreeActivity.this,
 								CourseTreeActivity.class);
+						intent.putExtra(CourseTreeActivity.SCHOOL_ID, currentSchoolId);
 						startActivity(intent);
 					}
 				});
@@ -197,6 +198,11 @@ public class SchoolTreeActivity extends Activity {
 				currentSchoolId = schoolId;
 				Log.e("com.poxiao.suduko", "currentSchoolId2="
 						+ currentSchoolId);
+				// 保存用户的当前学校
+				PlayerInfo player = PlayerInfo
+						.getPlayerInfo(SchoolTreeActivity.this);
+				player.setSchoolId(currentSchoolId);
+				PlayerInfo.setPlayerInfo(SchoolTreeActivity.this, player);
 				initMap();// 再次刷新界面
 				Intent intent = new Intent(SchoolTreeActivity.this,
 						CourseTreeActivity.class);

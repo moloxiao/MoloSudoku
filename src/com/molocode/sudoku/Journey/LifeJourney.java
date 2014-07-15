@@ -1,5 +1,9 @@
 package com.molocode.sudoku.Journey;
 
+import android.content.SharedPreferences;
+import com.molocode.sudoku.Journey.degree.Degree;
+import com.molocode.sudoku.context.SudokuApplication;
+
 /**
  * 游戏进程
  * @author molo
@@ -23,8 +27,7 @@ public class LifeJourney {
 	}
 	
 	private void initByStore() {
-		// TODO : 从本地读取基本信息
-		this.degreeId = 1;
+		this.degreeId =getSchoolIdFromStore();
 	}
 
 	public int getDegreeId() {
@@ -33,6 +36,38 @@ public class LifeJourney {
 
 	public void setDegreeId(int degreeId) {
 		this.degreeId = degreeId;
+		storeDegreeId(this.degreeId);
 	}
+	
+	private void storeDegreeId(int degreeId) { // TODO : 字符串改为静态变量
+		SharedPreferences settings = SudokuApplication.getInstance().getSharedPreferences(
+				"journey", 0);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putInt("degreeId", degreeId);
+		editor.commit();
+	}
+	
+	protected int getSchoolIdFromStore() {
+		SharedPreferences settings = SudokuApplication.getInstance().getSharedPreferences(
+				"journey", 0);
+		return settings.getInt("degreeId", Degree.PRIMARY);
+		
+	}
+	
+	/**
+	 * 获取人生的求学顺序。
+	 * @return
+	 */
+	public static int[] getDegreeSequence() {
+		return DEGREESEQUENCE;
+	}
+	
+	private final static int[] DEGREESEQUENCE = {
+		Degree.PRIMARY,
+		Degree.MIDDLE,
+		Degree.HIGH,
+		Degree.UNIVERSITY,
+		Degree.POSTGRADUATE
+	};
 
 }

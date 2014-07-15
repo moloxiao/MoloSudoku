@@ -1,19 +1,26 @@
 package com.molocode.sudoku.yard.activity;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import com.molocode.sudoku.R;
 import com.molocode.sudoku.domain.PlayerInfo;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 public class PlayerInfoActivity extends Activity {
 
-	private TextView tv;
-	private ImageButton nameEdit;
+	private EditText tv;
+	private RadioGroup group;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,28 +30,42 @@ public class PlayerInfoActivity extends Activity {
 	}
 
 	private void initView() {
-		tv = (TextView) findViewById(R.id.text_playerinfo);
-		nameEdit = (ImageButton) findViewById(R.id.playerName_edit_btn);
+		tv = (EditText) findViewById(R.id.text_playerinfo);
 		tv.setText(PlayerInfo.getPlayerInfo(this).getNickname());
+		group = (RadioGroup) findViewById(R.id.gender);
 	}
 
 	private void savePlayerInfo() {
-		// TODO 保存用户的信息，需要修改类PlayerInfo
+		PlayerInfo info = PlayerInfo.getPlayerInfo(PlayerInfoActivity.this);
+		info.setGender(group.getCheckedRadioButtonId());
+		info.setNickname(tv.getText().toString());
 	}
 
 	public void btnStart(View view) {
 		savePlayerInfo();
-		// startActivity(new Intent(this, CopyListActivity.class));
 		startActivity(new Intent(this, SchoolTreeActivity.class));
 	}
 
 	public void nameChange(View view) {
-		// TODO 把光标移到文字输入框里
+		tv.requestFocus();
+		Timer timer = new Timer();  
+	     timer.schedule(new TimerTask()  
+	     {  
+	           
+	         public void run()  
+	         {  
+	             InputMethodManager inputManager =  
+                 (InputMethodManager) tv.getContext().getSystemService(
+								Context.INPUT_METHOD_SERVICE);  
+	             inputManager.showSoftInput(tv, 0);  
+	         }  
+	           
+	     },  
+	         998);
 	}
 
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
-		// TODO : 处理游戏退出与信息存储
 	}
 }

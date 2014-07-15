@@ -29,21 +29,21 @@ public final class R {
         public static final int test_button_bg=0x7f02000f;
     }
     public static final class id {
-        public static final int Button1=0x7f05001b;
-        public static final int Button10=0x7f050024;
-        public static final int Button11=0x7f050025;
-        public static final int Button12=0x7f050026;
-        public static final int Button13=0x7f050027;
-        public static final int Button14=0x7f050028;
-        public static final int Button15=0x7f050029;
-        public static final int Button2=0x7f05001c;
-        public static final int Button3=0x7f05001d;
-        public static final int Button4=0x7f05001e;
-        public static final int Button5=0x7f05001f;
-        public static final int Button6=0x7f050020;
-        public static final int Button7=0x7f050021;
-        public static final int Button8=0x7f050022;
-        public static final int Button9=0x7f050023;
+        public static final int Button1=0x7f05001c;
+        public static final int Button10=0x7f050025;
+        public static final int Button11=0x7f050026;
+        public static final int Button12=0x7f050027;
+        public static final int Button13=0x7f050028;
+        public static final int Button14=0x7f050029;
+        public static final int Button15=0x7f05002a;
+        public static final int Button2=0x7f05001d;
+        public static final int Button3=0x7f05001e;
+        public static final int Button4=0x7f05001f;
+        public static final int Button5=0x7f050020;
+        public static final int Button6=0x7f050021;
+        public static final int Button7=0x7f050022;
+        public static final int Button8=0x7f050023;
+        public static final int Button9=0x7f050024;
         public static final int bottom_bar=0x7f050001;
         public static final int chapter_pass_star=0x7f05000f;
         public static final int course_btn_1=0x7f050004;
@@ -53,6 +53,7 @@ public final class R {
         public static final int course_btn_5=0x7f050008;
         public static final int course_btn_6=0x7f050009;
         public static final int difucuty_desc=0x7f05000a;
+        public static final int female=0x7f050019;
         public static final int game_layout=0x7f05000b;
         public static final int game_level=0x7f05000d;
         public static final int game_level_pass=0x7f05000e;
@@ -60,16 +61,16 @@ public final class R {
         public static final int game_level_star2=0x7f050011;
         public static final int game_level_star3=0x7f050012;
         public static final int gameview=0x7f05000c;
+        public static final int gender=0x7f050017;
         public static final int level_desc=0x7f050015;
         public static final int list_difficulty=0x7f050003;
         public static final int list_level=0x7f050014;
+        public static final int male=0x7f050018;
         public static final int mid_bar=0x7f050002;
         public static final int passtime=0x7f050013;
-        public static final int playerName_edit_btn=0x7f05001a;
+        public static final int playerName_edit_btn=0x7f05001b;
         public static final int player_gender=0x7f050016;
-        public static final int playerinfo_boy=0x7f050017;
-        public static final int playerinfo_girl=0x7f050018;
-        public static final int text_playerinfo=0x7f050019;
+        public static final int text_playerinfo=0x7f05001a;
         public static final int top_bar=0x7f050000;
     }
     public static final class layout {

@@ -1,14 +1,9 @@
 package com.molocode.sudoku.yard.activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.molocode.sudoku.R;
-import com.molocode.sudoku.Journey.LifeJourney;
 import com.molocode.sudoku.Journey.school.School;
 import com.molocode.sudoku.Journey.school.SchoolManager;
 import com.molocode.sudoku.domain.PlayerInfo;
-import com.molocode.sudoku.game.domain.Degree;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -17,7 +12,6 @@ import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 
 public class SchoolTreeActivity extends Activity {

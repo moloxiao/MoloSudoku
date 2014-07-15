@@ -4,15 +4,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.util.Log;
-
 import com.molocode.sudoku.domain.PlayerInfo;
 import com.molocode.sudoku.game.domain.BaseBoard;
-import com.molocode.sudoku.game.domain.Degree;
 import com.molocode.sudoku.game.domain.Map;
 import com.molocode.sudoku.game.sprite.ChessControlPanelSprite;
 import com.molocode.sudoku.game.sprite.Chessboard44Sprite;
@@ -21,8 +18,6 @@ import com.molocode.sudoku.game.sprite.ExamFailSprite;
 import com.molocode.sudoku.game.sprite.ExamSuccessSprite;
 import com.molocode.sudoku.game.sprite.GunnerBtnSprite;
 import com.molocode.sudoku.game.sprite.GunnerSprite;
-import com.molocode.sudoku.yard.activity.CourseTreeActivity;
-import com.molocode.sudoku.yard.activity.SchoolTreeActivity;
 
 public class GameScene44 extends BaseSudokuScene {
 	private GameActivity activity;

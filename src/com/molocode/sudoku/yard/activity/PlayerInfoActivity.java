@@ -2,10 +2,8 @@ package com.molocode.sudoku.yard.activity;
 
 import java.util.Timer;
 import java.util.TimerTask;
-
 import com.molocode.sudoku.R;
 import com.molocode.sudoku.domain.PlayerInfo;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -13,9 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 public class PlayerInfoActivity extends Activity {
 

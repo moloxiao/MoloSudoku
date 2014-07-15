@@ -44,10 +44,7 @@ public abstract class Degree {
 	
 	protected int id;
 	protected String name;
-	
-	protected boolean isRequireExamination;
-	// TODO : 入学考试题目List<> 等到考试出来以后实现
-	
+	protected boolean isRequireExamination = true;	
 	protected SchoolInfo schoolInfo;
 	
 	public Degree(){

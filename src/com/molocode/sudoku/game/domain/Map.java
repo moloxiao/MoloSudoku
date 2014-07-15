@@ -61,7 +61,7 @@ public class Map {
 		}
 	}
 	
-	private static int[] formatMaps(String map) {
+	public static int[] formatMaps(String map) {
 		if(map == null) {
 			return null;
 		}

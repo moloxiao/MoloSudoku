@@ -8,5 +8,6 @@ public class PrimaryDegree extends Degree {
 		super();
 		this.id = Degree.PRIMARY;
 		this.name = Degree.getDegreeDesc(Degree.PRIMARY);
+		this.isRequireExamination = false;
 	}
 }

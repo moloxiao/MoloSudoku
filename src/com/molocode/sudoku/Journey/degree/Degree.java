@@ -81,7 +81,7 @@ public abstract class Degree {
 		SharedPreferences settings = SudokuApplication.getInstance().getSharedPreferences(
 				DEGREE_MAP_KEY_CURRENTSCHOOL, 0);
 		SharedPreferences.Editor editor = settings.edit();
-		editor.putInt(PREFS_KEY_SCHOOLID, schoolInfo.schoolId);
+		editor.putInt(PREFS_KEY_SCHOOLID, schoolInfo.degreeId);
 		editor.putInt(PREFS_KEY_SCHOOLLEVEL, schoolInfo.schoolLevel);
 		editor.commit();
 	}
@@ -90,9 +90,26 @@ public abstract class Degree {
 		SharedPreferences settings = SudokuApplication.getInstance().getSharedPreferences(
 				DEGREE_MAP_KEY_CURRENTSCHOOL, 0);
 		SchoolInfo info = new SchoolInfo();
-		info.schoolId = settings.getInt(PREFS_KEY_SCHOOLID, 0);
-		info.schoolId = settings.getInt(PREFS_KEY_SCHOOLLEVEL, School.LEVELA);
+		info.degreeId = settings.getInt(PREFS_KEY_SCHOOLID, 0);
+		info.degreeId = settings.getInt(PREFS_KEY_SCHOOLLEVEL, School.LEVELA);
 		return info; 
 		
 	}
+	
+	/**
+	 * 获取人生的求学顺序。
+	 * @return
+	 */
+	public static SchoolInfo[] getSchoolSequence() {
+		return SCHOOLSEQUENCE;
+	}
+	
+	private final static SchoolInfo[] SCHOOLSEQUENCE = {
+		new SchoolInfo(Degree.PRIMARY, School.LEVELA),
+		new SchoolInfo(Degree.PRIMARY, School.LEVELB),
+		new SchoolInfo(Degree.PRIMARY, School.LEVELC),
+		new SchoolInfo(Degree.MIDDLE, School.LEVELA),
+		new SchoolInfo(Degree.MIDDLE, School.LEVELB),
+		new SchoolInfo(Degree.MIDDLE, School.LEVELC)
+	};
 }

@@ -1,7 +1,12 @@
 package com.molocode.sudoku.yard.activity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.molocode.sudoku.R;
 import com.molocode.sudoku.game.GameActivity;
+import com.molocode.sudoku.game.domain.Examination;
+import com.molocode.sudoku.game.domain.School;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -10,23 +15,43 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 
 public class CourseTreeActivity extends Activity {
-	private static boolean isFirstLogin = true;
-	public static String DEGREE_ID = "DEGREE_ID";
+	public static String SCHOOL_ID = "SCHOOL_ID";
 	private Button[] btns;
+	private int schoolId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// 设置课程树
 		setContentView(R.layout.coursetree_activity);
-		if (isFirstLogin) {
+		if (SplashActivity.firstLogin) {
 			showExamination();
 		}
 		// 根据degreeId来获取当前学校下的所有考试科目
-		getIntent().getExtras().get(DEGREE_ID);
+		schoolId = (Integer) getIntent().getExtras().get(SCHOOL_ID);
+		initData();
+		initMap(schoolId);
+	}
+
+	// 根据学校ID初始化考试信息
+	private void initMap(int schoolId) {
+		List<Examination> exams = new ArrayList<Examination>();
+		exams = School.getExaminationlistById(schoolId);// 考试列表
+		setBtnView(exams);
+	}
+
+	private void setBtnView(List<Examination> exams) {
+		if (exams.size() > btns.length) {
+			Log.e("com.poxiao.suduko", "考试地图配置出问题了，请检查");
+			return;
+		}
+		for (int i = 0; i < exams.size(); i++) {
+			btns[i].setText(exams.get(i).getExaminationName());
+		}
 	}
 
 	private void initData() {

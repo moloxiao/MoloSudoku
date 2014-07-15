@@ -41,7 +41,7 @@ public class SchoolTreeActivity extends Activity {
 		} else {
 			Intent intent = new Intent(SchoolTreeActivity.this,
 					CourseTreeActivity.class);
-			intent.putExtra(CourseTreeActivity.DEGREE_ID, currentSchoolId);
+			intent.putExtra(CourseTreeActivity.SCHOOL_ID, currentSchoolId);
 			startActivity(intent);
 		}
 	}
@@ -57,7 +57,7 @@ public class SchoolTreeActivity extends Activity {
 				dialog.dismiss();
 				Intent intent = new Intent(SchoolTreeActivity.this,
 						CourseTreeActivity.class);
-				intent.putExtra(CourseTreeActivity.DEGREE_ID, 0);
+				intent.putExtra(CourseTreeActivity.SCHOOL_ID, 0);
 				startActivity(intent);
 			}
 		});
@@ -88,7 +88,7 @@ public class SchoolTreeActivity extends Activity {
 				(Button) findViewById(R.id.Button15), };
 	}
 
-	// 获取学校点位和整个学校树的配置
+	// 初始化学校地图
 	private void initMap() {
 		List<Degree> degrees = LifeJourney.getInstance().getDegrees();
 		List<School> schools = new ArrayList<School>();
@@ -136,6 +136,7 @@ public class SchoolTreeActivity extends Activity {
 		for (int i = 0; i < schools.size(); i++) {
 			School schoolItem = schools.get(i);
 			btns[i].setText(schoolItem.getName());
+			Log.e("com.poxiao.suduko", "schoolItem_ID=" + schoolItem.getId());
 			setBtnByProperty(schoolItem.getPlayProperty(), btns[i],
 					schoolItem.getId());
 		}
@@ -143,8 +144,7 @@ public class SchoolTreeActivity extends Activity {
 
 	// 根据学校的类型来决定按钮的背景及点击事件
 	private void setBtnByProperty(int property, Button btn, final int schoolId) {
-		Log.e("com.poxiao.suduko", "schoolId="
-				+ schoolId);
+		Log.e("com.poxiao.suduko", "schoolId=" + schoolId);
 		switch (property) {
 		case 0:
 			if (schoolId == currentSchoolId) {
@@ -157,7 +157,7 @@ public class SchoolTreeActivity extends Activity {
 						// 直接进入考试列表
 						Intent intent = new Intent(SchoolTreeActivity.this,
 								CourseTreeActivity.class);
-						intent.putExtra(CourseTreeActivity.DEGREE_ID, 0);
+						intent.putExtra(CourseTreeActivity.SCHOOL_ID, schoolId);
 						startActivity(intent);
 					}
 				});
@@ -198,7 +198,7 @@ public class SchoolTreeActivity extends Activity {
 				initMap();// 再次刷新界面
 				Intent intent = new Intent(SchoolTreeActivity.this,
 						CourseTreeActivity.class);
-				intent.putExtra(CourseTreeActivity.DEGREE_ID, 0);
+				intent.putExtra(CourseTreeActivity.SCHOOL_ID, schoolId);
 				startActivity(intent);
 			}
 		});
@@ -208,7 +208,7 @@ public class SchoolTreeActivity extends Activity {
 				dialog.dismiss();
 				Intent intent = new Intent(SchoolTreeActivity.this,
 						CourseTreeActivity.class);
-				intent.putExtra(CourseTreeActivity.DEGREE_ID, 0);
+				intent.putExtra(CourseTreeActivity.SCHOOL_ID, currentSchoolId);
 				startActivity(intent);
 			}
 		});

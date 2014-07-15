@@ -5,9 +5,15 @@ public class Examination {
 	private String examinationNumber;// 准考证号，随机生成
 	private int passTime;// 过关时间
 	private String examinationLocation;// 考试地点
-	private int level;// 地图关卡ID
-	private int type;// 地图类型
+	private int mapId;// 地图关卡ID
+	private int mapType;// 地图类型
 	private int score;// 考试成绩
+	private int examType;// 0当前可考,1能力不够,2考过了
+	private int examLevel;// 考试级别
+
+	public static final int EXAMTYPE_CURRENT = 0;
+	public static final int EXAMTYPE_ERRORLEVEL = 1;
+	public static final int EXAMTYPE_PASSED = 2;
 
 	public String getExaminationNumber() {
 		return examinationNumber;
@@ -41,20 +47,20 @@ public class Examination {
 		this.examinationName = examinationName;
 	}
 
-	public int getType() {
-		return type;
+	public int getMapType() {
+		return mapType;
 	}
 
-	public void setType(int type) {
-		this.type = type;
+	public void setMapType(int mapType) {
+		this.mapType = mapType;
 	}
 
-	public int getLevel() {
-		return level;
+	public int getMapId() {
+		return mapId;
 	}
 
-	public void setLevel(int level) {
-		this.level = level;
+	public void setMapId(int mapId) {
+		this.mapId = mapId;
 	}
 
 	public int getScore() {
@@ -64,4 +70,21 @@ public class Examination {
 	public void setScore(int score) {
 		this.score = score;
 	}
+
+	public int getExamType() {
+		return examType;
+	}
+
+	public void setExamType(int examType) {
+		this.examType = examType;
+	}
+
+	public int getExamLevel() {
+		return examLevel;
+	}
+
+	public void setExamLevel(int examLevel) {
+		this.examLevel = examLevel;
+	}
+
 }

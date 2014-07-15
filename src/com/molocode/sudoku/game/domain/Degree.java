@@ -8,7 +8,7 @@ import java.util.Map;
 public class Degree {
 	private int degreeId;// 学历ID,分别代表学历类型(小,中,高,本,硕)可以决定数独地图的难度
 	private String degreeName;// 学历名称
-	private int highestLevel;// 当前学历级别的考试级别(例如:5年级)
+	private int highestLevel;// 当前学历级别的考试级别(例如:小学5年级)
 	private List<School> schools;
 
 	public Degree(int id) {
@@ -51,7 +51,7 @@ public class Degree {
 			school.setId(Integer.valueOf(infos[0]));
 			school.setName(infos[1]);
 			school.setLocation(infos[2]);
-			school.setSchoolType(Integer.valueOf(infos[0]));
+			school.setSchoolType(Integer.valueOf(infos[3]));
 			schools.add(school);
 		}
 	}

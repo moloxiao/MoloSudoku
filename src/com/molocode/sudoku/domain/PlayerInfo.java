@@ -96,7 +96,7 @@ public class PlayerInfo {
 		info.setIsfirstlogin(settings.getBoolean(PREFS_KEY_FIRSTLOGIN, true));
 		info.setLevelsCompleted(settings.getInt(PREFS_KEY_LEVELSCOMPLETED, 0));
 		info.setSchoolId(settings.getInt(PREFS_KEY_SCHOOL, 0));
-		info.setSchoolId(settings.getInt(PREFS_KEY_GRADE, 0));
+		info.setGrade(settings.getInt(PREFS_KEY_GRADE, 1));
 		return info;
 	}
 

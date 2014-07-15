@@ -9,22 +9,27 @@ public class Examination {
 
 	private String examinationName;// 考试名称
 	private String examinationNumber;// 准考证号，随机生成
-	private int passTime;// 过关时间
 	private String examinationLocation;// 考试地点
 	private int[] questions;// 考试试题
 	private int mapType;// 地图类型
+	private PassLevel passLevel;
 
 	public Examination() {
 	}
 	
 	public Examination(String examinationName, String examinationNumber,
-			int passTime, String examinationLocation, int[] questions, int mapType) {
+			String examinationLocation, int[] questions, 
+			int mapType, PassLevel passLevel) {
 		this.examinationName = examinationName;
 		this.examinationNumber = examinationNumber;
-		this.passTime = passTime;
 		this.examinationLocation = examinationLocation;
 		this.questions = questions;
 		this.mapType = mapType;
+		this.passLevel = passLevel;
+	}
+	
+	public PassLevel getPassLevel() {
+		return passLevel;
 	}
 
 	public String getExaminationName() {
@@ -33,10 +38,6 @@ public class Examination {
 
 	public String getExaminationNumber() {
 		return examinationNumber;
-	}
-
-	public int getPassTime() {
-		return passTime;
 	}
 
 	public String getExaminationLocation() {
@@ -88,10 +89,10 @@ public class Examination {
 			result.add(new Examination(
 					"初中入学考试", 
 					Examination.getRandomExaminationNumber(), 
-					30, 
 					"12教学楼1教室34桌", 
 					Map.formatMaps("2030430000000002"), // TODO : 地图从统一配置的地方获取 
-					Map.MAP_TYPE_44));
+					Map.MAP_TYPE_44,
+					new PassLevel(30, 25, 20)));
 			return result;
 		case Degree.HIGH:
 			return result;

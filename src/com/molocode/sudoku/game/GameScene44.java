@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.molocode.sudoku.domain.PlayerInfo;
 import com.molocode.sudoku.game.domain.BaseBoard;
+import com.molocode.sudoku.game.domain.Degree;
 import com.molocode.sudoku.game.domain.Map;
 import com.molocode.sudoku.game.sprite.ChessControlPanelSprite;
 import com.molocode.sudoku.game.sprite.Chessboard44Sprite;
@@ -72,8 +73,8 @@ public class GameScene44 extends BaseSudokuScene {
 		failSprite = new ExamFailSprite(null, ExamFailSprite.X,
 				ExamFailSprite.Y, ExamFailSprite.WIDTH, ExamFailSprite.HEIGHT);
 		attachChild(failSprite);
-		settingSprite = new GunnerSprite(null, GunnerSprite.X,
-				GunnerSprite.Y, GunnerSprite.WIDTH, GunnerSprite.HEIGHT);
+		settingSprite = new GunnerSprite(null, GunnerSprite.X, GunnerSprite.Y,
+				GunnerSprite.WIDTH, GunnerSprite.HEIGHT);
 		attachChild(settingSprite);
 
 		initTouch();
@@ -109,6 +110,7 @@ public class GameScene44 extends BaseSudokuScene {
 		info.setLevelsCompleted(levelsCompleted + 1);
 		PlayerInfo.setPlayerInfo(activity, info);
 		checkElevenPlus(levelsCompleted);
+		savePlayerInfo(info);
 	}
 
 	@Override
@@ -148,6 +150,38 @@ public class GameScene44 extends BaseSudokuScene {
 		if (time == 0) {
 			failSprite.setVisible(true);
 		}
+	}
+
+	private void savePlayerInfo(PlayerInfo info) {
+		int currentGrade = info.getGrade();
+		int currentDegree = info.getDegree();
+		Log.e("com.poxiao.suduko", "AAAAA" + currentGrade);
+		switch (currentDegree) {
+		case 0:
+		case 1:
+		case 2:
+		case 4:
+
+			if (currentGrade < 6) {
+				currentGrade++;
+			} else {
+				currentDegree++;
+				currentGrade = 0;
+			}
+			break;
+		case 3:
+			if (currentGrade < 8) {
+				currentGrade++;
+			} else {
+				currentDegree++;
+				currentGrade = 0;
+			}
+			break;
+		}
+		Log.e("com.poxiao.suduko", "BBBBB" + currentGrade);
+		info.setGrade(currentGrade);
+		info.setDegree(currentDegree);
+		PlayerInfo.setPlayerInfo(activity, info);
 	}
 
 	// 检测是否到了升学考试

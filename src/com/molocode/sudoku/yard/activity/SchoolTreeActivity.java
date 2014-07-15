@@ -24,7 +24,7 @@ public class SchoolTreeActivity extends Activity {
 
 	private Button[] btns;
 	private int currentSchoolId;
-	private int currentGrade;
+	private int currentDegree;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +36,14 @@ public class SchoolTreeActivity extends Activity {
 		// 是否初次登陆，是展示对话框
 		PlayerInfo info = PlayerInfo.getPlayerInfo(this);
 		currentSchoolId = info.getSchoolId();
-		currentGrade = info.getGrade();
+		currentDegree = info.getDegree();
 		Log.e("com.poxiao.suduko", "currentSchoolId" + currentSchoolId);
-		Log.e("com.poxiao.suduko", "currentGrade" + currentGrade);
 		if (SplashActivity.firstLogin) {
 			showAdmission();
 		} else {
 			Intent intent = new Intent(SchoolTreeActivity.this,
 					CourseTreeActivity.class);
 			intent.putExtra(CourseTreeActivity.SCHOOL_ID, currentSchoolId);
-			intent.putExtra(CourseTreeActivity.EXAM_ID, currentGrade);
 			startActivity(intent);
 		}
 	}
@@ -62,7 +60,6 @@ public class SchoolTreeActivity extends Activity {
 				Intent intent = new Intent(SchoolTreeActivity.this,
 						CourseTreeActivity.class);
 				intent.putExtra(CourseTreeActivity.SCHOOL_ID, 0);
-				intent.putExtra(CourseTreeActivity.EXAM_ID, currentGrade);
 				startActivity(intent);
 			}
 		});
@@ -96,12 +93,6 @@ public class SchoolTreeActivity extends Activity {
 	// 初始化学校地图
 	private void initMap() {
 		List<Degree> degrees = LifeJourney.getInstance().getDegrees();
-		int currentDegree = Degree.getDegreeIdBySchoolId(currentSchoolId);
-		for (int i = 0; i < degrees.size(); i++) {
-			if (currentDegree == degrees.get(i).getDegreeId()) {
-				degrees.get(i).setHighestLevel(currentGrade);
-			}
-		}
 		List<School> schools = new ArrayList<School>();
 		if (null != degrees) {
 			schools = getSchoolLsitDegree(degrees, currentDegree);
@@ -169,9 +160,6 @@ public class SchoolTreeActivity extends Activity {
 						// 直接进入考试列表
 						Intent intent = new Intent(SchoolTreeActivity.this,
 								CourseTreeActivity.class);
-						intent.putExtra(CourseTreeActivity.SCHOOL_ID, schoolId);
-						intent.putExtra(CourseTreeActivity.EXAM_ID,
-								currentGrade);
 						startActivity(intent);
 					}
 				});
@@ -213,7 +201,6 @@ public class SchoolTreeActivity extends Activity {
 				Intent intent = new Intent(SchoolTreeActivity.this,
 						CourseTreeActivity.class);
 				intent.putExtra(CourseTreeActivity.SCHOOL_ID, schoolId);
-				intent.putExtra(CourseTreeActivity.EXAM_ID, currentGrade);
 				startActivity(intent);
 			}
 		});
@@ -224,7 +211,6 @@ public class SchoolTreeActivity extends Activity {
 				Intent intent = new Intent(SchoolTreeActivity.this,
 						CourseTreeActivity.class);
 				intent.putExtra(CourseTreeActivity.SCHOOL_ID, currentSchoolId);
-				intent.putExtra(CourseTreeActivity.EXAM_ID, currentGrade);
 				startActivity(intent);
 			}
 		});

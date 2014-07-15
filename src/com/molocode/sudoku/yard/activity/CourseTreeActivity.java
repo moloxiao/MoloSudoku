@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.molocode.sudoku.R;
+import com.molocode.sudoku.domain.PlayerInfo;
 import com.molocode.sudoku.game.GameActivity;
 import com.molocode.sudoku.game.domain.Examination;
 import com.molocode.sudoku.game.domain.School;
@@ -21,10 +22,9 @@ import android.widget.Button;
 
 public class CourseTreeActivity extends Activity {
 	public static String SCHOOL_ID = "SCHOOL_ID";
-	public static String EXAM_ID = "EXAM_ID";
 	private Button[] btns;
 	private int schoolId;
-	private int examId;
+	private int grade;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +33,17 @@ public class CourseTreeActivity extends Activity {
 		setContentView(R.layout.coursetree_activity);
 		// 根据degreeId来获取当前学校下的所有考试科目
 		schoolId = (Integer) getIntent().getExtras().get(SCHOOL_ID);
-		examId = (Integer) getIntent().getExtras().get(EXAM_ID);
 		initData();
-		initMap(schoolId);
 		if (SplashActivity.firstLogin) {
 			showExamination();
 		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		grade = PlayerInfo.getPlayerInfo(CourseTreeActivity.this).getGrade();
+		initMap(schoolId);
 	}
 
 	// 根据学校ID初始化考试信息
@@ -54,7 +59,7 @@ public class CourseTreeActivity extends Activity {
 			return;
 		}
 		for (int i = 0; i < exams.size(); i++) {
-			setBtnPorperty(btns[i], exams.get(i), examId);
+			setBtnPorperty(btns[i], exams.get(i), grade);
 		}
 	}
 

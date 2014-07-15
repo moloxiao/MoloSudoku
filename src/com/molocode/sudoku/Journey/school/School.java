@@ -10,6 +10,7 @@ public abstract class School {
 	private static final String PREFS_KEY_PROGRESS = "PREFS_KEY_PROGRESS";
 	private static final String PREFS_KEY_GRADUATE = "PREFS_KEY_GRADUATE";
 
+	public static final int LEVEL_MAX = 3;
 	public static final int LEVELA = 0;
 	public static final int LEVELB = 1;
 	public static final int LEVELC = 2;

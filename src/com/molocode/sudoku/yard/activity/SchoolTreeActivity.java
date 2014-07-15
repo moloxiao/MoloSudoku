@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.molocode.sudoku.R;
+import com.molocode.sudoku.Journey.LifeJourney;
+import com.molocode.sudoku.Journey.school.School;
+import com.molocode.sudoku.Journey.school.SchoolManager;
 import com.molocode.sudoku.domain.PlayerInfo;
 import com.molocode.sudoku.game.domain.Degree;
-import com.molocode.sudoku.game.domain.LifeJourney;
-import com.molocode.sudoku.game.domain.School;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -36,7 +36,7 @@ public class SchoolTreeActivity extends Activity {
 		currentDegree = info.getDegree();
 		Log.e("com.poxiao.suduko", "player_currentSchoolId=" + currentSchoolId);
 		initData();
-		initMap();
+		setMapBySchools();
 		// 是否初次登陆，是展示对话框
 		if (SplashActivity.firstLogin) {
 			showAdmission();
@@ -90,101 +90,120 @@ public class SchoolTreeActivity extends Activity {
 				(Button) findViewById(R.id.Button15), };
 	}
 
-	// 初始化学校地图
-	private void initMap() {
-		List<Degree> degrees = LifeJourney.getInstance().getDegrees();
-		List<School> schools = new ArrayList<School>();
-		if (null != degrees) {
-			schools = getSchoolLsitDegree(degrees, currentDegree);
-			Log.e("com.poxiao.suduko", "schools.size=" + schools.size());
+	// 拼装学校地图
+	private void setMapBySchools() {
+		// for(int i=0;i<LifeJourney.getDegreeSequence().length;i++){
+		// for(int j=0;j<School.LEVEL_MAX;j++){
+		//
+		// }
+		// }
+		for (int i = 0; i < com.molocode.sudoku.Journey.degree.Degree
+				.getSchoolSequence().length; i++) {
+			School buffer = SchoolManager
+					.getSchool(com.molocode.sudoku.Journey.degree.Degree
+							.getSchoolSequence()[i]);
+			Log.e("PX", "i=" + i + ";name=" + buffer.getName());
+			btns[i].setText(buffer.getName());
 		}
-		setViewBtnsBySchools(schools, btns);
+
 	}
 
-	// 根据学历列表拼接学校列表
-	private List<School> getSchoolLsitDegree(List<Degree> degrees,
-			int currentDegree) {
-		List<School> schoolall = new ArrayList<School>();
-		Log.e("com.poxiao.suduko", "currentSchoolId0=" + currentSchoolId);
-		for (int i = 0; i < degrees.size(); i++) {
-			List<School> schools = new ArrayList<School>();
-			schools = degrees.get(i).getSchools();
-			int playProperty = getSchoolProperty(degrees.get(i), currentDegree);
-			for (int j = 0; j < schools.size(); j++) {
-				School schoolItem = schools.get(j);
-				schoolItem.setPlayProperty(playProperty);
-				schoolall.add(schoolItem);
-			}
-		}
-		return schoolall;
-	}
-
-	// 根据当前学历的等级来判断学校的属性
-	private int getSchoolProperty(Degree degrees, int currentdegree) {
-		if (degrees.getDegreeId() > currentdegree) {
-			return School.SCHOOL_TYPE_DEGREEUNABLE;
-		} else if (degrees.getDegreeId() == currentdegree) {
-			return School.SCHOOL_TYPE_ABLE;
-		} else {
-			return School.SCHOOL_TYPE_AGEUNABLE;
-		}
-	}
-
-	// 根据所有学校的列表设置地图上所有的按钮
-	private void setViewBtnsBySchools(List<School> schools, Button[] btns) {
-		if (schools.size() > btns.length) {
-			Log.e("com.poxiao.suduko", "学校地图配置有无");
-		}
-		for (int i = 0; i < schools.size(); i++) {
-			School schoolItem = schools.get(i);
-			btns[i].setText(schoolItem.getName());
-			// Log.e("com.poxiao.suduko", "schoolItem_ID=" +
-			// schoolItem.getId());
-			setBtnByProperty(schoolItem.getPlayProperty(), btns[i],
-					schoolItem.getId());
-		}
-	}
-
-	// 根据学校的类型来决定按钮的背景及点击事件
-	private void setBtnByProperty(int property, Button btn, final int schoolId) {
-		// Log.e("com.poxiao.suduko", "schoolId=" + schoolId);
-		switch (property) {
-		case 0:
-			if (schoolId == currentSchoolId) {
-				Log.e("com.poxiao.suduko", "currentSchoolId1="
-						+ currentSchoolId);
-				btn.setBackgroundResource(R.drawable.btn_highlight);// 当前学校高亮
-				btn.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						// 直接进入考试列表
-						Intent intent = new Intent(SchoolTreeActivity.this,
-								CourseTreeActivity.class);
-						intent.putExtra(CourseTreeActivity.SCHOOL_ID, currentSchoolId);
-						startActivity(intent);
-					}
-				});
-
-			} else {
-				btn.setBackgroundResource(R.drawable.test_button_bg);// 可读学校
-				btn.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						showHitDialog(schoolId);
-					}
-				});
-			}
-			break;
-		case 1:
-			btn.setBackgroundResource(R.drawable.btn_disable);// 学历不够
-			break;
-		case 2:
-			btn.setBackgroundResource(R.drawable.btn_disable);// 年龄超过
-			break;
-		default:
-			break;
-		}
-	}
+	// // 初始化学校地图
+	// private void initMap() {
+	// List<Degree> degrees = LifeJourney.getInstance().getDegrees();
+	// List<School> schools = new ArrayList<School>();
+	// if (null != degrees) {
+	// schools = getSchoolLsitDegree(degrees, currentDegree);
+	// Log.e("com.poxiao.suduko", "schools.size=" + schools.size());
+	// }
+	// setViewBtnsBySchools(schools, btns);
+	// }
+	//
+	// // 根据学历列表拼接学校列表
+	// private List<School> getSchoolLsitDegree(List<Degree> degrees,
+	// int currentDegree) {
+	// List<School> schoolall = new ArrayList<School>();
+	// Log.e("com.poxiao.suduko", "currentSchoolId0=" + currentSchoolId);
+	// for (int i = 0; i < degrees.size(); i++) {
+	// List<School> schools = new ArrayList<School>();
+	// schools = degrees.get(i).getSchools();
+	// int playProperty = getSchoolProperty(degrees.get(i), currentDegree);
+	// for (int j = 0; j < schools.size(); j++) {
+	// School schoolItem = schools.get(j);
+	// schoolItem.setPlayProperty(playProperty);
+	// schoolall.add(schoolItem);
+	// }
+	// }
+	// return schoolall;
+	// }
+	//
+	// // 根据当前学历的等级来判断学校的属性
+	// private int getSchoolProperty(Degree degrees, int currentdegree) {
+	// if (degrees.getDegreeId() > currentdegree) {
+	// return School.SCHOOL_TYPE_DEGREEUNABLE;
+	// } else if (degrees.getDegreeId() == currentdegree) {
+	// return School.SCHOOL_TYPE_ABLE;
+	// } else {
+	// return School.SCHOOL_TYPE_AGEUNABLE;
+	// }
+	// }
+	//
+	// // 根据所有学校的列表设置地图上所有的按钮
+	// private void setViewBtnsBySchools(List<School> schools, Button[] btns) {
+	// if (schools.size() > btns.length) {
+	// Log.e("com.poxiao.suduko", "学校地图配置有无");
+	// }
+	// for (int i = 0; i < schools.size(); i++) {
+	// School schoolItem = schools.get(i);
+	// btns[i].setText(schoolItem.getName());
+	// // Log.e("com.poxiao.suduko", "schoolItem_ID=" +
+	// // schoolItem.getId());
+	// setBtnByProperty(schoolItem.getPlayProperty(), btns[i],
+	// schoolItem.getId());
+	// }
+	// }
+	//
+	// // 根据学校的类型来决定按钮的背景及点击事件
+	// private void setBtnByProperty(int property, Button btn, final int
+	// schoolId) {
+	// // Log.e("com.poxiao.suduko", "schoolId=" + schoolId);
+	// switch (property) {
+	// case 0:
+	// if (schoolId == currentSchoolId) {
+	// Log.e("com.poxiao.suduko", "currentSchoolId1="
+	// + currentSchoolId);
+	// btn.setBackgroundResource(R.drawable.btn_highlight);// 当前学校高亮
+	// btn.setOnClickListener(new View.OnClickListener() {
+	// @Override
+	// public void onClick(View arg0) {
+	// // 直接进入考试列表
+	// Intent intent = new Intent(SchoolTreeActivity.this,
+	// CourseTreeActivity.class);
+	// intent.putExtra(CourseTreeActivity.SCHOOL_ID, currentSchoolId);
+	// startActivity(intent);
+	// }
+	// });
+	//
+	// } else {
+	// btn.setBackgroundResource(R.drawable.test_button_bg);// 可读学校
+	// btn.setOnClickListener(new View.OnClickListener() {
+	// @Override
+	// public void onClick(View arg0) {
+	// showHitDialog(schoolId);
+	// }
+	// });
+	// }
+	// break;
+	// case 1:
+	// btn.setBackgroundResource(R.drawable.btn_disable);// 学历不够
+	// break;
+	// case 2:
+	// btn.setBackgroundResource(R.drawable.btn_disable);// 年龄超过
+	// break;
+	// default:
+	// break;
+	// }
+	// }
 
 	// 择校通知
 	private void showHitDialog(final int schoolId) {
@@ -203,7 +222,6 @@ public class SchoolTreeActivity extends Activity {
 						.getPlayerInfo(SchoolTreeActivity.this);
 				player.setSchoolId(currentSchoolId);
 				PlayerInfo.setPlayerInfo(SchoolTreeActivity.this, player);
-				initMap();// 再次刷新界面
 				Intent intent = new Intent(SchoolTreeActivity.this,
 						CourseTreeActivity.class);
 				intent.putExtra(CourseTreeActivity.SCHOOL_ID, schoolId);

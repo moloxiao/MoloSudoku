@@ -7,12 +7,19 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.sax.StartElementListener;
 import android.util.Log;
 
+import com.molocode.sudoku.Journey.LifeJourney;
+import com.molocode.sudoku.Journey.degree.Degree;
+import com.molocode.sudoku.Journey.degree.DegreeManager;
 import com.molocode.sudoku.Journey.examination.Examination;
 import com.molocode.sudoku.Journey.school.ProgressManager;
+import com.molocode.sudoku.Journey.school.SchoolInfo;
+import com.molocode.sudoku.Journey.school.SchoolManager;
 import com.molocode.sudoku.domain.PlayerInfo;
 import com.molocode.sudoku.game.domain.BaseBoard;
 import com.molocode.sudoku.game.domain.Map;
@@ -23,18 +30,21 @@ import com.molocode.sudoku.game.sprite.ExamFailSprite;
 import com.molocode.sudoku.game.sprite.ExamSuccessSprite;
 import com.molocode.sudoku.game.sprite.GunnerBtnSprite;
 import com.molocode.sudoku.game.sprite.GunnerSprite;
+import com.molocode.sudoku.yard.activity.SchoolTreeActivity;
 
 public class GameScene44 extends BaseSudokuScene {
 	private GameActivity activity;
 	private Examination examination;
 	private int degreeId;
+	private int schoolprogress;
 	private int schoolLevel;
-	private int progress;
 
-	public GameScene44(String[] examinfo, Activity activity) {
-		super(examinfo, activity);
+	public GameScene44(Activity activity) {
+		super(activity);
 		this.activity = (GameActivity) activity;
-		this.examination = getExamination(examinfo);
+		this.schoolLevel = DegreeManager.getDegree(
+				LifeJourney.getInstance().getDegreeId()).getSchoolInfo().schoolLevel;
+		this.examination = getExamination();
 		((GameActivity) activity).showExamInfo(examination);
 	}
 
@@ -112,10 +122,20 @@ public class GameScene44 extends BaseSudokuScene {
 		Log.i("com.poxiao.suduko", "levelsCompleted=" + levelsCompleted);
 		info.setLevelsCompleted(levelsCompleted + 1);
 		PlayerInfo.setPlayerInfo(activity, info);
-		ProgressManager.setScoolProgress(degreeId, schoolLevel, progress);
-		Log.i("com.poxiao.suduko", "degreeId=" + degreeId + ";schoolLevel"
-				+ schoolLevel + ";progress" + progress);
-		successSprite.setVisible(true);
+		// 获取新的progress
+		getExamination();
+		schoolprogress++;
+		if (ProgressManager.getInstance().studyProgress(degreeId,
+				schoolprogress)) {
+			ProgressManager.getInstance().setEntranceExams(true);
+			Log.e("com.poxiao.suduko", "历尽多年磨练，你已今非昔比，参加升学考试吧");
+			activity.startActivity(new Intent(activity,
+					SchoolTreeActivity.class));
+		} else {
+			successSprite.setVisible(true);
+		}
+		Log.i("com.poxiao.suduko", " GameScene44 degreeId=" + degreeId
+				+ ";progress" + schoolprogress);
 	}
 
 	@Override
@@ -150,15 +170,24 @@ public class GameScene44 extends BaseSudokuScene {
 	}
 
 	// 获取本次考试的信息
-	private Examination getExamination(String[] examinfo) {
-		if (null != examinfo && examinfo.length == 3) {
-			degreeId = Integer.valueOf(examinfo[0]);
-			schoolLevel = Integer.valueOf(examinfo[1]);
-			progress = Integer.valueOf(examinfo[2]);
-			List<Examination> exams = Examination.getExaminationList(degreeId);
-			return exams.get(Integer.valueOf(progress));
+	private Examination getExamination() {
+		degreeId = LifeJourney.getInstance().getDegreeId();
+		for (int i = 0; i < Degree.getSchoolSequence().length; i++) {
+			SchoolInfo info = Degree.getSchoolSequence()[i];
+			if (degreeId == info.degreeId && schoolLevel == info.schoolLevel) {
+				schoolprogress = SchoolManager.getSchool(info).getProgress();
+			}
 		}
-		return null;
+		List<Examination> exams = null;
+		if (ProgressManager.getInstance().getEntranceExams()) {
+			exams = Examination.getEnterDegreeExaninationList(degreeId);
+		} else {
+			exams = Examination.getExaminationList(degreeId);
+		}
+		if (null == exams) {
+			Log.e("com.poxiao.suduko", "GameScene44 exams is null");
+		}
+		return exams.get(schoolprogress);
 	}
 
 	// 判断时间是否超时

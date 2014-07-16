@@ -25,12 +25,8 @@ public class CourseTreeActivity extends Activity {
 
 	private Button[] btns;
 	private int degreeId;
-	private int schoolLevel;
 	private int schoolprogress;
 	private int mapType;
-	private String[] examinfo;
-
-	public static String SCHOOLLEVEL = "SCHOOLLEVEL";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,17 +52,16 @@ public class CourseTreeActivity extends Activity {
 		degreeId = LifeJourney.getInstance().getDegreeId();
 		for (int i = 0; i < Degree.getSchoolSequence().length; i++) {
 			SchoolInfo info = Degree.getSchoolSequence()[i];
-			if (degreeId == info.degreeId && schoolLevel == info.schoolLevel) {
+			if (degreeId == info.degreeId
+					&& DegreeManager.getDegree(degreeId).getSchoolInfo().schoolLevel == info.schoolLevel) {
 				schoolprogress = SchoolManager.getSchool(info).getProgress();
 			}
 		}
-		Log.i("com.poxiao.suduko", "CourseTreeActivity degreeId=" + degreeId);
+		Log.i("com.poxiao.suduko", "CourseTreeActivity degreeId=" + degreeId
+				+ ";schoolprogress=" + schoolprogress);
 		List<Examination> exams = Examination.getExaminationList(degreeId);
 		for (int i = 0; i < exams.size(); i++) {
 			mapType = exams.get(i).getMapType();
-			examinfo = new String[] { String.valueOf(degreeId),
-					String.valueOf(schoolLevel),
-					String.valueOf(schoolprogress), };
 			btns[i].setText(exams.get(i).getExaminationName());
 			if (i == schoolprogress) {
 				btns[i].setBackgroundResource(R.drawable.btn_highlight);
@@ -79,7 +74,6 @@ public class CourseTreeActivity extends Activity {
 					Intent intent = new Intent(CourseTreeActivity.this,
 							GameActivity.class);
 					intent.putExtra(GameActivity.EXTRA_MAPTYPE, mapType);
-					intent.putExtra(GameActivity.EXTRA_EXAMINFO, examinfo);
 					startActivity(intent);
 				}
 			});
@@ -116,7 +110,6 @@ public class CourseTreeActivity extends Activity {
 	}
 
 	private void initData() {
-		schoolLevel = (Integer) getIntent().getExtras().get(SCHOOLLEVEL);
 		btns = new Button[] { (Button) findViewById(R.id.course_btn_1),
 				(Button) findViewById(R.id.course_btn_2),
 				(Button) findViewById(R.id.course_btn_3),
@@ -137,7 +130,6 @@ public class CourseTreeActivity extends Activity {
 				Intent intent = new Intent(CourseTreeActivity.this,
 						GameActivity.class);
 				intent.putExtra(GameActivity.EXTRA_MAPTYPE, mapType);
-				intent.putExtra(GameActivity.EXTRA_EXAMINFO, examinfo);
 				startActivity(intent);
 			}
 		});

@@ -8,7 +8,7 @@ public abstract class BaseSudokuScene extends BitmapBgScreen {
 
 	protected Activity activity;
 
-	public BaseSudokuScene(String[] examinfo, Activity activity) {
+	public BaseSudokuScene(Activity activity) {
 		super();
 		this.activity = activity;
 	}

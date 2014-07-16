@@ -122,7 +122,7 @@ public class Examination {
 	 * @return
 	 */
 	private static int[] getQuestionsFromMap(int type) {
-		int level = (int) Math.round(Math.random() * 10);
+		int level = (int) Math.round(Math.random() * 5);
 		return Map.getCellMaps(type, level);
 	}
 
@@ -146,18 +146,18 @@ public class Examination {
 				.getRandomExaminationNumber(), "12教学楼1教室34桌",
 				getQuestionsFromMap(Map.MAP_TYPE_44), Map.MAP_TYPE_44,
 				new PassLevel(60, 25, 20)));
-		result.add(new Examination("四年级考试", Examination
-				.getRandomExaminationNumber(), "12教学楼1教室34桌",
-				getQuestionsFromMap(Map.MAP_TYPE_44), Map.MAP_TYPE_44,
-				new PassLevel(60, 25, 20)));
-		result.add(new Examination("五年级考试", Examination
-				.getRandomExaminationNumber(), "12教学楼1教室34桌",
-				getQuestionsFromMap(Map.MAP_TYPE_44), Map.MAP_TYPE_44,
-				new PassLevel(60, 25, 20)));
-		result.add(new Examination("六年级考试", Examination
-				.getRandomExaminationNumber(), "12教学楼1教室34桌",
-				getQuestionsFromMap(Map.MAP_TYPE_44), Map.MAP_TYPE_44,
-				new PassLevel(60, 25, 20)));
+		// result.add(new Examination("四年级考试", Examination
+		// .getRandomExaminationNumber(), "12教学楼1教室34桌",
+		// getQuestionsFromMap(Map.MAP_TYPE_44), Map.MAP_TYPE_44,
+		// new PassLevel(60, 25, 20)));
+		// result.add(new Examination("五年级考试", Examination
+		// .getRandomExaminationNumber(), "12教学楼1教室34桌",
+		// getQuestionsFromMap(Map.MAP_TYPE_44), Map.MAP_TYPE_44,
+		// new PassLevel(60, 25, 20)));
+		// result.add(new Examination("六年级考试", Examination
+		// .getRandomExaminationNumber(), "12教学楼1教室34桌",
+		// getQuestionsFromMap(Map.MAP_TYPE_44), Map.MAP_TYPE_44,
+		// new PassLevel(60, 25, 20)));
 		return result;
 	}
 

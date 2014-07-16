@@ -1,11 +1,19 @@
 package com.molocode.sudoku.yard.activity;
 
+import java.util.List;
+
 import com.molocode.sudoku.R;
+import com.molocode.sudoku.Journey.LifeJourney;
 import com.molocode.sudoku.Journey.degree.Degree;
+import com.molocode.sudoku.Journey.degree.DegreeManager;
+import com.molocode.sudoku.Journey.examination.Examination;
+import com.molocode.sudoku.Journey.school.ProgressManager;
 import com.molocode.sudoku.Journey.school.School;
 import com.molocode.sudoku.Journey.school.SchoolInfo;
 import com.molocode.sudoku.Journey.school.SchoolManager;
 import com.molocode.sudoku.domain.PlayerInfo;
+import com.molocode.sudoku.game.GameActivity;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -36,6 +44,14 @@ public class SchoolTreeActivity extends Activity {
 			// CourseTreeActivity.class);
 			// intent.putExtra(CourseTreeActivity.SCHOOL_ID, currentSchoolId);
 			// startActivity(intent);
+		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (ProgressManager.getInstance().getEntranceExams()) {
+			showEnteranceDialog();
 		}
 	}
 
@@ -83,8 +99,8 @@ public class SchoolTreeActivity extends Activity {
 	// 拼装学校地图
 	private void setMapBySchools() {
 		for (int i = 0; i < Degree.getSchoolSequence().length; i++) {
-			final SchoolInfo info = Degree.getSchoolSequence()[i];
-			final School buffer = SchoolManager.getSchool(info);
+			SchoolInfo info = Degree.getSchoolSequence()[i];
+			School buffer = SchoolManager.getSchool(info);
 			Log.i("com.poxiao.suduko", "i=" + i + ";name=" + buffer.getName());
 			btns[i].setText(buffer.getName());
 			btns[i].setOnClickListener(new View.OnClickListener() {
@@ -92,8 +108,6 @@ public class SchoolTreeActivity extends Activity {
 				public void onClick(View v) {
 					Intent intent = new Intent(SchoolTreeActivity.this,
 							CourseTreeActivity.class);
-					intent.putExtra(CourseTreeActivity.SCHOOLLEVEL,
-							info.schoolLevel);
 					startActivity(intent);
 				}
 			});
@@ -104,7 +118,7 @@ public class SchoolTreeActivity extends Activity {
 	// 择校通知
 	private void showHitDialog(final int schoolId) {
 		AlertDialog.Builder builder = new Builder(SchoolTreeActivity.this);
-		builder.setMessage("恭喜你已经被逗比小学录取，是否参加为期六年的逗比之旅");
+		builder.setMessage("隔壁学校在招手");
 		builder.setTitle("转学通知");
 		builder.setPositiveButton("转学", new OnClickListener() {
 			@Override
@@ -126,6 +140,35 @@ public class SchoolTreeActivity extends Activity {
 				Intent intent = new Intent(SchoolTreeActivity.this,
 						CourseTreeActivity.class);
 				startActivity(intent);
+			}
+		});
+		builder.create().show();
+
+	}
+
+	// 择校通知
+	private void showEnteranceDialog() {
+		AlertDialog.Builder builder = new Builder(SchoolTreeActivity.this);
+		builder.setMessage("小哥，我看你骨骼清奇，去初中念书吧");
+		builder.setTitle("升学");
+		builder.setPositiveButton("参加升学考", new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				List<Examination> exam = Examination
+						.getEnterDegreeExaninationList(LifeJourney
+								.getInstance().getDegreeId());
+				Intent intent = new Intent(SchoolTreeActivity.this,
+						GameActivity.class);
+				intent.putExtra(GameActivity.EXTRA_MAPTYPE, exam.get(0)
+						.getMapType());
+				startActivity(intent);
+				dialog.dismiss();
+			}
+		});
+		builder.setNegativeButton("不读了", new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
 			}
 		});
 		builder.create().show();

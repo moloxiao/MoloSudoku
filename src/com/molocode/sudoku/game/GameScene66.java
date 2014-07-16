@@ -27,8 +27,8 @@ public class GameScene66 extends BaseSudokuScene {
 	private float passTime = 180;// 过关时间
 	private Examination examination;
 
-	public GameScene66(String[] examinfo,Activity activity) {
-		super(examinfo, activity);
+	public GameScene66(Activity activity) {
+		super(activity);
 	}
 
 	private void initSprite() {

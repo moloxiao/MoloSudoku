@@ -18,14 +18,11 @@ import com.molocode.sudoku.game.domain.Map;
 public class GameActivity extends BaseGameActivity {
 
 	public static final String EXTRA_MAPTYPE = "mapType";
-	public static final String EXTRA_EXAMINFO = "examinfo";
 	private int mapType;
-	private String[] examinfo;
 
 	@Override
 	public boolean coming() {
 		mapType = getIntent().getIntExtra(EXTRA_MAPTYPE, 0);
-		examinfo = getIntent().getStringArrayExtra(EXTRA_EXAMINFO);
 		return true;
 	}
 
@@ -61,11 +58,11 @@ public class GameActivity extends BaseGameActivity {
 
 		BaseSudokuScene screen = null;
 		if (mapType == Map.MAP_TYPE_99_1) {
-			screen = new GameScene99(examinfo, this);
+			screen = new GameScene99(this);
 		} else if (mapType == Map.MAP_TYPE_66) {
-			screen = new GameScene66(examinfo, this);
+			screen = new GameScene66(this);
 		} else {
-			screen = new GameScene44(examinfo, this);
+			screen = new GameScene44(this);
 		}
 
 		screen.onLoadResources(getResources(), null);

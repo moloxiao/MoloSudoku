@@ -20,15 +20,12 @@ import android.widget.Button;
 public class SchoolTreeActivity extends Activity {
 
 	private Button[] btns;
-	private int currentSchoolId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// 设置学校路线界面
 		setContentView(R.layout.shooltree_activity);
-		PlayerInfo info = PlayerInfo.getPlayerInfo(this);
-		Log.e("com.poxiao.suduko", "player_currentSchoolId=" + currentSchoolId);
 		initData();
 		setMapBySchools();
 		// 是否初次登陆，是展示对话框
@@ -85,10 +82,6 @@ public class SchoolTreeActivity extends Activity {
 
 	// 拼装学校地图
 	private void setMapBySchools() {
-		// for(int i=0;i<LifeJourney.getDegreeSequence().length;i++){
-		// for(int j=0;j<School.LEVEL_MAX;j++){
-		// }
-		// }
 		for (int i = 0; i < Degree.getSchoolSequence().length; i++) {
 			final SchoolInfo info = Degree.getSchoolSequence()[i];
 			final School buffer = SchoolManager.getSchool(info);
@@ -99,11 +92,8 @@ public class SchoolTreeActivity extends Activity {
 				public void onClick(View v) {
 					Intent intent = new Intent(SchoolTreeActivity.this,
 							CourseTreeActivity.class);
-					intent.putExtra(CourseTreeActivity.DEGREE_ID, info.degreeId);
 					intent.putExtra(CourseTreeActivity.SCHOOLLEVEL,
 							info.schoolLevel);
-					intent.putExtra(CourseTreeActivity.SCHOOLPROGRESS,
-							buffer.getProgress());
 					startActivity(intent);
 				}
 			});
@@ -120,9 +110,6 @@ public class SchoolTreeActivity extends Activity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
-				currentSchoolId = schoolId;
-				Log.e("com.poxiao.suduko", "currentSchoolId2="
-						+ currentSchoolId);
 				// 保存用户的当前学校
 				PlayerInfo player = PlayerInfo
 						.getPlayerInfo(SchoolTreeActivity.this);

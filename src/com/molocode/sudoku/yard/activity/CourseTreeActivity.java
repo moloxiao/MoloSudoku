@@ -2,8 +2,13 @@ package com.molocode.sudoku.yard.activity;
 
 import java.util.List;
 import com.molocode.sudoku.R;
+import com.molocode.sudoku.Journey.LifeJourney;
+import com.molocode.sudoku.Journey.degree.Degree;
+import com.molocode.sudoku.Journey.degree.DegreeManager;
 import com.molocode.sudoku.Journey.examination.Examination;
 import com.molocode.sudoku.Journey.examination.PassLevel;
+import com.molocode.sudoku.Journey.school.SchoolInfo;
+import com.molocode.sudoku.Journey.school.SchoolManager;
 import com.molocode.sudoku.game.GameActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -25,9 +30,7 @@ public class CourseTreeActivity extends Activity {
 	private int mapType;
 	private String[] examinfo;
 
-	public static String DEGREE_ID = "DEGREE_ID";
 	public static String SCHOOLLEVEL = "SCHOOLLEVEL";
-	public static String SCHOOLPROGRESS = "SCHOOLPROGRESS";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,13 @@ public class CourseTreeActivity extends Activity {
 
 	// 根据学校ID初始化考试信息
 	private void initMap() {
+		degreeId = LifeJourney.getInstance().getDegreeId();
+		for (int i = 0; i < Degree.getSchoolSequence().length; i++) {
+			SchoolInfo info = Degree.getSchoolSequence()[i];
+			if (degreeId == info.degreeId && schoolLevel == info.schoolLevel) {
+				schoolprogress = SchoolManager.getSchool(info).getProgress();
+			}
+		}
 		Log.i("com.poxiao.suduko", "CourseTreeActivity degreeId=" + degreeId);
 		List<Examination> exams = Examination.getExaminationList(degreeId);
 		for (int i = 0; i < exams.size(); i++) {
@@ -106,9 +116,7 @@ public class CourseTreeActivity extends Activity {
 	}
 
 	private void initData() {
-		degreeId = (Integer) getIntent().getExtras().get(DEGREE_ID);
 		schoolLevel = (Integer) getIntent().getExtras().get(SCHOOLLEVEL);
-		schoolprogress = (Integer) getIntent().getExtras().get(SCHOOLPROGRESS);
 		btns = new Button[] { (Button) findViewById(R.id.course_btn_1),
 				(Button) findViewById(R.id.course_btn_2),
 				(Button) findViewById(R.id.course_btn_3),

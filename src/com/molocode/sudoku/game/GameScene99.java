@@ -1,5 +1,6 @@
 package com.molocode.sudoku.game;
 
+import com.molocode.sudoku.Journey.examination.Examination;
 import com.molocode.sudoku.game.domain.BaseBoard;
 import com.molocode.sudoku.game.domain.Map;
 import com.molocode.sudoku.game.sprite.ChessControlPanelSprite;
@@ -23,50 +24,49 @@ public class GameScene99 extends BaseSudokuScene {
 	private ExamSuccessSprite successSprite;
 	private ExamFailSprite failSprite;
 	private CountdownSprite countdownSprite;
-	 private float passTime=180;//过关时间
-	
-	public GameScene99(int level, Activity activity) {
-		super(level, activity);
+	private float passTime = 180;// 过关时间
+	private Examination examination;
+
+	public GameScene99(String[] examinfo, Activity activity) {
+		super(examinfo,activity);
 	}
-	
+
 	private void initSprite() {
-		chessboard99Sprite = new Chessboard99Sprite(null, 
-				Chessboard99Sprite.X, Chessboard99Sprite.Y, 
-				Chessboard99Sprite.WIDTH, Chessboard99Sprite.HEIGHT);
-		chessboard99Sprite.initCells( BaseBoard.getCellMap(Map.getCellMaps(Map.MAP_TYPE_99_1, level)) );
+		chessboard99Sprite = new Chessboard99Sprite(null, Chessboard99Sprite.X,
+				Chessboard99Sprite.Y, Chessboard99Sprite.WIDTH,
+				Chessboard99Sprite.HEIGHT);
+		chessboard99Sprite.initCells(BaseBoard.getCellMap(examination.getQuestions()));
 		attachChild(chessboard99Sprite);
-		
-		countdownSprite = new CountdownSprite(null, 
-				CountdownSprite.X, CountdownSprite.Y, 
-				CountdownSprite.WIDTH, CountdownSprite.HEIGHT,passTime);
+
+		countdownSprite = new CountdownSprite(null, CountdownSprite.X,
+				CountdownSprite.Y, CountdownSprite.WIDTH,
+				CountdownSprite.HEIGHT, passTime);
 		attachChild(countdownSprite);
-		
-		chessControlPanelSprite = new ChessControlPanelSprite(null, 
-				ChessControlPanelSprite.X, ChessControlPanelSprite.Y, 
-				ChessControlPanelSprite.WIDTH, ChessControlPanelSprite.HEIGHT_2,
-				false);
+
+		chessControlPanelSprite = new ChessControlPanelSprite(null,
+				ChessControlPanelSprite.X, ChessControlPanelSprite.Y,
+				ChessControlPanelSprite.WIDTH,
+				ChessControlPanelSprite.HEIGHT_2, false);
 		attachChild(chessControlPanelSprite);
-		
-		
-		settingBtnSprite = new GunnerBtnSprite(null, 
-				GunnerBtnSprite.X, GunnerBtnSprite.Y, 
-				GunnerBtnSprite.WIDTH, GunnerBtnSprite.HEIGHT);
+
+		settingBtnSprite = new GunnerBtnSprite(null, GunnerBtnSprite.X,
+				GunnerBtnSprite.Y, GunnerBtnSprite.WIDTH,
+				GunnerBtnSprite.HEIGHT);
 		attachChild(settingBtnSprite);
-		
-		successSprite = new ExamSuccessSprite(null, 
-				ExamSuccessSprite.X, ExamSuccessSprite.Y, 
-				ExamSuccessSprite.WIDTH, ExamSuccessSprite.HEIGHT);
+
+		successSprite = new ExamSuccessSprite(null, ExamSuccessSprite.X,
+				ExamSuccessSprite.Y, ExamSuccessSprite.WIDTH,
+				ExamSuccessSprite.HEIGHT);
 		attachChild(successSprite);
-		
-		failSprite= new ExamFailSprite(null, ExamFailSprite.X, ExamFailSprite.Y,
-				ExamFailSprite.WIDTH, ExamFailSprite.HEIGHT);
+
+		failSprite = new ExamFailSprite(null, ExamFailSprite.X,
+				ExamFailSprite.Y, ExamFailSprite.WIDTH, ExamFailSprite.HEIGHT);
 		attachChild(failSprite);
-		
-		settingSprite = new GunnerSprite(null, 
-				GunnerSprite.X, GunnerSprite.Y, 
+
+		settingSprite = new GunnerSprite(null, GunnerSprite.X, GunnerSprite.Y,
 				GunnerSprite.WIDTH, GunnerSprite.HEIGHT);
 		attachChild(settingSprite);
-		
+
 		initTouch();
 	}
 
@@ -77,7 +77,7 @@ public class GameScene99 extends BaseSudokuScene {
 		registerTouch(chessControlPanelSprite);
 		registerTouch(settingBtnSprite);
 		registerTouch(failSprite);
-		
+
 	}
 
 	@Override
@@ -98,13 +98,13 @@ public class GameScene99 extends BaseSudokuScene {
 
 	@Override
 	public void reStartGame() {
-		chessboard99Sprite.initCells( BaseBoard.getCellMap(Map.getCellMaps(Map.MAP_TYPE_99_1, level)) );
+		chessboard99Sprite.initCells(BaseBoard.getCellMap(examination.getQuestions()));
 		countdownSprite.cleanCountTime();
 	}
 
 	@Override
 	public void next() {
-		level++;
+		// level++;
 		reStartGame();
 	}
 

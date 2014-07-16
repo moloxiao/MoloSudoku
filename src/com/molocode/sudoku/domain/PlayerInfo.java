@@ -13,9 +13,6 @@ public class PlayerInfo {
 	private int gender;
 	private boolean isfirstlogin;
 	private int levelsCompleted;
-	private int schoolId;
-	private int grade;
-	private int degree;
 
 	public boolean isIsfirstlogin() {
 		return isfirstlogin;
@@ -60,29 +57,7 @@ public class PlayerInfo {
 		this.levelsCompleted = levelsCompleted;
 	}
 
-	public int getSchoolId() {
-		return schoolId;
-	}
 
-	public void setSchoolId(int schoolId) {
-		this.schoolId = schoolId;
-	}
-
-	public int getGrade() {
-		return grade;
-	}
-
-	public void setGrade(int grade) {
-		this.grade = grade;
-	}
-
-	public int getDegree() {
-		return degree;
-	}
-
-	public void setDegree(int degree) {
-		this.degree = degree;
-	}
 
 	private static final String PREFS_NAME = "DIZZY_PLAYERINFO";
 	private static final String PREFS_KEY_NICKNAME = "DIZZY_PLAYERINFO_NICKNAME";
@@ -90,10 +65,6 @@ public class PlayerInfo {
 	private static final String PREFS_KEY_GENDER = "DIZZY_PLAYERINFO_GENDER";
 	private static final String PREFS_KEY_FIRSTLOGIN = "PREFS_KEY_FIRSTLOGIN";
 	private static final String PREFS_KEY_LEVELSCOMPLETED = "PREFS_KEY_LEVELSCOMPLETED";
-	// 用户当前的学校和当前年级
-	private static final String PREFS_KEY_SCHOOL = "PREFS_KEY_SCHOOLID";
-	private static final String PREFS_KEY_GRADE = "PREFS_KEY_GRADE";
-	private static final String PREFS_KEY_DEGREE = "PREFS_KEY_DEGREE";
 
 	public static PlayerInfo getPlayerInfo(Context context) {
 		SharedPreferences settings = context
@@ -105,9 +76,6 @@ public class PlayerInfo {
 		info.setGender(settings.getInt(PREFS_KEY_GENDER, PlayerInfo.MALE));
 		info.setIsfirstlogin(settings.getBoolean(PREFS_KEY_FIRSTLOGIN, true));
 		info.setLevelsCompleted(settings.getInt(PREFS_KEY_LEVELSCOMPLETED, 0));
-		info.setSchoolId(settings.getInt(PREFS_KEY_SCHOOL, 0));
-		info.setGrade(settings.getInt(PREFS_KEY_GRADE, 1));
-		info.setDegree(settings.getInt(PREFS_KEY_DEGREE, 0));
 		return info;
 	}
 
@@ -123,9 +91,6 @@ public class PlayerInfo {
 		editor.putInt(PREFS_KEY_GENDER, info.getGender());
 		editor.putBoolean(PREFS_KEY_FIRSTLOGIN, info.isIsfirstlogin());
 		editor.putInt(PREFS_KEY_LEVELSCOMPLETED, info.getLevelsCompleted());
-		editor.putInt(PREFS_KEY_SCHOOL, info.getSchoolId());
-		editor.putInt(PREFS_KEY_GRADE, info.getGrade());
-		editor.putInt(PREFS_KEY_DEGREE, info.getDegree());
 		editor.commit();
 	}
 

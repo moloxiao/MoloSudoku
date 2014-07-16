@@ -1,7 +1,9 @@
 package com.molocode.sudoku.yard.activity;
 
 import com.molocode.sudoku.R;
+import com.molocode.sudoku.Journey.degree.Degree;
 import com.molocode.sudoku.Journey.school.School;
+import com.molocode.sudoku.Journey.school.SchoolInfo;
 import com.molocode.sudoku.Journey.school.SchoolManager;
 import com.molocode.sudoku.domain.PlayerInfo;
 import android.app.Activity;
@@ -12,13 +14,13 @@ import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 
 public class SchoolTreeActivity extends Activity {
 
 	private Button[] btns;
 	private int currentSchoolId;
-	private int currentDegree;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +28,6 @@ public class SchoolTreeActivity extends Activity {
 		// 设置学校路线界面
 		setContentView(R.layout.shooltree_activity);
 		PlayerInfo info = PlayerInfo.getPlayerInfo(this);
-		currentSchoolId = info.getSchoolId();
-		currentDegree = info.getDegree();
 		Log.e("com.poxiao.suduko", "player_currentSchoolId=" + currentSchoolId);
 		initData();
 		setMapBySchools();
@@ -35,10 +35,10 @@ public class SchoolTreeActivity extends Activity {
 		if (SplashActivity.firstLogin) {
 			showAdmission();
 		} else {
-			Intent intent = new Intent(SchoolTreeActivity.this,
-					CourseTreeActivity.class);
-			intent.putExtra(CourseTreeActivity.SCHOOL_ID, currentSchoolId);
-			startActivity(intent);
+			// Intent intent = new Intent(SchoolTreeActivity.this,
+			// CourseTreeActivity.class);
+			// intent.putExtra(CourseTreeActivity.SCHOOL_ID, currentSchoolId);
+			// startActivity(intent);
 		}
 	}
 
@@ -53,7 +53,6 @@ public class SchoolTreeActivity extends Activity {
 				dialog.dismiss();
 				Intent intent = new Intent(SchoolTreeActivity.this,
 						CourseTreeActivity.class);
-				intent.putExtra(CourseTreeActivity.SCHOOL_ID, 0);
 				startActivity(intent);
 			}
 		});
@@ -88,116 +87,29 @@ public class SchoolTreeActivity extends Activity {
 	private void setMapBySchools() {
 		// for(int i=0;i<LifeJourney.getDegreeSequence().length;i++){
 		// for(int j=0;j<School.LEVEL_MAX;j++){
-		//
 		// }
 		// }
-		for (int i = 0; i < com.molocode.sudoku.Journey.degree.Degree
-				.getSchoolSequence().length; i++) {
-			School buffer = SchoolManager
-					.getSchool(com.molocode.sudoku.Journey.degree.Degree
-							.getSchoolSequence()[i]);
-			Log.e("PX", "i=" + i + ";name=" + buffer.getName());
+		for (int i = 0; i < Degree.getSchoolSequence().length; i++) {
+			final SchoolInfo info = Degree.getSchoolSequence()[i];
+			final School buffer = SchoolManager.getSchool(info);
+			Log.i("com.poxiao.suduko", "i=" + i + ";name=" + buffer.getName());
 			btns[i].setText(buffer.getName());
+			btns[i].setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(SchoolTreeActivity.this,
+							CourseTreeActivity.class);
+					intent.putExtra(CourseTreeActivity.DEGREE_ID, info.degreeId);
+					intent.putExtra(CourseTreeActivity.SCHOOLLEVEL,
+							info.schoolLevel);
+					intent.putExtra(CourseTreeActivity.SCHOOLPROGRESS,
+							buffer.getProgress());
+					startActivity(intent);
+				}
+			});
 		}
 
 	}
-
-	// // 初始化学校地图
-	// private void initMap() {
-	// List<Degree> degrees = LifeJourney.getInstance().getDegrees();
-	// List<School> schools = new ArrayList<School>();
-	// if (null != degrees) {
-	// schools = getSchoolLsitDegree(degrees, currentDegree);
-	// Log.e("com.poxiao.suduko", "schools.size=" + schools.size());
-	// }
-	// setViewBtnsBySchools(schools, btns);
-	// }
-	//
-	// // 根据学历列表拼接学校列表
-	// private List<School> getSchoolLsitDegree(List<Degree> degrees,
-	// int currentDegree) {
-	// List<School> schoolall = new ArrayList<School>();
-	// Log.e("com.poxiao.suduko", "currentSchoolId0=" + currentSchoolId);
-	// for (int i = 0; i < degrees.size(); i++) {
-	// List<School> schools = new ArrayList<School>();
-	// schools = degrees.get(i).getSchools();
-	// int playProperty = getSchoolProperty(degrees.get(i), currentDegree);
-	// for (int j = 0; j < schools.size(); j++) {
-	// School schoolItem = schools.get(j);
-	// schoolItem.setPlayProperty(playProperty);
-	// schoolall.add(schoolItem);
-	// }
-	// }
-	// return schoolall;
-	// }
-	//
-	// // 根据当前学历的等级来判断学校的属性
-	// private int getSchoolProperty(Degree degrees, int currentdegree) {
-	// if (degrees.getDegreeId() > currentdegree) {
-	// return School.SCHOOL_TYPE_DEGREEUNABLE;
-	// } else if (degrees.getDegreeId() == currentdegree) {
-	// return School.SCHOOL_TYPE_ABLE;
-	// } else {
-	// return School.SCHOOL_TYPE_AGEUNABLE;
-	// }
-	// }
-	//
-	// // 根据所有学校的列表设置地图上所有的按钮
-	// private void setViewBtnsBySchools(List<School> schools, Button[] btns) {
-	// if (schools.size() > btns.length) {
-	// Log.e("com.poxiao.suduko", "学校地图配置有无");
-	// }
-	// for (int i = 0; i < schools.size(); i++) {
-	// School schoolItem = schools.get(i);
-	// btns[i].setText(schoolItem.getName());
-	// // Log.e("com.poxiao.suduko", "schoolItem_ID=" +
-	// // schoolItem.getId());
-	// setBtnByProperty(schoolItem.getPlayProperty(), btns[i],
-	// schoolItem.getId());
-	// }
-	// }
-	//
-	// // 根据学校的类型来决定按钮的背景及点击事件
-	// private void setBtnByProperty(int property, Button btn, final int
-	// schoolId) {
-	// // Log.e("com.poxiao.suduko", "schoolId=" + schoolId);
-	// switch (property) {
-	// case 0:
-	// if (schoolId == currentSchoolId) {
-	// Log.e("com.poxiao.suduko", "currentSchoolId1="
-	// + currentSchoolId);
-	// btn.setBackgroundResource(R.drawable.btn_highlight);// 当前学校高亮
-	// btn.setOnClickListener(new View.OnClickListener() {
-	// @Override
-	// public void onClick(View arg0) {
-	// // 直接进入考试列表
-	// Intent intent = new Intent(SchoolTreeActivity.this,
-	// CourseTreeActivity.class);
-	// intent.putExtra(CourseTreeActivity.SCHOOL_ID, currentSchoolId);
-	// startActivity(intent);
-	// }
-	// });
-	//
-	// } else {
-	// btn.setBackgroundResource(R.drawable.test_button_bg);// 可读学校
-	// btn.setOnClickListener(new View.OnClickListener() {
-	// @Override
-	// public void onClick(View arg0) {
-	// showHitDialog(schoolId);
-	// }
-	// });
-	// }
-	// break;
-	// case 1:
-	// btn.setBackgroundResource(R.drawable.btn_disable);// 学历不够
-	// break;
-	// case 2:
-	// btn.setBackgroundResource(R.drawable.btn_disable);// 年龄超过
-	// break;
-	// default:
-	// break;
-	// }
-	// }
 
 	// 择校通知
 	private void showHitDialog(final int schoolId) {
@@ -214,11 +126,9 @@ public class SchoolTreeActivity extends Activity {
 				// 保存用户的当前学校
 				PlayerInfo player = PlayerInfo
 						.getPlayerInfo(SchoolTreeActivity.this);
-				player.setSchoolId(currentSchoolId);
 				PlayerInfo.setPlayerInfo(SchoolTreeActivity.this, player);
 				Intent intent = new Intent(SchoolTreeActivity.this,
 						CourseTreeActivity.class);
-				intent.putExtra(CourseTreeActivity.SCHOOL_ID, schoolId);
 				startActivity(intent);
 			}
 		});
@@ -228,7 +138,6 @@ public class SchoolTreeActivity extends Activity {
 				dialog.dismiss();
 				Intent intent = new Intent(SchoolTreeActivity.this,
 						CourseTreeActivity.class);
-				intent.putExtra(CourseTreeActivity.SCHOOL_ID, currentSchoolId);
 				startActivity(intent);
 			}
 		});

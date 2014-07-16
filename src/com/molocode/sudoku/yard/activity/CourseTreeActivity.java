@@ -1,14 +1,10 @@
 package com.molocode.sudoku.yard.activity;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import com.molocode.sudoku.R;
-import com.molocode.sudoku.domain.PlayerInfo;
+import com.molocode.sudoku.Journey.examination.Examination;
+import com.molocode.sudoku.Journey.examination.PassLevel;
 import com.molocode.sudoku.game.GameActivity;
-import com.molocode.sudoku.game.domain.Examination;
-import com.molocode.sudoku.game.domain.School;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -21,10 +17,17 @@ import android.view.View;
 import android.widget.Button;
 
 public class CourseTreeActivity extends Activity {
-	public static String SCHOOL_ID = "SCHOOL_ID";
+
 	private Button[] btns;
-	private int schoolId;
-	private int grade;
+	private int degreeId;
+	private int schoolLevel;
+	private int schoolprogress;
+	private int mapType;
+	private String[] examinfo;
+
+	public static String DEGREE_ID = "DEGREE_ID";
+	public static String SCHOOLLEVEL = "SCHOOLLEVEL";
+	public static String SCHOOLPROGRESS = "SCHOOLPROGRESS";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +35,6 @@ public class CourseTreeActivity extends Activity {
 		// 设置课程树
 		setContentView(R.layout.coursetree_activity);
 		// 根据degreeId来获取当前学校下的所有考试科目
-		schoolId = (Integer) getIntent().getExtras().get(SCHOOL_ID);
 		initData();
 		if (SplashActivity.firstLogin) {
 			showExamination();
@@ -42,67 +44,39 @@ public class CourseTreeActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		grade = PlayerInfo.getPlayerInfo(CourseTreeActivity.this).getGrade();
-		initMap(schoolId);
+		Log.i("com.poxiao.suduko", "onResume");
+		initMap();
 	}
 
 	// 根据学校ID初始化考试信息
-	private void initMap(int schoolId) {
-		List<Examination> exams = new ArrayList<Examination>();
-		exams = School.getExaminationlistById(schoolId);// 考试列表
-		setMapView(exams);
-	}
-
-	private void setMapView(List<Examination> exams) {
-		if (exams.size() > btns.length) {
-			Log.e("com.poxiao.suduko", "考试地图配置出问题了，请检查");
-			return;
-		}
+	private void initMap() {
+		Log.i("com.poxiao.suduko", "CourseTreeActivity degreeId=" + degreeId);
+		List<Examination> exams = Examination.getExaminationList(degreeId);
 		for (int i = 0; i < exams.size(); i++) {
-			setBtnPorperty(btns[i], exams.get(i), grade);
-		}
-	}
-
-	private void setBtnPorperty(Button btn, final Examination exam, int examId) {
-		btn.setText(exam.getExaminationName());
-		if (exam.getExamLevel() == examId) {
-			// 当前级别的考试,按钮高亮
-			exam.setExamType(Examination.EXAMTYPE_CURRENT);
-			btn.setBackgroundResource(R.drawable.btn_highlight);
-			btn.setOnClickListener(new View.OnClickListener() {
+			mapType = exams.get(i).getMapType();
+			examinfo = new String[] { String.valueOf(degreeId),
+					String.valueOf(schoolLevel),
+					String.valueOf(schoolprogress), };
+			btns[i].setText(exams.get(i).getExaminationName());
+			if (i == schoolprogress) {
+				btns[i].setBackgroundResource(R.drawable.btn_highlight);
+			} else {
+				btns[i].setBackgroundResource(R.drawable.btn_disable);
+			}
+			btns[i].setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					Intent intent = new Intent(CourseTreeActivity.this,
 							GameActivity.class);
-					intent.putExtra(GameActivity.EXTRA_LEVEL, exam.getMapId());
-					intent.putExtra(GameActivity.EXTRA_DIFICUTY,
-							exam.getMapType());
+					intent.putExtra(GameActivity.EXTRA_MAPTYPE, mapType);
+					intent.putExtra(GameActivity.EXTRA_EXAMINFO, examinfo);
 					startActivity(intent);
-				}
-			});
-		} else if (exam.getExamLevel() > examId) {
-			exam.setExamType(Examination.EXAMTYPE_ERRORLEVEL);
-			btn.setBackgroundResource(R.drawable.btn_disable);
-			btn.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					showHintDialog(Examination.EXAMTYPE_ERRORLEVEL);
-				}
-			});
-		} else {
-			exam.setExamType(Examination.EXAMTYPE_PASSED);
-			btn.setBackgroundResource(R.drawable.btn_disable);
-			btn.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					showHintDialog(Examination.EXAMTYPE_PASSED);
 				}
 			});
 		}
 	}
 
 	private void showHintDialog(int type) {
-
 		AlertDialog.Builder builder = new Builder(CourseTreeActivity.this);
 		builder.setTitle("提醒");
 		switch (type) {
@@ -132,13 +106,15 @@ public class CourseTreeActivity extends Activity {
 	}
 
 	private void initData() {
+		degreeId = (Integer) getIntent().getExtras().get(DEGREE_ID);
+		schoolLevel = (Integer) getIntent().getExtras().get(SCHOOLLEVEL);
+		schoolprogress = (Integer) getIntent().getExtras().get(SCHOOLPROGRESS);
 		btns = new Button[] { (Button) findViewById(R.id.course_btn_1),
 				(Button) findViewById(R.id.course_btn_2),
 				(Button) findViewById(R.id.course_btn_3),
 				(Button) findViewById(R.id.course_btn_4),
 				(Button) findViewById(R.id.course_btn_5),
 				(Button) findViewById(R.id.course_btn_6), };
-
 	}
 
 	// 首次登陆的用户弹考试界面
@@ -152,8 +128,8 @@ public class CourseTreeActivity extends Activity {
 				dialog.dismiss();
 				Intent intent = new Intent(CourseTreeActivity.this,
 						GameActivity.class);
-				intent.putExtra(GameActivity.EXTRA_LEVEL, 0);
-				intent.putExtra(GameActivity.EXTRA_DIFICUTY, 0);
+				intent.putExtra(GameActivity.EXTRA_MAPTYPE, mapType);
+				intent.putExtra(GameActivity.EXTRA_EXAMINFO, examinfo);
 				startActivity(intent);
 			}
 		});

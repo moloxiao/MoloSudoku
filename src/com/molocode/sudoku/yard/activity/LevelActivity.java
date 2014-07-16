@@ -40,8 +40,8 @@ public class LevelActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long id) {
 				Intent intent = new Intent(LevelActivity.this, GameActivity.class);
-				intent.putExtra(GameActivity.EXTRA_LEVEL, position);
-				intent.putExtra(GameActivity.EXTRA_DIFICUTY, currentLevel);
+				// intent.putExtra(GameActivity.EXTRA_LEVEL, position);
+				// intent.putExtra(GameActivity.EXTRA_DIFICUTY, currentLevel);
 				startActivity(intent);
 			}
 			

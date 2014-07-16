@@ -1,5 +1,7 @@
 package com.molocode.sudoku.game;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -8,6 +10,9 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.util.Log;
+
+import com.molocode.sudoku.Journey.examination.Examination;
+import com.molocode.sudoku.Journey.school.ProgressManager;
 import com.molocode.sudoku.domain.PlayerInfo;
 import com.molocode.sudoku.game.domain.BaseBoard;
 import com.molocode.sudoku.game.domain.Map;
@@ -21,12 +26,16 @@ import com.molocode.sudoku.game.sprite.GunnerSprite;
 
 public class GameScene44 extends BaseSudokuScene {
 	private GameActivity activity;
-	private float passTime = 40;// 过关时间
+	private Examination examination;
+	private int degreeId;
+	private int schoolLevel;
+	private int progress;
 
-	public GameScene44(int level, Activity activity) {
-		super(level, activity);
+	public GameScene44(String[] examinfo, Activity activity) {
+		super(examinfo, activity);
 		this.activity = (GameActivity) activity;
-		((GameActivity) activity).showExamInfo();
+		this.examination = getExamination(examinfo);
+		((GameActivity) activity).showExamInfo(examination);
 	}
 
 	private Chessboard44Sprite chessboard44Sprite;
@@ -41,13 +50,13 @@ public class GameScene44 extends BaseSudokuScene {
 		chessboard44Sprite = new Chessboard44Sprite(null, Chessboard44Sprite.X,
 				Chessboard44Sprite.Y, Chessboard44Sprite.WIDTH,
 				Chessboard44Sprite.HEIGHT);
-		chessboard44Sprite.initCells(BaseBoard.getCellMap(Map.getCellMaps(
-				Map.MAP_TYPE_44, level)));
+		chessboard44Sprite.initCells(BaseBoard.getCellMap(examination
+				.getQuestions()));
 		attachChild(chessboard44Sprite);
 
 		countdownSprite = new CountdownSprite(null, CountdownSprite.X,
 				CountdownSprite.Y, CountdownSprite.WIDTH,
-				CountdownSprite.HEIGHT, passTime);
+				CountdownSprite.HEIGHT, examination.getPassLevel().pass);
 		attachChild(countdownSprite);
 
 		chessControlPanelSprite = new ChessControlPanelSprite(null,
@@ -87,7 +96,6 @@ public class GameScene44 extends BaseSudokuScene {
 	@Override
 	public void onUnloadResources() {
 		// TODO 需要手动释放的资源
-
 	}
 
 	@Override
@@ -101,11 +109,13 @@ public class GameScene44 extends BaseSudokuScene {
 		// 添加成功记录
 		PlayerInfo info = PlayerInfo.getPlayerInfo(activity);
 		int levelsCompleted = info.getLevelsCompleted();
-		Log.e("com.poxiao.suduko", "levelsCompleted=" + levelsCompleted);
+		Log.i("com.poxiao.suduko", "levelsCompleted=" + levelsCompleted);
 		info.setLevelsCompleted(levelsCompleted + 1);
 		PlayerInfo.setPlayerInfo(activity, info);
-		checkElevenPlus(info);
-		savePlayerInfo(info);
+		ProgressManager.setScoolProgress(degreeId, schoolLevel, progress);
+		Log.i("com.poxiao.suduko", "degreeId=" + degreeId + ";schoolLevel"
+				+ schoolLevel + ";progress" + progress);
+		successSprite.setVisible(true);
 	}
 
 	@Override
@@ -115,8 +125,8 @@ public class GameScene44 extends BaseSudokuScene {
 
 	@Override
 	public void reStartGame() {
-		chessboard44Sprite.initCells(BaseBoard.getCellMap(Map.getCellMaps(
-				Map.MAP_TYPE_44, level)));
+		chessboard44Sprite.initCells(BaseBoard.getCellMap(examination
+				.getQuestions()));
 		countdownSprite.cleanCountTime();
 	}
 
@@ -135,8 +145,20 @@ public class GameScene44 extends BaseSudokuScene {
 	 */
 	@Override
 	public void next() {
-		level++;
+		// level++;
 		reStartGame();
+	}
+
+	// 获取本次考试的信息
+	private Examination getExamination(String[] examinfo) {
+		if (null != examinfo && examinfo.length == 3) {
+			degreeId = Integer.valueOf(examinfo[0]);
+			schoolLevel = Integer.valueOf(examinfo[1]);
+			progress = Integer.valueOf(examinfo[2]);
+			List<Examination> exams = Examination.getExaminationList(degreeId);
+			return exams.get(Integer.valueOf(progress));
+		}
+		return null;
 	}
 
 	// 判断时间是否超时
@@ -144,65 +166,6 @@ public class GameScene44 extends BaseSudokuScene {
 		float time = CountdownSprite.getPassTime();
 		if (time == 0) {
 			failSprite.setVisible(true);
-		}
-	}
-
-	private void savePlayerInfo(PlayerInfo info) {
-		int currentGrade = info.getGrade();
-		int currentDegree = info.getDegree();
-		switch (currentDegree) {
-		case 0:
-		case 1:
-		case 2:
-		case 4:
-			if (currentGrade < 6) {
-				currentGrade++;
-			} else {
-				currentDegree++;
-				currentGrade = 0;
-			}
-			break;
-		case 3:
-			if (currentGrade < 8) {
-				currentGrade++;
-			} else {
-				currentDegree++;
-				currentGrade = 0;
-			}
-			break;
-		}
-		info.setGrade(currentGrade);
-		info.setDegree(currentDegree);
-		Log.e("PX", "WLGQA==" + currentGrade + "||" + currentDegree);
-		PlayerInfo.setPlayerInfo(activity, info);
-	}
-
-	// 检测是否到了升学考试
-	private void checkElevenPlus(PlayerInfo info) {
-		Log.e("PX", "WLGQB==" + info.getGrade() + "||" + info.getDegree());
-		int currentGrade = info.getGrade();
-		int currentDegree = info.getDegree();
-		switch (currentDegree) {
-		case 0:
-		case 1:
-		case 2:
-		case 4:
-			if (currentGrade == 5) {
-				showUpDialog();
-			} else {
-				successSprite.setVisible(true);
-			}
-			break;
-		case 3:
-			if (currentGrade == 7) {
-				showUpDialog();
-			} else {
-				successSprite.setVisible(true);
-			}
-			break;
-		default:
-			Log.e("com.poxiao.suduko", "currentDegree is error" + currentDegree);
-			break;
 		}
 	}
 

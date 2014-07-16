@@ -12,19 +12,20 @@ import com.hifreshday.android.pge.engine.options.ScaleModel;
 import com.hifreshday.android.pge.entity.scene.Scene;
 import com.hifreshday.android.pge.ui.activity.BaseGameActivity;
 import com.molocode.sudoku.R;
+import com.molocode.sudoku.Journey.examination.Examination;
 import com.molocode.sudoku.game.domain.Map;
 
 public class GameActivity extends BaseGameActivity {
 
-	public static final String EXTRA_LEVEL = "level";
-	public static final String EXTRA_DIFICUTY = "dificuty";
-	private int dificuty;
-	private int level;
+	public static final String EXTRA_MAPTYPE = "mapType";
+	public static final String EXTRA_EXAMINFO = "examinfo";
+	private int mapType;
+	private String[] examinfo;
 
 	@Override
 	public boolean coming() {
-		level = getIntent().getIntExtra(EXTRA_LEVEL, 0);
-		dificuty = getIntent().getIntExtra(EXTRA_DIFICUTY, 0);
+		mapType = getIntent().getIntExtra(EXTRA_MAPTYPE, 0);
+		examinfo = getIntent().getStringArrayExtra(EXTRA_EXAMINFO);
 		return true;
 	}
 
@@ -59,12 +60,12 @@ public class GameActivity extends BaseGameActivity {
 		PaintManager.initPaintManager(this);
 
 		BaseSudokuScene screen = null;
-		if (dificuty == Map.MAP_TYPE_99_1) {
-			screen = new GameScene99(level, this);
-		} else if (dificuty == Map.MAP_TYPE_66) {
-			screen = new GameScene66(level, this);
+		if (mapType == Map.MAP_TYPE_99_1) {
+			screen = new GameScene99(examinfo, this);
+		} else if (mapType == Map.MAP_TYPE_66) {
+			screen = new GameScene66(examinfo, this);
 		} else {
-			screen = new GameScene44(level, this);
+			screen = new GameScene44(examinfo, this);
 		}
 
 		screen.onLoadResources(getResources(), null);
@@ -82,7 +83,7 @@ public class GameActivity extends BaseGameActivity {
 	public void onResumeGame() {
 	}
 
-	public void showExamInfo() {
+	public void showExamInfo(Examination examination) {
 		this.runOnUiThread(new Runnable() {
 			public void run() {
 				AlertDialog.Builder builder = new Builder(GameActivity.this);

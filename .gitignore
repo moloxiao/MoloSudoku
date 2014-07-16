@@ -7,3 +7,5 @@ debug/
 #ignore .DS_Store file
 .DS_Store
 project.properties
+project.properties
+lint.xml

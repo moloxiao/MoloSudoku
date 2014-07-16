@@ -6,6 +6,7 @@ import com.molocode.sudoku.R;
 import com.molocode.sudoku.Journey.LifeJourney;
 import com.molocode.sudoku.Journey.degree.Degree;
 import com.molocode.sudoku.Journey.degree.DegreeManager;
+import com.molocode.sudoku.Journey.examination.ExamScore;
 import com.molocode.sudoku.Journey.examination.Examination;
 import com.molocode.sudoku.Journey.school.ProgressManager;
 import com.molocode.sudoku.Journey.school.School;
@@ -51,7 +52,13 @@ public class SchoolTreeActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		if (ProgressManager.getInstance().getEntranceExams()) {
-			showEnteranceDialog();
+			if (ExamScore.getInstance().getExamScore() > 0) {
+				// TODO 显示学校选着界面
+				// TODO 清除升学考状态
+			} else {
+				// 显示补考界面
+			}
+			showEnteranceDialog();// TODO 只显示一次
 		}
 	}
 

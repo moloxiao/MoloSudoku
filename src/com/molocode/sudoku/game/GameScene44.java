@@ -16,6 +16,7 @@ import android.util.Log;
 import com.molocode.sudoku.Journey.LifeJourney;
 import com.molocode.sudoku.Journey.degree.Degree;
 import com.molocode.sudoku.Journey.degree.DegreeManager;
+import com.molocode.sudoku.Journey.examination.ExamScore;
 import com.molocode.sudoku.Journey.examination.Examination;
 import com.molocode.sudoku.Journey.school.ProgressManager;
 import com.molocode.sudoku.Journey.school.SchoolInfo;
@@ -44,6 +45,7 @@ public class GameScene44 extends BaseSudokuScene {
 		this.activity = (GameActivity) activity;
 		this.schoolLevel = DegreeManager.getDegree(
 				LifeJourney.getInstance().getDegreeId()).getSchoolInfo().schoolLevel;
+		Log.e("com.poxiao.suduko", "this.schoolLevel=" + this.schoolLevel);
 		this.examination = getExamination();
 		((GameActivity) activity).showExamInfo(examination);
 	}
@@ -115,7 +117,17 @@ public class GameScene44 extends BaseSudokuScene {
 
 	@Override
 	public void updateUiSuccessGame() {
+		// 停止计时器
+		countdownSprite.stopCountdown();
 		Log.i("MOLO_DEBUG", "success game on scene44");
+		if (ProgressManager.getInstance().getEntranceExams()) {
+			int score=ExamScore.getInstance().getScorebyTime(
+							CountdownSprite.getPassTime(),
+							examination);
+			ExamScore.getInstance().saveExamScore(score);
+			activity.startActivity(new Intent(activity,
+					SchoolTreeActivity.class));
+		}
 		// 添加成功记录
 		PlayerInfo info = PlayerInfo.getPlayerInfo(activity);
 		int levelsCompleted = info.getLevelsCompleted();
@@ -123,7 +135,7 @@ public class GameScene44 extends BaseSudokuScene {
 		info.setLevelsCompleted(levelsCompleted + 1);
 		PlayerInfo.setPlayerInfo(activity, info);
 		// 获取新的progress
-		getExamination();
+		setSchoolProgrerss();
 		schoolprogress++;
 		if (ProgressManager.getInstance().studyProgress(degreeId,
 				schoolprogress)) {
@@ -172,12 +184,7 @@ public class GameScene44 extends BaseSudokuScene {
 	// 获取本次考试的信息
 	private Examination getExamination() {
 		degreeId = LifeJourney.getInstance().getDegreeId();
-		for (int i = 0; i < Degree.getSchoolSequence().length; i++) {
-			SchoolInfo info = Degree.getSchoolSequence()[i];
-			if (degreeId == info.degreeId && schoolLevel == info.schoolLevel) {
-				schoolprogress = SchoolManager.getSchool(info).getProgress();
-			}
-		}
+		setSchoolProgrerss();
 		List<Examination> exams = null;
 		if (ProgressManager.getInstance().getEntranceExams()) {
 			exams = Examination.getEnterDegreeExaninationList(degreeId);
@@ -190,11 +197,21 @@ public class GameScene44 extends BaseSudokuScene {
 		return exams.get(schoolprogress);
 	}
 
+	private void setSchoolProgrerss() {
+		for (int i = 0; i < Degree.getSchoolSequence().length; i++) {
+			SchoolInfo info = Degree.getSchoolSequence()[i];
+			if (degreeId == info.degreeId && schoolLevel == info.schoolLevel) {
+				schoolprogress = SchoolManager.getSchool(info).getProgress();
+			}
+		}
+	}
+
 	// 判断时间是否超时
 	private void checkTimeOut() {
 		float time = CountdownSprite.getPassTime();
 		if (time == 0) {
 			failSprite.setVisible(true);
+			countdownSprite.stopCountdown();
 		}
 	}
 

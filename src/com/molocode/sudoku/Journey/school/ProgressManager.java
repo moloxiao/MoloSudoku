@@ -68,10 +68,10 @@ public class ProgressManager {
 				List<Examination> exams = Examination.getExaminationList(Degree
 						.getSchoolSequence()[i].degreeId);
 				Log.i("com.poxiao.suduko", "exam.size" + exams.size());
-				if (progress < (exams.size() - 1)) {
+				if (progress < (exams.size())) {
 					school.setProgress(progress);
 					theEnd = false;
-				} else if (progress == (exams.size() - 1)) {
+				} else if (progress == (exams.size())) {
 					school.setProgress(0);
 					LifeJourney.getInstance().setDegreeId(degreeId + 1);
 					Log.i("com.poxiao.suduko", "一个阶段的考试结束，弹出升学考");

@@ -14,11 +14,13 @@ public class CountdownSprite extends Sprite {
 	public static final int HEIGHT = 80;
 	private static float elapse;
 	private static float totaltime;
+	private boolean stop = false;
 
 	public CountdownSprite(IBitmapRes bitmapRes, int pX, int pY, int width,
 			int height, float totaltime) {
 		super(bitmapRes, pX, pY, width, height);
 		CountdownSprite.totaltime = totaltime;
+		this.stop = false;
 	}
 
 	public void cleanCountTime() {
@@ -37,7 +39,9 @@ public class CountdownSprite extends Sprite {
 
 	@Override
 	protected void onUpdateSelf(float secondsElapsed) {
-		elapse += secondsElapsed;
+		if (!stop) {
+			elapse += secondsElapsed;
+		}
 	}
 
 	public static String getTime(float totalSecondsElapsed) {
@@ -50,4 +54,7 @@ public class CountdownSprite extends Sprite {
 		return Integer.valueOf(getTime(elapse));
 	}
 
+	public void stopCountdown() {
+		stop = true;
+	}
 }

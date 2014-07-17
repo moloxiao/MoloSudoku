@@ -67,14 +67,14 @@ public class GunnerSprite extends Sprite {
 	}
 
 	private void drawBtn(Rect rect, String text, Canvas canvas) {
-		canvas.drawRoundRect(new RectF(rect), 10, 10, 
-				PaintManager.getInstance().getWhitePaint());
-		
-		float offsetX = (rect.width() - PaintManager.getInstance().getTextBlack40Paint().measureText(text))/2;
-		canvas.drawText(text, 
-				rect.left + offsetX, 
-				rect.top + 55*EngineOptions.getScreenScaleY(), 
-				PaintManager.getInstance().getTextBlack40Paint());
+		canvas.drawRoundRect(new RectF(rect), 10, 10, PaintManager
+				.getInstance().getWhitePaint());
+
+		float offsetX = (rect.width() - PaintManager.getInstance()
+				.getTextBlack40Paint().measureText(text)) / 2;
+		canvas.drawText(text, rect.left + offsetX, rect.top + 55
+				* EngineOptions.getScreenScaleY(), PaintManager.getInstance()
+				.getTextBlack40Paint());
 	}
 
 	@Override
@@ -86,11 +86,11 @@ public class GunnerSprite extends Sprite {
 
 				if (btnRects[0]
 						.contains((int) event.getX(), (int) event.getY())) {
-					((BaseSudokuScene)getParent()).quitGame();
+					((BaseSudokuScene) getParent()).quitGame();
 				} else if (btnRects[1].contains((int) event.getX(),
 						(int) event.getY())) {
-					((BaseSudokuScene)getParent()).reStartGame();
-					//TODO 枪手功能，未添加
+					// TODO 枪手功能，未添加
+					((BaseSudokuScene) getParent()).updateUiSuccessGame();
 					setVisible(false);
 				} else if (btnRects[2].contains((int) event.getX(),
 						(int) event.getY())) {
@@ -102,6 +102,5 @@ public class GunnerSprite extends Sprite {
 		return false;
 	}
 
-	
-	private final static String[] BTN_NAME = {"退出", "购买枪手", "回到游戏"};
+	private final static String[] BTN_NAME = { "退出", "购买枪手", "回到游戏" };
 }

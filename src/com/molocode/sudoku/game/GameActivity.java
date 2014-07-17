@@ -80,25 +80,4 @@ public class GameActivity extends BaseGameActivity {
 	public void onResumeGame() {
 	}
 
-	public void showExamInfo(Examination examination) {
-		this.runOnUiThread(new Runnable() {
-			public void run() {
-				AlertDialog.Builder builder = new Builder(GameActivity.this);
-				// TODO 考试信息
-				builder.setMessage("逗比小学1年级期末考试");
-				builder.setTitle("考试信息");
-				final Dialog dialog = builder.create();
-				dialog.show();
-				Timer timer = new Timer();
-				TimerTask task = new TimerTask() {
-					@Override
-					public void run() {
-						dialog.dismiss();
-					}
-
-				};
-				timer.schedule(task, 3000);
-			}
-		});
-	}
 }

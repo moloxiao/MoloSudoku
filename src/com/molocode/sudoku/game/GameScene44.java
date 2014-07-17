@@ -46,7 +46,7 @@ public class GameScene44 extends BaseSudokuScene {
 		setExaminationList();// 设置所有的考试
 		Log.e("com.poxiao.suduko", "this.schoolLevel=" + this.schoolLevel);
 		this.examination = getExamination(schoolprogress);
-		((GameActivity) activity).showExamInfo(examination);
+		showExamInfo(this.examination);
 	}
 
 	private Chessboard44Sprite chessboard44Sprite;
@@ -97,11 +97,11 @@ public class GameScene44 extends BaseSudokuScene {
 
 	private void initTouch() {
 		registerTouch(successSprite);
+		registerTouch(failSprite);
 		registerTouch(settingSprite);
 		registerTouch(chessboard44Sprite);
 		registerTouch(chessControlPanelSprite);
 		registerTouch(settingBtnSprite);
-		registerTouch(failSprite);
 	}
 
 	@Override
@@ -159,6 +159,8 @@ public class GameScene44 extends BaseSudokuScene {
 	@Override
 	public void reStartGame() {
 		this.examination = getExamination(schoolprogress);
+		// 展示当前考试的准考信息
+		showExamInfo(this.examination);
 		chessboard44Sprite.initCells(BaseBoard.getCellMap(examination
 				.getQuestions()));
 		countdownSprite.cleanCountTime();
@@ -183,6 +185,11 @@ public class GameScene44 extends BaseSudokuScene {
 		reStartGame();
 	}
 
+	/**
+	 * 获取成绩等级
+	 * 
+	 * @return
+	 */
 	public int getScoreLevel() {
 		float time = CountdownSprite.getPassTime();
 		if (examination.getPassLevel().perfect
@@ -267,6 +274,16 @@ public class GameScene44 extends BaseSudokuScene {
 				school.setProgress(progress);
 			}
 		}
+	}
+
+	private void showExamInfo(Examination examination) {
+		String name = examination.getExaminationName();
+		String number = examination.getExaminationNumber();
+		String location = examination.getExaminationLocation();
+		int passtime = examination.getPassLevel().pass;
+		// TODO 界面展示
+		Log.e("com.poxiao.suduko", "name=" + name + ";number=" + number
+				+ ";location=" + location + "passtime=" + passtime);
 	}
 
 	/**

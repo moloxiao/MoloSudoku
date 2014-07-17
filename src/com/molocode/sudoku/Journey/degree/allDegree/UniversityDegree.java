@@ -7,5 +7,6 @@ public class UniversityDegree extends Degree {
 		super();
 		this.id = Degree.UNIVERSITY;
 		this.name = Degree.getDegreeDesc(Degree.UNIVERSITY);
+		this.isRequireExamination = true;
 	}
 }

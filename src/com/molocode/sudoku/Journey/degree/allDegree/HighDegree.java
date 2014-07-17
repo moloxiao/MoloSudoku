@@ -7,5 +7,6 @@ public class HighDegree extends Degree {
 		super();
 		this.id = Degree.HIGH;
 		this.name = Degree.getDegreeDesc(Degree.HIGH);
+		this.isRequireExamination = true;
 	}
 }

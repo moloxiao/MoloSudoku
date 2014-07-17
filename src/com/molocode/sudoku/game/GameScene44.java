@@ -10,20 +10,16 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
-import android.sax.StartElementListener;
 import android.util.Log;
-
 import com.molocode.sudoku.Journey.LifeJourney;
 import com.molocode.sudoku.Journey.degree.Degree;
 import com.molocode.sudoku.Journey.degree.DegreeManager;
-import com.molocode.sudoku.Journey.examination.ExamScore;
 import com.molocode.sudoku.Journey.examination.Examination;
-import com.molocode.sudoku.Journey.school.ProgressManager;
+import com.molocode.sudoku.Journey.school.School;
 import com.molocode.sudoku.Journey.school.SchoolInfo;
 import com.molocode.sudoku.Journey.school.SchoolManager;
 import com.molocode.sudoku.domain.PlayerInfo;
 import com.molocode.sudoku.game.domain.BaseBoard;
-import com.molocode.sudoku.game.domain.Map;
 import com.molocode.sudoku.game.sprite.ChessControlPanelSprite;
 import com.molocode.sudoku.game.sprite.Chessboard44Sprite;
 import com.molocode.sudoku.game.sprite.CountdownSprite;
@@ -31,7 +27,6 @@ import com.molocode.sudoku.game.sprite.ExamFailSprite;
 import com.molocode.sudoku.game.sprite.ExamSuccessSprite;
 import com.molocode.sudoku.game.sprite.GunnerBtnSprite;
 import com.molocode.sudoku.game.sprite.GunnerSprite;
-import com.molocode.sudoku.yard.activity.SchoolTreeActivity;
 
 public class GameScene44 extends BaseSudokuScene {
 	private GameActivity activity;
@@ -39,14 +34,18 @@ public class GameScene44 extends BaseSudokuScene {
 	private int degreeId;
 	private int schoolprogress;
 	private int schoolLevel;
+	List<Examination> exams;// 日常考试列表
+	List<Examination> enterExams;// 升学考试列表
 
 	public GameScene44(Activity activity) {
 		super(activity);
 		this.activity = (GameActivity) activity;
 		this.schoolLevel = DegreeManager.getDegree(
 				LifeJourney.getInstance().getDegreeId()).getSchoolInfo().schoolLevel;
+		setSchoolProgrerss();// 设置当前progress
+		setExaminationList();// 设置所有的考试
 		Log.e("com.poxiao.suduko", "this.schoolLevel=" + this.schoolLevel);
-		this.examination = getExamination();
+		this.examination = getExamination(schoolprogress);
 		((GameActivity) activity).showExamInfo(examination);
 	}
 
@@ -117,37 +116,32 @@ public class GameScene44 extends BaseSudokuScene {
 
 	@Override
 	public void updateUiSuccessGame() {
+		Log.i("MOLO_DEBUG", "success game on scene44");
 		// 停止计时器
 		countdownSprite.stopCountdown();
-		Log.i("MOLO_DEBUG", "success game on scene44");
-		if (ProgressManager.getInstance().getEntranceExams()) {
-			int score=ExamScore.getInstance().getScorebyTime(
-							CountdownSprite.getPassTime(),
-							examination);
-			ExamScore.getInstance().saveExamScore(score);
-			activity.startActivity(new Intent(activity,
-					SchoolTreeActivity.class));
+		// 获取最新新的progress
+		setSchoolProgrerss();
+		if ((exams.size()-1) == schoolprogress) {
+			Log.i("com.poxiao.suduko", "获得升学考试");
+			showUpDialog();
+		} else if (exams.size() == schoolprogress) {
+			Log.i("com.poxiao.suduko", "通过升学考试");
+		} else {
+			// 显示过关界面
+			Log.i("com.poxiao.suduko", "updateUiSuccessGame schoolprogress=" + schoolprogress);
+			successSprite.setVisible(true);
 		}
+		schoolprogress++;
+		// 保存新的progress
+		saveSchoolProgrerss(schoolprogress);
+		Log.i("com.poxiao.suduko", " GameScene44 degreeId=" + degreeId
+				+ ";progress" + schoolprogress);
 		// 添加成功记录
 		PlayerInfo info = PlayerInfo.getPlayerInfo(activity);
 		int levelsCompleted = info.getLevelsCompleted();
 		Log.i("com.poxiao.suduko", "levelsCompleted=" + levelsCompleted);
 		info.setLevelsCompleted(levelsCompleted + 1);
 		PlayerInfo.setPlayerInfo(activity, info);
-		// 获取新的progress
-		setSchoolProgrerss();
-		schoolprogress++;
-		if (ProgressManager.getInstance().studyProgress(degreeId,
-				schoolprogress)) {
-			ProgressManager.getInstance().setEntranceExams(true);
-			Log.e("com.poxiao.suduko", "历尽多年磨练，你已今非昔比，参加升学考试吧");
-			activity.startActivity(new Intent(activity,
-					SchoolTreeActivity.class));
-		} else {
-			successSprite.setVisible(true);
-		}
-		Log.i("com.poxiao.suduko", " GameScene44 degreeId=" + degreeId
-				+ ";progress" + schoolprogress);
 	}
 
 	@Override
@@ -157,6 +151,7 @@ public class GameScene44 extends BaseSudokuScene {
 
 	@Override
 	public void reStartGame() {
+		getExamination(schoolprogress);
 		chessboard44Sprite.initCells(BaseBoard.getCellMap(examination
 				.getQuestions()));
 		countdownSprite.cleanCountTime();
@@ -177,24 +172,36 @@ public class GameScene44 extends BaseSudokuScene {
 	 */
 	@Override
 	public void next() {
-		// level++;
 		reStartGame();
 	}
 
-	// 获取本次考试的信息
-	private Examination getExamination() {
+	/**
+	 * 获取当前考试信息
+	 * 
+	 * @param progress
+	 * @return
+	 */
+	private Examination getExamination(int progress) {
+		if (null != exams && null != enterExams) {
+			if (progress < exams.size()) {
+				return exams.get(progress);
+			} else if (progress == exams.size()) {
+				return enterExams.get(0);
+			}
+			Log.e("com.poxiao.suduko", "progress is error");
+		}
+		return null;
+	}
+
+	/**
+	 * 获取所有考试的信息
+	 * 
+	 */
+	private void setExaminationList() {
 		degreeId = LifeJourney.getInstance().getDegreeId();
-		setSchoolProgrerss();
-		List<Examination> exams = null;
-		if (ProgressManager.getInstance().getEntranceExams()) {
-			exams = Examination.getEnterDegreeExaninationList(degreeId);
-		} else {
-			exams = Examination.getExaminationList(degreeId);
-		}
-		if (null == exams) {
-			Log.e("com.poxiao.suduko", "GameScene44 exams is null");
-		}
-		return exams.get(schoolprogress);
+		this.exams = Examination.getExaminationList(degreeId);// 日常考试类表
+		this.enterExams = Examination
+				.getEnterDegreeExaninationList(degreeId + 1);// 升学考试列表
 	}
 
 	private void setSchoolProgrerss() {
@@ -206,7 +213,19 @@ public class GameScene44 extends BaseSudokuScene {
 		}
 	}
 
-	// 判断时间是否超时
+	private void saveSchoolProgrerss(int progress) {
+		for (int i = 0; i < Degree.getSchoolSequence().length; i++) {
+			SchoolInfo info = Degree.getSchoolSequence()[i];
+			if (degreeId == info.degreeId && schoolLevel == info.schoolLevel) {
+				School school = SchoolManager.getSchool(info);
+				school.setProgress(progress);
+			}
+		}
+	}
+
+	/**
+	 * 判断时间是否超时
+	 */
 	private void checkTimeOut() {
 		float time = CountdownSprite.getPassTime();
 		if (time == 0) {
@@ -215,6 +234,9 @@ public class GameScene44 extends BaseSudokuScene {
 		}
 	}
 
+	/**
+	 * 升学提示框
+	 */
 	private void showUpDialog() {
 		activity.runOnUiThread(new Runnable() {
 			public void run() {

@@ -7,5 +7,6 @@ public class MiddleDegree extends Degree {
 		super();
 		this.id = Degree.MIDDLE;
 		this.name = Degree.getDegreeDesc(Degree.MIDDLE);
+		this.isRequireExamination = true;
 	}
 }

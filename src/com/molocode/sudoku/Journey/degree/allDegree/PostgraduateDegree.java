@@ -7,5 +7,6 @@ public class PostgraduateDegree extends Degree {
 		super();
 		this.id = Degree.POSTGRADUATE;
 		this.name = Degree.getDegreeDesc(Degree.POSTGRADUATE);
+		this.isRequireExamination = true;
 	}
 }

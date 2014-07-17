@@ -6,9 +6,7 @@ import com.molocode.sudoku.R;
 import com.molocode.sudoku.Journey.LifeJourney;
 import com.molocode.sudoku.Journey.degree.Degree;
 import com.molocode.sudoku.Journey.degree.DegreeManager;
-import com.molocode.sudoku.Journey.examination.ExamScore;
 import com.molocode.sudoku.Journey.examination.Examination;
-import com.molocode.sudoku.Journey.school.ProgressManager;
 import com.molocode.sudoku.Journey.school.School;
 import com.molocode.sudoku.Journey.school.SchoolInfo;
 import com.molocode.sudoku.Journey.school.SchoolManager;
@@ -51,15 +49,16 @@ public class SchoolTreeActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (ProgressManager.getInstance().getEntranceExams()) {
-			if (ExamScore.getInstance().getExamScore() > 0) {
-				// TODO 显示学校选着界面
-				// TODO 清除升学考状态
-			} else {
-				// 显示补考界面
-			}
-			showEnteranceDialog();// TODO 只显示一次
-		}
+//		if (ProgressManager.getInstance().getInstance().getIsEntranceExams()) {
+//			
+////			if (ExamScore.getInstance().getExamScore() > 0) {
+////				// TODO 显示学校选着界面
+////				// TODO 清除升学考状态
+////			} else {
+////				// 显示补考界面
+////			}
+//			showEnteranceDialog();// TODO 只显示一次
+//		}
 	}
 
 	// 首次登陆的用户弹出欢迎入学界面

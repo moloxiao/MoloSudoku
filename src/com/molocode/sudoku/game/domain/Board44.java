@@ -8,6 +8,7 @@ public class Board44 extends BaseBoard {
 
 	public static final int CELLS_LENGTH = 16;
 	public static final int SIZE = 4;
+	public static final int SMALL=2;
 	private Cell[] cells;
 
 	@Override
@@ -48,10 +49,11 @@ public class Board44 extends BaseBoard {
 	private boolean success() {
 		// TODO 要检查 每个小宫格
 		HashSet<Integer> set = new HashSet<Integer>();
+		//横向检查
 		for (int i = 0; i < SIZE; i++) {
 			for (int j = 0; j < SIZE; j++) {
 				if (cells[i * SIZE + j].getNumber() == Cell.NOTHING_IN_CELL) {
-					Log.e("PX", "元素【i * SIZE + j】为空i=" + i + "j=" + j);
+					Log.i("com.poxiao.sudoku", "元素[i * SIZE + j]为空;i=" + i + ";j=" + j);
 					return false;
 				}
 				set.add(cells[i * SIZE + j].getNumber());
@@ -61,7 +63,7 @@ public class Board44 extends BaseBoard {
 			}
 			set.clear();
 		}
-
+		// 纵线检查
 		for (int i = 0; i < SIZE; i++) {
 			for (int j = 0; j < SIZE; j++) {
 				set.add(cells[i + j * SIZE].getNumber());
@@ -71,6 +73,8 @@ public class Board44 extends BaseBoard {
 			}
 			set.clear();
 		}
+		//每一个小宫格里的重复检查
+		
 
 		return true;
 	}

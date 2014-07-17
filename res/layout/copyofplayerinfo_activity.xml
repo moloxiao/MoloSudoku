@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/playerinfo_activity_bg" >
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/playerinfo_outline" />
+
+    <RelativeLayout
+        android:id="@+id/top_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/pushpin_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/playerinfo_activity_pushpin" />
+
+        <ImageView
+            android:id="@+id/pushpin_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/pushpin_left"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/playerinfo_activity_pushpin" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pushpin_left"
+            android:layout_centerInParent="true"
+            android:text="@string/playerinfo_activity_title"
+            android:textColor="@android:color/black"
+            android:textSize="32sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/gender"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_bar" >
+
+        <ImageButton
+            android:id="@+id/boy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/male_student" />
+
+        <ImageButton
+            android:id="@+id/girl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/boy"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@+id/boy"
+            android:background="@drawable/female_student" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+    </RelativeLayout>
+
+</RelativeLayout>

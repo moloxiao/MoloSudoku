@@ -37,28 +37,12 @@ public class SchoolTreeActivity extends Activity {
 		// 是否初次登陆，是展示对话框
 		if (SplashActivity.firstLogin) {
 			showAdmission();
-		} else {
-			// Intent intent = new Intent(SchoolTreeActivity.this,
-			// CourseTreeActivity.class);
-			// intent.putExtra(CourseTreeActivity.SCHOOL_ID, currentSchoolId);
-			// startActivity(intent);
 		}
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		// if (ProgressManager.getInstance().getInstance().getIsEntranceExams())
-		// {
-		//
-		// // if (ExamScore.getInstance().getExamScore() > 0) {
-		// // // TODO 显示学校选着界面
-		// // // TODO 清除升学考状态
-		// // } else {
-		// // // 显示补考界面
-		// // }
-		// showEnteranceDialog();// TODO 只显示一次
-		// }
 	}
 
 	// 首次登陆的用户弹出欢迎入学界面
@@ -112,6 +96,7 @@ public class SchoolTreeActivity extends Activity {
 			btns[i].setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
+					// TODO 判断是否当前学校
 					Intent intent = new Intent(SchoolTreeActivity.this,
 							CourseTreeActivity.class);
 					startActivity(intent);

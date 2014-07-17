@@ -2,7 +2,6 @@ package com.molocode.sudoku.Journey;
 
 import android.content.SharedPreferences;
 import com.molocode.sudoku.Journey.degree.Degree;
-import com.molocode.sudoku.Journey.school.StudyState;
 import com.molocode.sudoku.context.SudokuApplication;
 
 /**
@@ -15,7 +14,6 @@ public class LifeJourney {
 
 	private static LifeJourney journery = null;
 	private int degreeId;
-	private StudyState studyState;
 
 	public static LifeJourney getInstance() {
 		if (null != journery) {
@@ -43,14 +41,6 @@ public class LifeJourney {
 	}
 	
 	
-
-	public StudyState getStudyState() {
-		return studyState;
-	}
-
-	public void setStudyState(StudyState studyState) {
-		this.studyState = studyState;
-	}
 
 	private void storeDegreeId(int degreeId) { // TODO : 字符串改为静态变量
 		SharedPreferences settings = SudokuApplication.getInstance()

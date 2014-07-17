@@ -135,6 +135,7 @@ public class GameScene44 extends BaseSudokuScene {
 			// 显示过关界面
 			Log.i("com.poxiao.suduko", "updateUiSuccessGame schoolprogress="
 					+ schoolprogress);
+			successSprite.showScoreLevel();
 			successSprite.setVisible(true);
 		}
 		schoolprogress++;
@@ -180,6 +181,19 @@ public class GameScene44 extends BaseSudokuScene {
 	@Override
 	public void next() {
 		reStartGame();
+	}
+
+	public int getScoreLevel() {
+		float time = CountdownSprite.getPassTime();
+		if (examination.getPassLevel().perfect
+				- examination.getPassLevel().perfect < time) {
+			return 0;// perfect
+		} else if (examination.getPassLevel().perfect
+				- examination.getPassLevel().good < time) {
+			return 1;// good
+		} else {
+			return 2;// pass
+		}
 	}
 
 	/**
@@ -314,7 +328,6 @@ public class GameScene44 extends BaseSudokuScene {
 					}
 				});
 				builder.create().show();
-
 			}
 		});
 	}

@@ -117,5 +117,4 @@ public class GameScene99 extends BaseSudokuScene {
 	@Override
 	public void onUnloadResources() {
 	}
-
 }

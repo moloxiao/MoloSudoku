@@ -3,6 +3,7 @@ package com.molocode.sudoku.game.sprite;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.util.Log;
 import android.view.MotionEvent;
 import com.hifreshday.android.pge.engine.options.EngineOptions;
 import com.hifreshday.android.pge.entity.shape.sprite.Sprite;
@@ -102,4 +103,7 @@ public class ExamSuccessSprite extends Sprite {
 
 	private final static String[] BTN_NAME = { "下一科目", "回家" };
 
+	public void showScoreLevel(){
+		Log.i("com.poxiao.suduko","显示考试成绩");
+	}
 }

@@ -57,4 +57,8 @@ public class CountdownSprite extends Sprite {
 	public void stopCountdown() {
 		stop = true;
 	}
+
+	public void startCountdown() {
+		stop = false;
+	}
 }

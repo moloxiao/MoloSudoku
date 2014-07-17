@@ -7,7 +7,6 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.util.Log;
@@ -36,6 +35,7 @@ public class GameScene44 extends BaseSudokuScene {
 	private int schoolLevel;
 	List<Examination> exams;// 日常考试列表
 	List<Examination> enterExams;// 升学考试列表
+	private boolean isEnterExam = false;// 是否处于升学考状态
 
 	public GameScene44(Activity activity) {
 		super(activity);
@@ -130,6 +130,7 @@ public class GameScene44 extends BaseSudokuScene {
 			School school = SchoolManager.getSchool(DegreeManager.getDegree(
 					degreeId).getSchoolInfo());
 			school.setGraduateHere(true);
+			showSelectDialog();
 		} else {
 			// 显示过关界面
 			Log.i("com.poxiao.suduko", "updateUiSuccessGame schoolprogress="
@@ -156,10 +157,11 @@ public class GameScene44 extends BaseSudokuScene {
 
 	@Override
 	public void reStartGame() {
-		getExamination(schoolprogress);
+		this.examination = getExamination(schoolprogress);
 		chessboard44Sprite.initCells(BaseBoard.getCellMap(examination
 				.getQuestions()));
 		countdownSprite.cleanCountTime();
+		countdownSprite.startCountdown();
 	}
 
 	@Override
@@ -181,21 +183,17 @@ public class GameScene44 extends BaseSudokuScene {
 	}
 
 	/**
-	 * 获取当前考试信息
-	 * 
-	 * @param progress
-	 * @return
+	 * 判断时间是否失败
 	 */
-	private Examination getExamination(int progress) {
-		if (null != exams && null != enterExams) {
-			if (progress < exams.size()) {
-				return exams.get(progress);
-			} else if (progress == exams.size()) {
-				return enterExams.get(0);
+	private void checkTimeOut() {
+		float time = CountdownSprite.getPassTime();
+		if (time == 0) {
+			countdownSprite.stopCountdown();
+			if (isEnterExam) {
+				Log.i("com.pxiao.suduko", "升学考失败");
 			}
-			Log.e("com.poxiao.suduko", "progress is error");
+			failSprite.setVisible(true);
 		}
-		return null;
 	}
 
 	/**
@@ -209,6 +207,29 @@ public class GameScene44 extends BaseSudokuScene {
 				.getEnterDegreeExaninationList(degreeId + 1);// 升学考试列表
 	}
 
+	/**
+	 * 获取当前考试信息
+	 * 
+	 * @param progress
+	 * @return
+	 */
+	private Examination getExamination(int progress) {
+		if (null != exams && null != enterExams) {
+			if (isEnterExam) {
+				Log.i("com.pxiao.suduko", "升学考试题"
+						+ enterExams.get(0).getExaminationName());
+				return enterExams.get(0);
+			} else {
+				Log.i("com.pxiao.suduko", "日常考试题");
+				return exams.get(progress);
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * 设置学习进度
+	 */
 	private void setSchoolProgrerss() {
 		for (int i = 0; i < Degree.getSchoolSequence().length; i++) {
 			SchoolInfo info = Degree.getSchoolSequence()[i];
@@ -218,6 +239,12 @@ public class GameScene44 extends BaseSudokuScene {
 		}
 	}
 
+	/**
+	 * 保存学习进度
+	 * 
+	 * @param progress
+	 */
+
 	private void saveSchoolProgrerss(int progress) {
 		for (int i = 0; i < Degree.getSchoolSequence().length; i++) {
 			SchoolInfo info = Degree.getSchoolSequence()[i];
@@ -225,17 +252,6 @@ public class GameScene44 extends BaseSudokuScene {
 				School school = SchoolManager.getSchool(info);
 				school.setProgress(progress);
 			}
-		}
-	}
-
-	/**
-	 * 判断时间是否超时
-	 */
-	private void checkTimeOut() {
-		float time = CountdownSprite.getPassTime();
-		if (time == 0) {
-			failSprite.setVisible(true);
-			countdownSprite.stopCountdown();
 		}
 	}
 
@@ -253,6 +269,7 @@ public class GameScene44 extends BaseSudokuScene {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
+						isEnterExam = true;
 						next();
 					}
 				});
@@ -261,6 +278,39 @@ public class GameScene44 extends BaseSudokuScene {
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
 						quitGame();
+					}
+				});
+				builder.create().show();
+
+			}
+		});
+	}
+
+	/**
+	 * 选校选着界面
+	 */
+	private void showSelectDialog() {
+		activity.runOnUiThread(new Runnable() {
+			public void run() {
+				// 弹出升学考试
+				AlertDialog.Builder builder = new Builder(activity);
+				builder.setMessage("恭喜你通过了升学考");
+				builder.setTitle("学校选择");
+				builder.setPositiveButton("重点初中", new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						// 设置degreeId
+						LifeJourney.getInstance().setDegreeId(degreeId + 1);
+						// 清除 progress
+						saveSchoolProgrerss(0);
+					}
+				});
+				builder.setNegativeButton("贵族初中", new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						// TODO　计费点
 					}
 				});
 				builder.create().show();

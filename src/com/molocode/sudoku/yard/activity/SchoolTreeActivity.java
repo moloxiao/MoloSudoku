@@ -5,7 +5,6 @@ import java.util.List;
 import com.molocode.sudoku.R;
 import com.molocode.sudoku.Journey.LifeJourney;
 import com.molocode.sudoku.Journey.degree.Degree;
-import com.molocode.sudoku.Journey.degree.DegreeManager;
 import com.molocode.sudoku.Journey.examination.Examination;
 import com.molocode.sudoku.Journey.school.School;
 import com.molocode.sudoku.Journey.school.SchoolInfo;

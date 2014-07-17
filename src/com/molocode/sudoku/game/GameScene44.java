@@ -121,14 +121,19 @@ public class GameScene44 extends BaseSudokuScene {
 		countdownSprite.stopCountdown();
 		// 获取最新新的progress
 		setSchoolProgrerss();
-		if ((exams.size()-1) == schoolprogress) {
+		if ((exams.size() - 1) == schoolprogress) {
 			Log.i("com.poxiao.suduko", "获得升学考试");
 			showUpDialog();
 		} else if (exams.size() == schoolprogress) {
 			Log.i("com.poxiao.suduko", "通过升学考试");
+			// 保存当前毕业的学校
+			School school = SchoolManager.getSchool(DegreeManager.getDegree(
+					degreeId).getSchoolInfo());
+			school.setGraduateHere(true);
 		} else {
 			// 显示过关界面
-			Log.i("com.poxiao.suduko", "updateUiSuccessGame schoolprogress=" + schoolprogress);
+			Log.i("com.poxiao.suduko", "updateUiSuccessGame schoolprogress="
+					+ schoolprogress);
 			successSprite.setVisible(true);
 		}
 		schoolprogress++;

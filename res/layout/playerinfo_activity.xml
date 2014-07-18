@@ -2,99 +2,244 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/bg" >
+    android:background="@drawable/playerinfo_activity_bg" >
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/playerinfo_outline" />
 
     <RelativeLayout
         android:id="@+id/top_bar"
         android:layout_width="fill_parent"
-        android:layout_height="50dip" >
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/pushpin_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/playerinfo_activity_pushpin" />
+
+        <ImageView
+            android:id="@+id/pushpin_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/pushpin_left"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/playerinfo_activity_pushpin" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/pushpin_left"
             android:layout_centerInParent="true"
             android:text="@string/playerinfo_activity_title"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/black"
+            android:textSize="32sp" />
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/bottom_bar"
+        android:id="@+id/gender"
         android:layout_width="fill_parent"
-        android:layout_height="80dip"
-        android:layout_alignParentBottom="true" >
-
-        <Button
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:onClick="btnStart"
-            android:text="@string/playerinfo_activity_btn_start"
-            android:textSize="20sp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/mid_bar"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@id/bottom_bar"
+        android:layout_height="wrap_content"
         android:layout_below="@id/top_bar"
-        android:gravity="center" >
+        android:layout_marginTop="18dp" >
 
-        <LinearLayout
-            android:id="@+id/player_gender"
+        <RelativeLayout
+            android:id="@+id/boy_select"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal" >
-
-            <RadioGroup
-                android:id="@+id/gender"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <RadioButton
-                    android:id="@+id/male"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/boy_1"
-                    android:checked="true"
-                    android:text="男" />
-
-                <RadioButton
-                    android:id="@+id/female"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="50dp"
-                    android:background="@drawable/girl_1"
-                    android:text="女" />
-            </RadioGroup>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/player_gender"
-            android:layout_centerHorizontal="true"
-            android:orientation="horizontal" >
-
-            <EditText 
-                android:id="@+id/text_playerinfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:text="Test"
-                android:textColor="@android:color/white"
-                android:textSize="20sp" />
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp" >
 
             <ImageButton
-                android:id="@+id/playerName_edit_btn"
+                android:id="@+id/boy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/chapter_level_egg_raw"
-                android:onClick="nameChange" />
-        </LinearLayout>
+                android:background="@drawable/male_student" />
+
+            <ImageView
+                android:id="@+id/boy_unselected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/boy"
+                android:layout_alignLeft="@id/boy"
+                android:layout_alignRight="@id/boy"
+                android:layout_alignTop="@id/boy"
+                android:background="@drawable/playerinfo_unselected"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/boy_selected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/boy_unselected"
+                android:layout_alignRight="@+id/boy_unselected"
+                android:background="@drawable/playerinfo_selected" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/v_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@+id/boy_select"
+            android:background="@drawable/v_line" />
+
+        <RelativeLayout
+            android:id="@+id/girl_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/boy_select"
+            android:layout_alignTop="@+id/boy_select"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@+id/v_line" >
+
+            <ImageButton
+                android:id="@+id/girl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/female_student" />
+
+            <ImageView
+                android:id="@+id/girl_unselected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                 android:layout_alignBottom="@id/girl"
+                android:layout_alignLeft="@id/girl"
+                android:layout_alignRight="@id/girl"
+                android:layout_alignTop="@id/girl"
+                android:background="@drawable/playerinfo_unselected" />
+
+            <ImageView
+                android:id="@+id/girl_selected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignRight="@+id/girl"
+                android:background="@drawable/playerinfo_selected"
+                android:visibility="invisible" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/nameinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_below="@id/gender" >
+
+        <ImageView
+            android:id="@+id/name_hline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/h_line" />
+
+        <ImageView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name_hline1"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/playerinfo_name" />
+
+        <ImageView
+            android:id="@+id/name_vline1"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@id/name"
+            android:background="@drawable/v_line" />
+
+        <TextView
+            android:id="@+id/name_text"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/name"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/name_vline1"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/name_vline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/name_text"
+            android:background="@drawable/v_line" />
+
+        <ImageButton
+            android:id="@+id/random"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/name_vline2"
+            android:background="@drawable/playerinfo_randombtn_state" />
+
+        <ImageView
+            android:id="@+id/text_random"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/name"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/random"
+            android:background="@drawable/playerinfo_random" />
+
+        <ImageView
+            android:id="@+id/name_hline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/h_line" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/gameStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nameinfo"
+        android:layout_centerHorizontal="true" >
+
+        <RelativeLayout
+            android:id="@+id/clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp" >
+
+            <ImageView
+                android:id="@+id/playerinfo_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/playerinfo_time" />
+
+            <TextView
+                android:id="@+id/countdown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="19dp"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/game_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/clock"
+            android:background="@drawable/playerinfo_startgamebtn_state" />
     </RelativeLayout>
 
 </RelativeLayout>

@@ -57,8 +57,6 @@ public class PlayerInfo {
 		this.levelsCompleted = levelsCompleted;
 	}
 
-
-
 	private static final String PREFS_NAME = "DIZZY_PLAYERINFO";
 	private static final String PREFS_KEY_NICKNAME = "DIZZY_PLAYERINFO_NICKNAME";
 	private static final String PREFS_KEY_SCORE = "DIZZY_PLAYERINFO_SCORE";
@@ -94,9 +92,12 @@ public class PlayerInfo {
 		editor.commit();
 	}
 
-	private static String randomPlayerName() {
-		// TODO 为首次登陆用户产生一个随机的名字
-		String name = "快乐的逗比";
-		return name;
+	public static String randomPlayerName() {
+		// 为首次登陆用户产生一个随机的名字
+		String[] name = new String[] { "逗比", "二货", "吃货", "学渣", "学霸", "信仰战",
+				"纯粹有病", "提莫", "M500", "水货", "小学生", "蘑菇", "玉米", "西瓜", "黄桃", "硫酸铜",
+				"杠杆", "线粒体", "季风", "Limit" };
+		int luckNum = (int) (Math.random() * 100) % name.length;
+		return name[luckNum];
 	}
 }
